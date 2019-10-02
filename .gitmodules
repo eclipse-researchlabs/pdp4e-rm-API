@@ -1,0 +1,15 @@
+[submodule "assets"]
+	path = assets
+	url = git@gitlab.com:beawre/core/assets.git
+[submodule "database"]
+	path = database
+	url = git@gitlab.com:beawre/core/database.git
+[submodule "relationships"]
+	path = relationships
+	url = git@gitlab.com:beawre/core/relationships.git
+[submodule "audittrail"]
+	path = audittrail
+	url = git@gitlab.com:beawre/core/audittrail.git
+[submodule "users"]
+	path = users
+	url = git@gitlab.com:beawre/core/users.git

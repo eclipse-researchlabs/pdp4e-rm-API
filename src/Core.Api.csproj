@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\Core.Api</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\assets\src\Core.Assets.csproj" />
+    <ProjectReference Include="..\audittrail\src\Core.AuditTrail.csproj" />
+    <ProjectReference Include="..\relationships\src\Core.Relationships.csproj" />
+    <ProjectReference Include="..\users\src\Core.Users.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+[submodule "modules/Core.Evidences"]
+	path = modules/Core.Evidences
+	url = git@gitlab.com:beawre/core/evidence.git
+[submodule "modules/Core.Users"]
+	path = modules/Core.Users
+	url = git@gitlab.com:beawre/core/users.git
+[submodule "modules/Core.AuditTrail"]
+	path = modules/Core.AuditTrail
+	url = git@gitlab.com:beawre/core/audittrail.git
+[submodule "modules/Core.Assets"]
+	path = modules/Core.Assets
+	url = git@gitlab.com:beawre/core/assets.git
+[submodule "modules/Core.Database"]
+	path = modules/Core.Database
+	url = git@gitlab.com:beawre/core/database.git
+[submodule "modules/Core.Relationships"]
+	path = modules/Core.Relationships
+	url = git@gitlab.com:beawre/core/relationships.git

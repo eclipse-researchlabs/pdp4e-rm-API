@@ -13,12 +13,14 @@ using Core.Relationships;
 using Core.Users.Implementation.QueryLanguages;
 using GraphQL;
 using GraphQL.EntityFramework;
+using GraphQL.Server;
 using GraphQL.Types;
 using GraphQL.Utilities;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 
 namespace Core.Api
@@ -59,12 +62,12 @@ namespace Core.Api
             GraphTypeTypeRegistry.Register<Treatment, TreatmentsGraphQl>();
             //GraphTypeTypeRegistry.Register<Container, ContainerGraphQl>();
             GraphTypeTypeRegistry.Register<Relationship, RelationshipGraphQl>();
-            GraphTypeTypeRegistry.Register<Evidence, EvidenceGraphQl>();
+            GraphTypeTypeRegistry.Register<Database.Tables.Evidence, EvidenceGraphQl>();
             GraphTypeTypeRegistry.Register<RiskPayload, RiskPayloadGraphQl>();
             GraphTypeTypeRegistry.Register<RiskPayloadModel, RiskPayloadModelGraphQl>();
             GraphTypeTypeRegistry.Register<TreatmentPayloadModel, TreatmentPayloadModel.TreatmentkPayloadGraphQl>();
             GraphTypeTypeRegistry.Register<User, UserGraphQl>();
-            //GraphTypeTypeRegistry.Register<Relationship, NotificationGraphQl>();
+            GraphTypeTypeRegistry.Register<Relationship, NotificationGraphQl>();
             //GraphTypeTypeRegistry.Register<RiskStatus, RiskStatusGraphQl>();
 
             EfGraphQLConventions.RegisterInContainer(services, new Core.Database.BeawreContext(), userContext => (Core.Database.BeawreContext)userContext);
@@ -84,19 +87,19 @@ namespace Core.Api
             foreach (var type in GetGraphQlTypes())
                 services.AddSingleton(type);
 
-            //services.AddGraphQL(options => options.ExposeExceptions = true);
+            services.AddGraphQL(options => options.ExposeExceptions = true);
 
             services.AddSingleton<IDocumentExecuter, EfDocumentExecuter>();
             services.AddSingleton<IDependencyResolver>(
                 provider => new FuncDependencyResolver(provider.GetRequiredService));
-            //services.AddSingleton<ISchema, Controllers.Schema>();
+            services.AddSingleton<ISchema, Web.Controllers.Schema>();
             #endregion
 
             Core.Users.Config.InitializeServices(ref services);
             Core.Assets.Config.InitializeServices(ref services);
             Core.Relationships.Config.InitializeServices(ref services);
             Core.AuditTrail.Config.InitializeServices(ref services);
-            //Core.Evidence.Config.InitializeServices(ref services);
+            Core.Evidence.Config.InitializeServices(ref services);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -104,13 +107,13 @@ namespace Core.Api
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddAutoMapper(opt =>
-            //{
-            //    opt.AddProfile(new Core.Users.UsersProfile());
-            //    opt.AddProfile(new AssetsProfile());
-            //    opt.AddProfile(new RelationshipProfile());
-            //    opt.AddProfile(new Core.AuditTrail.CustomProfile());
-            //});
+            services.AddAutoMapper(opt =>
+            {
+                opt.AddProfile(new Core.Users.UsersProfile());
+                opt.AddProfile(new AssetsProfile());
+                opt.AddProfile(new RelationshipProfile());
+                opt.AddProfile(new Core.AuditTrail.CustomProfile());
+            });
 
             services.AddControllersWithViews();
 
@@ -128,42 +131,65 @@ namespace Core.Api
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddCors(opt =>
-            {
+            services.AddCors(opt => {
                 opt.AddPolicy("CorsRules", pol => pol.SetIsOriginAllowed((host) => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             });
 
             services.AddMvcCore().AddApiExplorer();
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo() { Title = "Risk Control", Version = "v1" });
-            //});
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo() { Title = "Risk Control", Version = "v1" });
+            });
 
-            // In production, the React files will be served from this directory
-            //services.AddSpaStaticFiles(configuration =>
-            //{
-            //    configuration.RootPath = "ReactApp/build";
-            //});
+            //In production, the React files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ReactApp/build";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.UseForwardedHeaders();
+            app.Use((context, next) =>
             {
+                var limitFeature = context.Features.Get<IHttpMaxRequestBodySizeFeature>();
+                limitFeature.MaxRequestBodySize = Int32.MaxValue;
+                context.Request.Scheme = "https";
+                return next();
+            });
+
+            if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseSpaStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
+            app.UseCors("CorsRules");
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Risk Control");
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "ReactApp";
             });
         }
 

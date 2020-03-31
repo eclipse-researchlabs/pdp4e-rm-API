@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core.Assets.Implementation.Commands;
+﻿using Core.Assets.Implementation.Commands;
 using Core.Assets.Implementation.Commands.Assets;
 using Core.Assets.Implementation.Commands.Edges;
-using Core.Assets.Implementation.Commands.Risks;
-using Core.Assets.Implementation.Commands.Treatments;
-using Core.Assets.Implementation.Commands.Vulnerabilities;
 using Core.Assets.Interfaces.Services;
-using Core.Assets.Models;
-using Core.AuditTrail.Implementation.Commands;
 using Core.AuditTrail.Interfaces.Services;
 using Core.AuditTrail.Models;
 using Core.Database.Enums;
@@ -19,9 +10,11 @@ using Core.Database.Tables;
 using Core.Relationships.Implementation.Commands;
 using Core.Relationships.Interfaces.Services;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Api.Controllers
 {
@@ -30,19 +23,13 @@ namespace Core.Api.Controllers
     {
         private IAssetService _assetService;
         private IAssetEdgeService _assetEdgeService;
-        private IVulnerabilityService _vulnerabilityService;
         private IRelationshipService _relationshipService;
-        private ITreatmentService _treatmentService;
-        private IRiskService _riskService;
         private IAuditTrailService _auditTrailService;
 
-        public AssetsController(IAssetService assetService, IVulnerabilityService vulnerabilityService, IRelationshipService relationshipService, ITreatmentService treatmentService, IRiskService riskService, IAuditTrailService auditTrailService, IAssetEdgeService assetEdgeService)
+        public AssetsController(IAssetService assetService, IRelationshipService relationshipService, IAuditTrailService auditTrailService, IAssetEdgeService assetEdgeService)
         {
             _assetService = assetService;
-            _vulnerabilityService = vulnerabilityService;
             _relationshipService = relationshipService;
-            _treatmentService = treatmentService;
-            _riskService = riskService;
             _auditTrailService = auditTrailService;
             _assetEdgeService = assetEdgeService;
         }
@@ -104,7 +91,7 @@ namespace Core.Api.Controllers
         {
             foreach (var id in ids.Split(',').ToList().ConvertAll(Guid.Parse))
             {
-                _relationshipService.Delete(id);
+                _relationshipService.Delete(x => x.Id == id);
                 _auditTrailService.LogAction(AuditTrailAction.RemoveAssetGroup, id, new AuditTrailPayloadModel() {Data = JsonConvert.SerializeObject(id)});
             }
             return Ok();

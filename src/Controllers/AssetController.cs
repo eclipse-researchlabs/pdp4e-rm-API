@@ -38,6 +38,7 @@ namespace Core.Api.Controllers
         public async Task<IActionResult> Create([FromBody] CreateAssetCommand command)
         {
             var newValue = await _assetService.Create(command);
+            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Container, FromId = command.ContainerRootId.Value, ToType = ObjectType.Asset, ToId = newValue.Id });
             _auditTrailService.LogAction(AuditTrailAction.CreateAsset, newValue.Id, new AuditTrailPayloadModel(){ Data = JsonConvert.SerializeObject(command) });
             return Created(newValue.Id.ToString(), newValue);
         }
@@ -63,6 +64,7 @@ namespace Core.Api.Controllers
         {
             var newValue = await _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Asset, FromId  = command.Asset1Guid, ToType = ObjectType.Asset, ToId = command.Asset2Guid,
                 Payload = JsonConvert.SerializeObject(new AssetEdgePayloadModel(){ Name = command.Name, Asset1Anchor = command.Asset1Anchor, Asset2Anchor = command.Asset2Anchor}) });
+            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Container, FromId = command.ContainerRootId.Value, ToType = ObjectType.AssetEdge, ToId = newValue.Id });
             return Created(newValue.Id.ToString(), newValue);
         }
 
@@ -81,6 +83,7 @@ namespace Core.Api.Controllers
             var newValue = await _assetService.Create(command);
             foreach (var item in command.Assets)
                 _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.AssetGroup, FromId = newValue.Id, ToType = ObjectType.Asset, ToId = item });
+            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Container, FromId = command.ContainerRootId.Value, ToType = ObjectType.AssetGroup, ToId = newValue.Id });
 
             _auditTrailService.LogAction(AuditTrailAction.CreateAssetGroup, newValue.Id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
             return Created(newValue.Id.ToString(), newValue);
@@ -91,7 +94,7 @@ namespace Core.Api.Controllers
         {
             foreach (var id in ids.Split(',').ToList().ConvertAll(Guid.Parse))
             {
-                _relationshipService.Delete(x => x.Id == id);
+                _relationshipService.Delete(x => x.FromType == ObjectType.Container && x.ToType == ObjectType.AssetGroup && x.ToId == id);
                 _auditTrailService.LogAction(AuditTrailAction.RemoveAssetGroup, id, new AuditTrailPayloadModel() {Data = JsonConvert.SerializeObject(id)});
             }
             return Ok();

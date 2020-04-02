@@ -1,0 +1,404 @@
+{
+  "isOpenSource": false,
+  "header": {
+    "path": "Beawre_logo.png"
+  },
+  "footer": {
+    "text": "Copyright by Beawre Digital S.L"
+  },
+  "risksDictionaryPath": "risksDictionary.json",
+  "router": {
+    "defaultRoute": "/containers",
+    "paths": [{
+        "path": "/assets/:containerId",
+        "title": "Assets.title",
+        "component": "AssetsPage"
+      },
+      {
+        "path": "/assets/analysis/:componentId",
+        "title": "Assets.analysis.title",
+        "component": "AssetsAnalysisPage"
+      },
+      {
+        "path": "/settings/privileges",
+        "title": "Settings.privileges.title",
+        "component": "PrivilegesPage"
+      },
+      {
+        "path": "/settings",
+        "title": "Settings.title",
+        "component": "SettingsPage"
+      },
+      {
+        "path": "/containers",
+        "title": "Containers",
+        "component": "ContainersPage"
+      }, {
+        "path": "/gdprq",
+        "title": "gdpr.questionaire.title",
+        "component": "GDPRQuestionaire"
+      }
+    ],
+    "menus": [{
+        "key": "projects",
+        "to": "/containers",
+        "icon": "project",
+        "title": "Containers.title",
+        "accessRightRequired": "FRONT:Documents"
+      },
+      {
+        "key": "grprq",
+        "to": "/gdprq",
+        "icon": "project",
+        "title": "gdpr.questionaire.title",
+        "accessRightRequired": "FRONT:Documents"
+      }
+    ]
+  },
+  "colorSchema": {},
+  "pages": {
+    "assets": {
+      "title": "Assets.pageTitle",
+      "component": "AssetsPage",
+      "layout": {
+        "tabs": [{
+            "icon": "dot-chart",
+            "title": "Dfd.title",
+            "key": "dfd-graph",
+            "components": {
+              "ggeditor-koni": {
+                "itemPanels": [{
+                    "type": "node",
+                    "size": "70*70",
+                    "shape": "koni-custom-node-dfd",
+                    "model": {
+                      "color": "#69C0FF",
+                      "label": "External Entity",
+                      "labelOffsetY": 48
+                    },
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDx0aXRsZS8+IDxkZXNjLz4gPGc+ICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+ICA8cmVjdCBmaWxsPSJub25lIiBpZD0iY2FudmFzX2JhY2tncm91bmQiIGhlaWdodD0iNDAyIiB3aWR0aD0iNTgyIiB5PSItMSIgeD0iLTEiLz4gPC9nPiA8Zz4gIDx0aXRsZT5MYXllciAxPC90aXRsZT4gIDxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJTaGFwZSIgZD0ibTE2LDJsMCwxNGwtMTQsMGwwLC0xNGwxNCwwbDAsMHptMCwtMmwtMTQsMGMtMS4xLDAgLTIsMC45IC0yLDJsMCwxNGMwLDEuMSAwLjksMiAyLDJsMTQsMGMxLjEsMCAyLC0wLjkgMiwtMmwwLC0xNGMwLC0xLjEgLTAuOSwtMiAtMiwtMmwwLDBsMCwweiIvPiA8L2c+PC9zdmc+",
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAuMDAwMDAwMDAwMDAwMDEiIGhlaWdodD0iNjAuMDAwMDAwMDAwMDAwMDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDx0aXRsZS8+IDxkZXNjLz4gPGc+ICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+ICA8cmVjdCBmaWxsPSJub25lIiBpZD0iY2FudmFzX2JhY2tncm91bmQiIGhlaWdodD0iNjIiIHdpZHRoPSI2MiIgeT0iLTEiIHg9Ii0xIi8+IDwvZz4gPGc+ICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+ICA8ZWxsaXBzZSBzdHJva2U9Im51bGwiIHJ5PSIyOS42OTYyNDkiIHJ4PSIyOS42OTYyNDgiIGlkPSJzdmdfMSIgY3k9IjI5Ljk5OTk5OSIgY3g9IjMwIiBzdHJva2Utb3BhY2l0eT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSJudWxsIiBmaWxsPSIjMTg5MGZmIi8+ICA8cmVjdCByeD0iMSIgc3Ryb2tlPSIjZmZmZmZmIiBpZD0ic3ZnXzIiIGhlaWdodD0iMjkuOTM2MjEiIHdpZHRoPSIzMC4wMTI3NzMiIHk9IjE1LjAzMTg5NSIgeD0iMTQuOTkzNjEzIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiLz4gIDxwYXRoIGlkPSJzdmdfMyIgZD0ibTcwLjk0OTYzMSwyMC41MDAxOTVsMi40MDM2MiwzLjQwODI4NWwwLjgxMzkwNiwtNy45MzU1ODEiIG9wYWNpdHk9IjAuNSIgc3Ryb2tlLXdpZHRoPSI2IiBzdHJva2U9IiNmZmZmZmYiIGZpbGw9Im5vbmUiLz4gPC9nPjwvc3ZnPg=="
+                  },
+                  {
+                    "type": "node",
+                    "size": "70*70",
+                    "shape": "koni-custom-node-dfd",
+                    "model": {
+                      "color": "#5CDBD3",
+                      "label": "Data Store",
+                      "labelOffsetY": 48
+                    },
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDx0aXRsZS8+IDxkZXNjLz4gPGc+ICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+ICA8cmVjdCBmaWxsPSJub25lIiBpZD0iY2FudmFzX2JhY2tncm91bmQiIGhlaWdodD0iNDAyIiB3aWR0aD0iNTgyIiB5PSItMSIgeD0iLTEiLz4gPC9nPiA8Zz4gIDx0aXRsZT5MYXllciAxPC90aXRsZT4gIDxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJTaGFwZSIgZD0ibTAsMTIuMDc0MTNsMTgsMGwwLC0ybC0xOCwwbDAsMmwwLDB6bTAsLTEybDAsMmwxOCwwbDAsLTJsLTE4LDBsMCwweiIvPiA8L2c+PC9zdmc+",
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAuMDAwMDAwMDAwMDAwMDEiIGhlaWdodD0iNjAuMDAwMDAwMDAwMDAwMDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDx0aXRsZS8+IDxkZXNjLz4gPGc+ICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+ICA8cmVjdCBmaWxsPSJub25lIiBpZD0iY2FudmFzX2JhY2tncm91bmQiIGhlaWdodD0iNjIiIHdpZHRoPSI2MiIgeT0iLTEiIHg9Ii0xIi8+IDwvZz4gPGc+ICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+ICA8ZWxsaXBzZSBzdHJva2U9Im51bGwiIHJ5PSIyOS42OTYyNDkiIHJ4PSIyOS42OTYyNDgiIGlkPSJzdmdfMSIgY3k9IjI5Ljk5OTk5OSIgY3g9IjMwIiBzdHJva2Utb3BhY2l0eT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSJudWxsIiBmaWxsPSIjMTg5MGZmIi8+ICA8cGF0aCBpZD0ic3ZnXzMiIGQ9Im03MC45NDk2MzEsMjAuNTAwMTk1bDIuNDAzNjIsMy40MDgyODVsMC44MTM5MDYsLTcuOTM1NTgxIiBvcGFjaXR5PSIwLjUiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlPSIjZmZmZmZmIiBmaWxsPSJub25lIi8+ICA8bGluZSBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1saW5lY2FwPSJudWxsIiBzdHJva2UtbGluZWpvaW49Im51bGwiIGlkPSJzdmdfNCIgeTI9IjIwLjcwMzY3MSIgeDI9IjQ2LjczNTkzNyIgeTE9IjIwLjcwMzY3MSIgeDE9IjEyLjg1NzExMiIgZmlsbC1vcGFjaXR5PSJudWxsIiBzdHJva2Utb3BhY2l0eT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+ICA8bGluZSBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1saW5lY2FwPSJudWxsIiBzdHJva2UtbGluZWpvaW49Im51bGwiIGlkPSJzdmdfNSIgeTI9IjM5LjYyNjk3OSIgeDI9IjQ2LjgzNzY3NSIgeTE9IjM5LjYyNjk3OSIgeDE9IjEyLjk1ODg1IiBmaWxsLW9wYWNpdHk9Im51bGwiIHN0cm9rZS1vcGFjaXR5PSJudWxsIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiLz4gPC9nPjwvc3ZnPg=="
+                  },
+                  {
+                    "type": "node",
+                    "size": "70*70",
+                    "shape": "koni-custom-node-dfd",
+                    "model": {
+                      "color": "#B37FEB",
+                      "label": "Process",
+                      "labelOffsetY": 48
+                    },
+                    "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDx0aXRsZS8+IDxkZXNjLz4gPGc+ICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+ICA8cmVjdCBmaWxsPSJub25lIiBpZD0iY2FudmFzX2JhY2tncm91bmQiIGhlaWdodD0iNDAyIiB3aWR0aD0iNTgyIiB5PSItMSIgeD0iLTEiLz4gPC9nPiA8Zz4gIDx0aXRsZT5MYXllciAxPC90aXRsZT4gIDxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJTaGFwZSIgZD0ibTEwLDBjLTUuNSwwIC0xMCw0LjUgLTEwLDEwYzAsNS41IDQuNSwxMCAxMCwxMGM1LjUsMCAxMCwtNC41IDEwLC0xMGMwLC01LjUgLTQuNSwtMTAgLTEwLC0xMGwwLDB6bTAsMThjLTQuNCwwIC04LC0zLjYgLTgsLThjMCwtNC40IDMuNiwtOCA4LC04YzQuNCwwIDgsMy42IDgsOGMwLDQuNCAtMy42LDggLTgsOGwwLDB6Ii8+IDwvZz48L3N2Zz4=",
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAuMDAwMDAwMDAwMDAwMDEiIGhlaWdodD0iNjAuMDAwMDAwMDAwMDAwMDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDx0aXRsZS8+IDxkZXNjLz4gPGc+ICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+ICA8cmVjdCBmaWxsPSJub25lIiBpZD0iY2FudmFzX2JhY2tncm91bmQiIGhlaWdodD0iNjIiIHdpZHRoPSI2MiIgeT0iLTEiIHg9Ii0xIi8+IDwvZz4gPGc+ICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+ICA8ZWxsaXBzZSBzdHJva2U9Im51bGwiIHJ5PSIyOS42OTYyNDkiIHJ4PSIyOS42OTYyNDgiIGlkPSJzdmdfMSIgY3k9IjI5Ljk5OTk5OCIgY3g9IjMwIiBzdHJva2Utb3BhY2l0eT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSJudWxsIiBmaWxsPSIjMTg5MGZmIi8+ICA8cGF0aCBzdHJva2U9Im51bGwiIGZpbGw9IiNmZmZmZmYiIGlkPSJTaGFwZSIgZD0ibTMwLjAwMDAwMSw5LjgxNjA2N2MtMTEuMjc0ODE3LDAgLTIwLjQ5OTY2Nyw5LjA4Mjc3IC0yMC40OTk2NjcsMjAuMTgzOTM0YzAsMTEuMTAxMTY0IDkuMjI0ODUsMjAuMTgzOTM0IDIwLjQ5OTY2NywyMC4xODM5MzRjMTEuMjc0ODE3LDAgMjAuNDk5NjY3LC05LjA4Mjc3IDIwLjQ5OTY2NywtMjAuMTgzOTM0YzAsLTExLjEwMTE2NCAtOS4yMjQ4NSwtMjAuMTgzOTM0IC0yMC40OTk2NjcsLTIwLjE4MzkzNGwwLDB6bTAsMzYuMzMxMDgxYy05LjAxOTg1NCwwIC0xNi4zOTk3MzQsLTcuMjY2MjE2IC0xNi4zOTk3MzQsLTE2LjE0NzE0N2MwLC04Ljg4MDkzMSA3LjM3OTg4LC0xNi4xNDcxNDcgMTYuMzk5NzM0LC0xNi4xNDcxNDdjOS4wMTk4NTQsMCAxNi4zOTk3MzQsNy4yNjYyMTYgMTYuMzk5NzM0LDE2LjE0NzE0N2MwLDguODgwOTMxIC03LjM3OTg4LDE2LjE0NzE0NyAtMTYuMzk5NzM0LDE2LjE0NzE0N2wwLDB6Ii8+IDwvZz48L3N2Zz4="
+                  }
+                ],
+                "toolbarItems": [{
+                    "type": "button",
+                    "command": "undo"
+                  },
+                  {
+                    "type": "button",
+                    "command": "redo"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "copy"
+                  },
+                  {
+                    "type": "button",
+                    "command": "paste"
+                  },
+                  {
+                    "type": "button",
+                    "command": "delete"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomIn",
+                    "icon": "zoom-in",
+                    "text": "Zoom In"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomOut",
+                    "icon": "zoom-out",
+                    "text": "Zoom Out"
+                  },
+                  {
+                    "type": "button",
+                    "command": "autoZoom",
+                    "icon": "fit-map",
+                    "text": "Fit map"
+                  },
+                  {
+                    "type": "button",
+                    "command": "resetZoom",
+                    "icon": "actual-size",
+                    "text": "Actual size"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toBack",
+                    "icon": "to-back",
+                    "text": "To back"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toFront",
+                    "icon": "to-front",
+                    "text": "To front"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "multiSelect",
+                    "icon": "multi-select",
+                    "text": "Multi select"
+                  },
+                  {
+                    "type": "button",
+                    "command": "addGroup",
+                    "icon": "group",
+                    "text": "Add group"
+                  },
+                  {
+                    "type": "button",
+                    "command": "unGroup",
+                    "icon": "ungroup",
+                    "text": "Ungroup"
+                  }
+                ]
+              }
+
+            }
+          },
+          {
+            "icon": "dot-chart",
+            "title": "Assets.graph",
+            "key": "graph",
+            "components": {
+              "ggeditor": {
+                "itemPanels": [{
+                    "type": "node",
+                    "size": "72*72",
+                    "shape": "flow-circle",
+                    "model": {
+                      "color": "#FA8C16",
+                      "label": "Start",
+                      "labelOffsetY": 48
+                    },
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxjaXJjbGUgaWQ9ImIiIGN4PSIzNiIgY3k9IjM2IiByPSIzNiIvPjxmaWx0ZXIgeD0iLTkuNyUiIHk9Ii02LjklIiB3aWR0aD0iMTE5LjQlIiBoZWlnaHQ9IjExOS40JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiBpZD0iYSI+PGZlT2Zmc2V0IGR5PSIyIiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0T3V0ZXIxIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMiIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIi8+PGZlQ29tcG9zaXRlIGluPSJzaGFkb3dCbHVyT3V0ZXIxIiBpbjI9IlNvdXJjZUFscGhhIiBvcGVyYXRvcj0ib3V0IiByZXN1bHQ9InNoYWRvd0JsdXJPdXRlcjEiLz48ZmVDb2xvck1hdHJpeCB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAuMDQgMCIgaW49InNoYWRvd0JsdXJPdXRlcjEiLz48L2ZpbHRlcj48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDIpIj48dXNlIGZpbGw9IiMwMDAiIGZpbHRlcj0idXJsKCNhKSIgeGxpbms6aHJlZj0iI2IiLz48dXNlIGZpbGwtb3BhY2l0eT0iLjkyIiBmaWxsPSIjRkZGMkU4IiB4bGluazpocmVmPSIjYiIvPjxjaXJjbGUgc3Ryb2tlPSIjRkZDMDY5IiBjeD0iMzYiIGN5PSIzNiIgcj0iMzUuNSIvPjwvZz48dGV4dCBmb250LWZhbWlseT0iUGluZ0ZhbmdTQy1SZWd1bGFyLCBQaW5nRmFuZyBTQyIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIuNjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQgMikiPjx0c3BhbiB4PSIyMyIgeT0iNDEiPlN0YXJ0PC90c3Bhbj48L3RleHQ+PC9nPjwvc3ZnPg=="
+                  },
+                  {
+                    "type": "node",
+                    "size": "80*48",
+                    "shape": "flow-rect",
+                    "model": {
+                      "color": "#1890FF",
+                      "label": "Normal",
+                      "labelOffsetY": 48
+                    },
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODgiIGhlaWdodD0iNTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxyZWN0IGlkPSJiIiB4PSIwIiB5PSIwIiB3aWR0aD0iODAiIGhlaWdodD0iNDgiIHJ4PSI0Ii8+PGZpbHRlciB4PSItOC44JSIgeT0iLTEwLjQlIiB3aWR0aD0iMTE3LjUlIiBoZWlnaHQ9IjEyOS4yJSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiBpZD0iYSI+PGZlT2Zmc2V0IGR5PSIyIiBpbj0iU291cmNlQWxwaGEiIHJlc3VsdD0ic2hhZG93T2Zmc2V0T3V0ZXIxIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMiIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIi8+PGZlQ29tcG9zaXRlIGluPSJzaGFkb3dCbHVyT3V0ZXIxIiBpbjI9IlNvdXJjZUFscGhhIiBvcGVyYXRvcj0ib3V0IiByZXN1bHQ9InNoYWRvd0JsdXJPdXRlcjEiLz48ZmVDb2xvck1hdHJpeCB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAuMDQgMCIgaW49InNoYWRvd0JsdXJPdXRlcjEiLz48L2ZpbHRlcj48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDIpIj48dXNlIGZpbGw9IiMwMDAiIGZpbHRlcj0idXJsKCNhKSIgeGxpbms6aHJlZj0iI2IiLz48dXNlIGZpbGwtb3BhY2l0eT0iLjkyIiBmaWxsPSIjRTZGN0ZGIiB4bGluazpocmVmPSIjYiIvPjxyZWN0IHN0cm9rZT0iIzE4OTBGRiIgeD0iLjUiIHk9Ii41IiB3aWR0aD0iNzkiIGhlaWdodD0iNDciIHJ4PSI0Ii8+PC9nPjx0ZXh0IGZvbnQtZmFtaWx5PSJQaW5nRmFuZ1NDLVJlZ3VsYXIsIFBpbmdGYW5nIFNDIiBmb250LXNpemU9IjEyIiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9Ii42NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNCAyKSI+PHRzcGFuIHg9IjIxIiB5PSIyOSI+Tm9ybWFsPC90c3Bhbj48L3RleHQ+PC9nPjwvc3ZnPg=="
+                  },
+                  {
+                    "type": "node",
+                    "size": "80*72",
+                    "shape": "flow-rhombus",
+                    "model": {
+                      "color": "#13C2C2",
+                      "label": "Decision",
+                      "labelOffsetY": 48
+                    },
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODYiIGhlaWdodD0iNzgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGQ9Ik00Mi42NyAxLjY3bDM0Ljk2NSAzMS4zNTJhNCA0IDAgMCAxIDAgNS45NTZMNDIuNjcgNzAuMzNhNCA0IDAgMCAxLTUuMzQgMEwyLjM2NSAzOC45NzhhNCA0IDAgMCAxIDAtNS45NTZMMzcuMzMgMS42N2E0IDQgMCAwIDEgNS4zNCAweiIgaWQ9ImIiLz48ZmlsdGVyIHg9Ii04LjglIiB5PSItNi45JSIgd2lkdGg9IjExNy41JSIgaGVpZ2h0PSIxMTkuNCUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgaWQ9ImEiPjxmZU9mZnNldCBkeT0iMiIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjIiIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIvPjxmZUNvbXBvc2l0ZSBpbj0ic2hhZG93Qmx1ck91dGVyMSIgaW4yPSJTb3VyY2VBbHBoYSIgb3BlcmF0b3I9Im91dCIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIi8+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwLjA0IDAiIGluPSJzaGFkb3dCbHVyT3V0ZXIxIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMyAxKSI+PHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjYSkiIHhsaW5rOmhyZWY9IiNiIi8+PHVzZSBmaWxsLW9wYWNpdHk9Ii45MiIgZmlsbD0iI0U2RkZGQiIgeGxpbms6aHJlZj0iI2IiLz48cGF0aCBzdHJva2U9IiM1Q0RCRDMiIGQ9Ik00Mi4zMzcgMi4wNDJhMy41IDMuNSAwIDAgMC00LjY3NCAwTDIuNjk4IDMzLjM5NGEzLjUgMy41IDAgMCAwIDAgNS4yMTJsMzQuOTY1IDMxLjM1MmEzLjUgMy41IDAgMCAwIDQuNjc0IDBsMzQuOTY1LTMxLjM1MmEzLjUgMy41IDAgMCAwIDAtNS4yMTJMNDIuMzM3IDIuMDQyeiIvPjwvZz48dGV4dCBmb250LWZhbWlseT0iUGluZ0ZhbmdTQy1SZWd1bGFyLCBQaW5nRmFuZyBTQyIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIuNjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMgMSkiPjx0c3BhbiB4PSIxOCIgeT0iNDIiPkRlY2lzaW9uPC90c3Bhbj48L3RleHQ+PC9nPjwvc3ZnPg=="
+                  },
+                  {
+                    "type": "node",
+                    "size": "80*48",
+                    "shape": "flow-capsule",
+                    "model": {
+                      "color": "#722ED1",
+                      "label": "Model",
+                      "labelOffsetY": 48
+                    },
+                    "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODgiIGhlaWdodD0iNTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxyZWN0IGlkPSJiIiB4PSIwIiB5PSIwIiB3aWR0aD0iODAiIGhlaWdodD0iNDgiIHJ4PSIyNCIvPjxmaWx0ZXIgeD0iLTguOCUiIHk9Ii0xMC40JSIgd2lkdGg9IjExNy41JSIgaGVpZ2h0PSIxMjkuMiUiIGZpbHRlclVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgaWQ9ImEiPjxmZU9mZnNldCBkeT0iMiIgaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9InNoYWRvd09mZnNldE91dGVyMSIvPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249IjIiIGluPSJzaGFkb3dPZmZzZXRPdXRlcjEiIHJlc3VsdD0ic2hhZG93Qmx1ck91dGVyMSIvPjxmZUNvbXBvc2l0ZSBpbj0ic2hhZG93Qmx1ck91dGVyMSIgaW4yPSJTb3VyY2VBbHBoYSIgb3BlcmF0b3I9Im91dCIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIi8+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwLjA0IDAiIGluPSJzaGFkb3dCbHVyT3V0ZXIxIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNCAyKSI+PHVzZSBmaWxsPSIjMDAwIiBmaWx0ZXI9InVybCgjYSkiIHhsaW5rOmhyZWY9IiNiIi8+PHVzZSBmaWxsLW9wYWNpdHk9Ii45MiIgZmlsbD0iI0Y5RjBGRiIgeGxpbms6aHJlZj0iI2IiLz48cmVjdCBzdHJva2U9IiNCMzdGRUIiIHg9Ii41IiB5PSIuNSIgd2lkdGg9Ijc5IiBoZWlnaHQ9IjQ3IiByeD0iMjMuNSIvPjwvZz48dGV4dCBmb250LWZhbWlseT0iUGluZ0ZhbmdTQy1SZWd1bGFyLCBQaW5nRmFuZyBTQyIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIuNjUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQgMikiPjx0c3BhbiB4PSIyNCIgeT0iMjkiPk1vZGVsPC90c3Bhbj48L3RleHQ+PC9nPjwvc3ZnPg=="
+                  }
+                ],
+                "toolbarItems": [{
+                    "type": "button",
+                    "command": "undo"
+                  },
+                  {
+                    "type": "button",
+                    "command": "redo"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "copy"
+                  },
+                  {
+                    "type": "button",
+                    "command": "paste"
+                  },
+                  {
+                    "type": "button",
+                    "command": "delete"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomIn",
+                    "icon": "zoom-in",
+                    "text": "Zoom In"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomOut",
+                    "icon": "zoom-out",
+                    "text": "Zoom Out"
+                  },
+                  {
+                    "type": "button",
+                    "command": "autoZoom",
+                    "icon": "fit-map",
+                    "text": "Fit map"
+                  },
+                  {
+                    "type": "button",
+                    "command": "resetZoom",
+                    "icon": "actual-size",
+                    "text": "Actual size"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toBack",
+                    "icon": "to-back",
+                    "text": "To back"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toFront",
+                    "icon": "to-front",
+                    "text": "To front"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "multiSelect",
+                    "icon": "multi-select",
+                    "text": "Multi select"
+                  },
+                  {
+                    "type": "button",
+                    "command": "addGroup",
+                    "icon": "group",
+                    "text": "Add group"
+                  },
+                  {
+                    "type": "button",
+                    "command": "unGroup",
+                    "icon": "ungroup",
+                    "text": "Ungroup"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "icon": "table",
+            "title": "Assets.list",
+            "key": "list",
+            "components": {
+              "assetList": {}
+            }
+          },
+          {
+            "icon": "sliders",
+            "title": "Assets.kanban",
+            "key": "kanban",
+            "components": {
+              "riskkanban": {
+                "columns": [{
+                    "id": "identification",
+                    "title": "Thread Idefication"
+                  },
+                  {
+                    "id": "riskassessment",
+                    "title": "Risk Assessmnet"
+                  },
+                  {
+                    "id": "controlsdefinition",
+                    "title": "Definition of Controls"
+                  },
+                  {
+                    "id": "redisualriskassessment",
+                    "title": "Residual Risk Assessment"
+                  },
+                  {
+                    "id": "treatmentcontrol",
+                    "title": "Treatments Control"
+                  }
+                ],
+                "columnsOrder": ["identification", "riskassessment", "controlsdefinition", "redisualriskassessment", "treatmentcontrol"]
+              }
+            }
+          },
+          {
+            "icon": "dashboard",
+            "title": "Treatments.title",
+            "key": "treatmentdashboard",
+            "components": {
+              "treatmentdashboard": {}
+            }
+          },
+          {
+            "icon": "control",
+            "title": "Gdpr.title",
+            "key": "gdprassessment",
+            "components": {
+              "gdprassessment": {}
+            }
+          }
+        ]
+      }
+    },
+    "assetsAnalytics": {
+      "title": "Assets.analysis.pageTitle",
+      "layout": {
+        "collapse": ["vulnerabilities", "risks", "treatments"]
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "Home": {
+    "title": "Operational Dashboard"
+  },
+  "Documents": {
+    "title": "Documents"
+  },
+  "Tasks": {
+    "title": "Tasks"
+
+  },
+  "gdpr": {
+    "questionaire": {
+      "title": "GRPR Compliance Reporting"
+    }
+  },
+  "Dashboard": {
+    "title": "Analytics"
+  },
+  "Subcontractors": {
+    "title": "Subcontractors"
+  },
+  "common": {
+    "logout": "Logout",
+    "upload": "Upload",
+    "noData": "Nothing added here yet"
+  },
+  "Containers": {
+    "title": "Projects"
+  },
+  "Treatments": {
+    "title": "Treatments Status"
+  },
+  "Dfd": {
+    "title": "Data Flow Diagram"
+  },
+  "Gdpr": {
+    "title": "GDPR Risk Control Dashboard"
+  },
+  "Assets": {
+    "title": "Risk Management",
+    "pageTitle": "Risk Management process for",
+    "menu": "Assets",
+    "graph": "Components Diagram",
+    "list": "List of Assets",
+    "kanban": "Kanban",
+    "table": {
+      "component": "Component",
+      "analysisStatus": "Analysis Status",
+      "actions": "Actions"
+    },
+    "goToAnalysis": "Go To Analysis",
+    "upload": {
+      "text": "Load your GeneSIS model in order to start the process"
+    },
+    "analysis": {
+      "back": " Back",
+      "next": "Next step ",
+      "addName": "Name",
+      "addDescription": "Description",
+      "title": "Analysis",
+      "pageTitle": "Analysis for: ",
+      "newEntryAdded": "New entry added!",
+      "newEntryAddedText": "Added ",
+      "vulnerabilities": {
+        "title": "Vulnerabilities",
+        "add": "Add new Vulerability"
+      },
+      "unwantedIncidents": {
+        "title": "Unwated Incidents",
+        "add": "Add new Unwanted Incident",
+        "addLinks": "Connect to Vulnerabilties"
+      },
+      "risks": {
+        "add": "Add new Risk",
+        "title": "Risks",
+        "addLinks": "Connected to Vulnerabiltities or other Risks",
+        "steps": {
+          "basic": "Unwanted Incident definition",
+          "LC": "Likelihood & Impact",
+          "connections": "Connections",
+          "mitigations": "Treatments"
+        },
+        "noTreatments": "No Treatments are defined yet",
+        "stride": "STRIDE category",
+        "lindun": "LINDUN category"
+      },
+      "treatments": {
+        "name": "Treatment Name",
+        "title": "Treatments",
+        "add": " Add New Treatments",
+        "description": "Detailed Treatment description",
+        "type": "Treatment Type",
+        "process": "Process",
+        "action": "Action",
+        "configuration": "Configuration",
+        "feature": "Feature",
+        "status": {
+          "implemented": "Implemented",
+          "exception": "Exception",
+          "notIimplemented": "Not Implemented",
+          "planned": "Planned"
+        }
+      }
+    }
+  },
+  "Settings": {
+    "menu": "Settings",
+    "title": "Application Settings",
+    "text": "Settings Page"
+  }
+}

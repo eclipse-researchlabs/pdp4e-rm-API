@@ -34,15 +34,5 @@ namespace Web.Controllers
             _auditTrailService.LogAction(AuditTrailAction.CreateUser, newValue, new AuditTrailPayloadModel(){ Data = JsonConvert.SerializeObject(command) });
             return Created(newValue.ToString(), newValue);
         }
-
-        [HttpGet("{accountId}")]
-        public IActionResult GetAccount(string accountId)
-        {
-            var user = _userService.Get(x => x.AccountId == accountId && !x.IsDeleted);
-            if (user == null)
-                return NotFound();
-            return Ok(user);
-        }
-
     }
 }

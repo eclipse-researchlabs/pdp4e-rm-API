@@ -40,7 +40,11 @@ namespace Web.Controllers
                     return dbContext.Assets.Where(x => relationships.Contains(x.Id) && !x.IsDeleted && x.IsGroup).ToList();
                 });
 
-          
+            AddQueryField(
+                name: "containers",
+                resolve: context => context.DbContext.Container.Where(x => !x.IsDeleted)
+            );
+
             AddQueryField(
                 name: "assets",
                 resolve: context => context.DbContext.Assets.Where(x => !x.IsDeleted)

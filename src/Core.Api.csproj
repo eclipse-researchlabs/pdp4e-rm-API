@@ -11,6 +11,12 @@
     <PackageReference Include="GraphQL.Net" Version="0.3.5" />
     <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.2.1" />
@@ -19,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\modules\Core.Assets\src\Core.Assets.csproj" />
     <ProjectReference Include="..\modules\Core.AuditTrail\src\Core.AuditTrail.csproj" />
+    <ProjectReference Include="..\modules\Core.Containers\Core.Containers.csproj" />
     <ProjectReference Include="..\modules\Core.Database\Core.Database.csproj" />
     <ProjectReference Include="..\modules\Core.Evidences\src\Core.Evidence.csproj" />
     <ProjectReference Include="..\modules\Core.Relationships\src\Core.Relationships.csproj" />

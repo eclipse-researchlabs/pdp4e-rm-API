@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Core.Assets;
 using Core.Assets.Models;
+using Core.Containers;
 using Core.Database.Payloads;
 using Core.Database.QueryLanguages;
 using Core.Database.Tables;
@@ -30,6 +31,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Container = Core.Database.Tables.Container;
 
 namespace Core.Api
 {
@@ -60,7 +62,7 @@ namespace Core.Api
             GraphTypeTypeRegistry.Register<Vulnerability, VulnerabilityGraphQl>();
             GraphTypeTypeRegistry.Register<Risk, RisksGraphQl>();
             GraphTypeTypeRegistry.Register<Treatment, TreatmentsGraphQl>();
-            //GraphTypeTypeRegistry.Register<Container, ContainerGraphQl>();
+            GraphTypeTypeRegistry.Register<Container, ContainerGraphQl>();
             GraphTypeTypeRegistry.Register<Relationship, RelationshipGraphQl>();
             GraphTypeTypeRegistry.Register<Database.Tables.Evidence, EvidenceGraphQl>();
             GraphTypeTypeRegistry.Register<RiskPayload, RiskPayloadGraphQl>();
@@ -68,7 +70,6 @@ namespace Core.Api
             GraphTypeTypeRegistry.Register<TreatmentPayloadModel, TreatmentPayloadModel.TreatmentkPayloadGraphQl>();
             GraphTypeTypeRegistry.Register<User, UserGraphQl>();
             GraphTypeTypeRegistry.Register<Relationship, NotificationGraphQl>();
-            //GraphTypeTypeRegistry.Register<RiskStatus, RiskStatusGraphQl>();
 
             EfGraphQLConventions.RegisterInContainer(services, new Core.Database.BeawreContext(), userContext => (Core.Database.BeawreContext)userContext);
 
@@ -76,6 +77,7 @@ namespace Core.Api
             services.AddSingleton<VulnerabilityGraphQl>();
             services.AddSingleton<RisksGraphQl>();
             services.AddSingleton<TreatmentsGraphQl>();
+            services.AddSingleton<ContainerGraphQl>();
             services.AddSingleton<RelationshipGraphQl>();
             services.AddSingleton<EvidenceGraphQl>();
             services.AddSingleton<RiskPayloadGraphQl>();
@@ -83,6 +85,7 @@ namespace Core.Api
             services.AddSingleton<TreatmentPayloadModel.TreatmentkPayloadGraphQl>();
             services.AddSingleton<OwaspDictionaryGraphType>();
             services.AddSingleton<UserGraphQl>();
+            services.AddSingleton<NotificationGraphQl>();
 
             foreach (var type in GetGraphQlTypes())
                 services.AddSingleton(type);
@@ -96,6 +99,7 @@ namespace Core.Api
             #endregion
 
             Core.Users.Config.InitializeServices(ref services);
+            Core.Containers.Config.InitializeServices(ref services);
             Core.Assets.Config.InitializeServices(ref services);
             Core.Relationships.Config.InitializeServices(ref services);
             Core.AuditTrail.Config.InitializeServices(ref services);
@@ -112,6 +116,7 @@ namespace Core.Api
                 opt.AddProfile(new Core.Users.UsersProfile());
                 opt.AddProfile(new AssetsProfile());
                 opt.AddProfile(new RelationshipProfile());
+                opt.AddProfile(new CoreContainersProfile());
                 opt.AddProfile(new Core.AuditTrail.CustomProfile());
             });
 

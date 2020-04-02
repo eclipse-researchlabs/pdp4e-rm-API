@@ -16,3 +16,6 @@
 [submodule "modules/Core.Relationships"]
 	path = modules/Core.Relationships
 	url = git@gitlab.com:beawre/core/relationships.git
+[submodule "modules/Core.Containers"]
+	path = modules/Core.Containers
+	url = git@gitlab.com:beawre/core/containers.git

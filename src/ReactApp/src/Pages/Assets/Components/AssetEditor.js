@@ -46,6 +46,7 @@ class AssetEditor extends React.Component {
         edges: edgesFiltered
       };
     }
+    console.log('newGraphData', newGraphData)
     this.state = {
       toolbarItems: props.toolbarItems,
       itemsPanel: props.itemsPanel,
@@ -57,7 +58,6 @@ class AssetEditor extends React.Component {
   saveNewAssetObject = (type, model) => {
     switch (type) {
       case "node":
-        console.log("model", model);
         this.assetsApi
           .post("", {
             name: `${model.label} ${this.state.graphData.nodes.length}`,
@@ -75,7 +75,13 @@ class AssetEditor extends React.Component {
             }
           })
           .then(result => {
-            this.props.loadData();
+            console.log('newGraphDataModified', this.state.graphData)
+
+            result.json().then(item => {
+              var graphData = this.state.graphData;
+              graphData.nodes.push(this.props.parseNode(item, graphData.nodes.length))
+              this.setState({ graphData });
+            })
           });
         break;
       case "edge":
@@ -88,7 +94,11 @@ class AssetEditor extends React.Component {
             Asset2Anchor: model.targetAnchor
           })
           .then(result => {
-            this.props.loadData();
+            result.json().then(item => {
+              var graphData = this.state.graphData;
+              graphData.edges.push(this.props.parseNode(item, graphData.edges.length))
+              this.setState({ graphData });
+            })
           });
         break;
       case "addGroup":
@@ -99,30 +109,28 @@ class AssetEditor extends React.Component {
             assets: model
           })
           .then(result => {
-            this.props.loadData();
+            result.json().then(item => {
+              var graphData = this.state.graphData;
+              graphData.groups.push(this.props.parseGroup(item))
+              this.setState({ graphData });
+            })
           });
         break;
       case "unGroup":
-        this.assetsApi.delete(`groups/${model.join()}`).then(result => {
-          this.props.loadData();
-        });
+        this.assetsApi.delete(`groups/${model.join()}`).then(result => { });
         break;
       case "delete":
-        this.assetsApi.delete(`${model.join()}`).then(result => {
-          this.props.loadData();
-        });
-        break;
-      default:
+        this.assetsApi.delete(`${model.join()}`).then(result => { });
+        this.assetsApi.delete(`edge/${model.join()}`).then(result => { });
         break;
     }
   };
 
   render() {
-    console.log("this.props.editor", this.props);
     return (
       <GGEditor
         onAfterCommandExecute={({ command }) => {
-          // console.log("cmd", command);
+          console.log('cmd', command) 
           if (!_.isUndefined(command.addId)) {
             this.saveNewAssetObject(command.type, command.addModel);
           }
@@ -132,6 +140,7 @@ class AssetEditor extends React.Component {
           if (command.command === "unGroup" || command.command === "delete") {
             this.saveNewAssetObject(command.name, command.selectedItems);
           }
+          return true;
         }}
       >
         <Row>
@@ -148,20 +157,25 @@ class AssetEditor extends React.Component {
           <Col span={_.isEmpty(this.state.itemsPanel) ? 24 : 16}>
             {!this.props.koni && (
               <Flow
-                onDrop={e => {
-                  if (e.currentItem !== undefined && e.currentItem !== null) {
-                    this.assetsApi
-                      .put("position", {
-                        assetId: e.currentItem.id,
-                        x: `${e.x}`,
-                        y: `${e.y}`
-                      })
-                      .then(result => {
-                        this.props.loadData();
-                        return true;
-                      });
-                  }
-                }}
+              //   onDrop={e => {
+              //     if (e.currentItem !== undefined && e.currentItem !== null) {
+              //       console.log('moving to ', e.currentItem.id, e.x, e.y);
+              //       // this.assetsApi
+              //       //   .put("position", {
+              //       //     assetId: e.currentItem.id,
+              //       //     x: `${e.x}`,
+              //       //     y: `${e.y}`
+              //       //   })
+              //       //   .then(result => {
+              //       //     console.log('')
+              //       //     var graphData = this.state.graphData;
+              //       //     // graphData.groups.push(this.props.parseGroup(item))
+              //       //     // this.setState({ graphData });
+              //       //     // this.props.loadData();
+              //       //     // return true;
+              //       //   });
+              //     }
+              //   }}
                 data={this.state.graphData}
                 style={{ height: 600 }}
                 grid={{ cell: 25 }}
@@ -170,21 +184,33 @@ class AssetEditor extends React.Component {
             )}
             {this.props.koni && (
               <Koni
-                onDrop={e => {
-                  if (e.currentItem !== undefined && e.currentItem !== null) {
-                    this.assetsApi
-                      .put("position", {
-                        assetId: e.currentItem.id,
-                        x: `${e.x}`,
-                        y: `${e.y}`
-                      })
-                      .then(result => {
-                        this.props.loadData();
+                // onDrop={e => {
+                //   if (e.currentItem !== undefined && e.currentItem !== null) {
+                //     console.log('moving to 2 ', e.currentItem.id, e.x, e.y);
+                //     var graphData = this.state.graphData;
+                //     var asset = graphData.nodes.filter(x => x.id == e.currentItem.id)[0];
+                //     if (asset != undefined) {
+                //       asset.x = +e.x;
+                //       asset.y = +e.y;
+                //     }
+                //     var assets = graphData.nodes.filter(x => x.id != e.currentItem.id);
+                //     assets.push(asset);
+                //     graphData.nodes = assets;
+                //     this.setState({ graphData });
+                //     // this.assetsApi
+                //     //   .put("position", {
+                //     //     assetId: e.currentItem.id,
+                //     //     x: `${e.x}`,
+                //     //     y: `${e.y}`
+                //     //   })
+                //     //   .then(result => {
+                //     //     // this.props.loadData();
 
-                        return true;
-                      });
-                  }
-                }}
+                //     //     // return true;
+                //     //   });
+                //     return true;
+                //   }
+                // }}
                 data={this.state.graphData}
                 style={{ height: 600 }}
                 grid={{ cell: 25 }}

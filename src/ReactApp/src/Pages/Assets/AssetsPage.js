@@ -76,6 +76,48 @@ class AssetsPage extends React.Component {
     });
   };
 
+  parseGroup(group) {
+    return {
+      id: group.id,
+      label: group.name,
+      index: 0,
+      isCollapsed: false
+    };
+  }
+
+  parseNode(node, index) {
+    var payload = JSON.parse(node.payload);
+    return {
+      type: payload.Type,
+      size: payload.Size,
+      shape: payload.Shape,
+      color: payload.Color,
+      label: node.name,
+      icon2: payload.Icon,
+      src: payload.Src,
+      x: payload.X,
+      y: payload.Y,
+      id: node.id,
+      index: index + 1,
+      parent: node.group,
+      labelOffsetY: payload.LabelOffsetY
+    };
+  }
+
+  parseEdge(edge, index) {
+    var payload = JSON.parse(edge.payload);
+    return {
+      source: edge.fromId,
+      sourceAnchor: payload.Asset1Anchor,
+      target: edge.toId,
+      targetAnchor: payload.Asset2Anchor,
+      shape: payload.Shape,
+      id: edge.id,
+      label: payload.Name,
+      index: index + 1
+    };
+  }
+
   getNodesAndEdgesData = (nodes, edges, groups) => {
     let data = {
       nodes: [],
@@ -84,56 +126,23 @@ class AssetsPage extends React.Component {
     };
 
     _.forEach(groups, (group, index) => {
-      data.groups.push({
-        id: group.id,
-        label: group.name,
-        index: 0,
-        isCollapsed: false
-      });
+      data.groups.push(this.parseGroup(group));
     });
 
     _.forEach(nodes, (node, index) => {
       if (node.payload === undefined || node.payload === "null") {
         return true;
       }
-      var payload = JSON.parse(node.payload);
-      data.nodes.push({
-        type: payload.Type,
-        size: payload.Size,
-        shape: payload.Shape,
-        color: payload.Color,
-        label: node.name,
-        icon2: payload.Icon,
-        src: payload.Src,
-        x: payload.X,
-        y: payload.Y,
-        id: node.id,
-        index: index + 1,
-        parent: node.group,
-        labelOffsetY: payload.LabelOffsetY
-      });
+      data.nodes.push(this.parseNode(node, index));
     });
 
     _.forEach(edges, (edge, index) => {
-      var payload = JSON.parse(edge.payload);
-      data.edges.push({
-        source: edge.fromId,
-        sourceAnchor: payload.Asset1Anchor,
-        target: edge.toId,
-        targetAnchor: payload.Asset2Anchor,
-        shape: payload.Shape,
-        id: edge.id,
-        label: payload.Name,
-        index: index + 1
-      });
+      data.edges.push(this.parseEdge(edge, index));
     });
-    // console.log("data", data);
     return data;
   };
 
   extractView(layout) {
-    // console.log("layout", layout);
-    if (layout === undefined || layout === null) return;
     var layouts = [];
     _.forEach(Object.keys(layout), item => {
       layouts.push(this.extractElement(item, layout[item]));
@@ -142,7 +151,6 @@ class AssetsPage extends React.Component {
   }
 
   extractElement(type, layout) {
-    console.log(type, layout);
     if (!_.isUndefined(layout.accessRightRequired))
       if (!this.userInfo.hasAccess(layout.accessRightRequired))
         return <React.Fragment></React.Fragment>;
@@ -181,6 +189,9 @@ class AssetsPage extends React.Component {
             toolbarItems={layout.toolbarItems}
             graphData={this.state.graphData}
             loadData={this.loadData}
+            parseGroup={this.parseGroup}
+            parseNode={this.parseNode}
+            parseEdge={this.parseEdge}
             key={`assetEditor_${this.state.containerId}`}
           />
         );
@@ -192,6 +203,9 @@ class AssetsPage extends React.Component {
             toolbarItems={layout.toolbarItems}
             graphData={this.state.graphData}
             loadData={this.loadData}
+            parseGroup={this.parseGroup}
+            parseNode={this.parseNode}
+            parseEdge={this.parseEdge}
             key={`assetEditor_koni_${this.state.containerId}`}
             koni
           />
@@ -263,4 +277,4 @@ class AssetsPage extends React.Component {
   }
 }
 
-export default withTranslation()(observer(withPropsAPI(AssetsPage)));
+export default withTranslation()(observer(AssetsPage));

@@ -46,7 +46,6 @@ class DetailForm extends React.Component {
         if (!item) {
           return;
         }
-
         executeCommand(() => {
           update(item, {
             ...values
@@ -58,8 +57,7 @@ class DetailForm extends React.Component {
           case "node":
             this.assetsApi
               .put(`name`, {
-                assetId: item.id,
-                // name: labelObj(values.label, (item.model.size.includes("*") ? item.model.size.split("*")[0] : item.model.size) - 100).multilineText
+                assetId: item.model.id,
                 name: values.label
               })
               .then(r => {
@@ -69,18 +67,17 @@ class DetailForm extends React.Component {
           case "edge":
             this.assetsApi
               .put(`edge/name`, {
-                edgeId: item.id,
+                edgeId: item.model.id,
                 label: item.model.label,
                 shape: item.model.shape
               })
               .then(r => {
-                message.success("Name has been updated!");
+                message.success("Edge name has been updated!");
               });
             break;
           default:
             break;
         }
-        console.log("updating", item);
       });
     }, 0);
   };
@@ -131,7 +128,6 @@ class DetailForm extends React.Component {
   renderGroupDetail = () => {
     const { form } = this.props;
     const { label = "test" } = this.item.getModel();
-    console.log("rendergroup", this.props, this.item);
 
     return (
       <Item label="Label" {...inlineFormItemLayout}>

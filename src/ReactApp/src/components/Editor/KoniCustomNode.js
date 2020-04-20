@@ -14,8 +14,6 @@ class KoniCustomNode extends React.Component {
         const group = item.getGraphicGroup();
         const model = item.getModel();
 
-        // console.log("koni", model);
-
         var sizes = [model.size, model.size];
         if (model.size.includes("*")) sizes = model.size.split("*");
 
@@ -26,7 +24,7 @@ class KoniCustomNode extends React.Component {
             width: sizes[0],
             height: sizes[1],
             // src: model.icon
-            img: model.icon2
+            img: model.icon
           }
         });
 

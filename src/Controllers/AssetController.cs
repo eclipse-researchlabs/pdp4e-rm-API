@@ -98,18 +98,19 @@ namespace Core.Api.Controllers
         }
 
         [HttpDelete("groups/{ids}"), ProducesResponseType(201)]
-        public async Task<IActionResult> DeleteGroup(string ids)
+        public IActionResult DeleteGroup(string ids)
         {
             foreach (var id in ids.Split(',').ToList().ConvertAll(Guid.Parse))
             {
                 _relationshipService.Delete(x => x.FromType == ObjectType.Container && x.ToType == ObjectType.AssetGroup && x.ToId == id);
+                _relationshipService.Delete(x => x.FromType == ObjectType.AssetGroup && x.ToType == ObjectType.Asset && x.FromId == id);
                 _auditTrailService.LogAction(AuditTrailAction.RemoveAssetGroup, id, new AuditTrailPayloadModel() {Data = JsonConvert.SerializeObject(id)});
             }
             return Ok();
         }
 
         [HttpDelete("{ids}"), ProducesResponseType(201)]
-        public async Task<IActionResult> DeleteAsset(string ids)
+        public IActionResult DeleteAsset(string ids)
         {
             foreach (var id in ids.Split(',').ToList().ConvertAll(Guid.Parse))
             {

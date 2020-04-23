@@ -2,7 +2,7 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import { observer } from "mobx-react";
 import * as _ from "lodash";
-import { Button, Modal, Input, Form, notification, Row, Col, Card, Icon, AutoComplete, Empty, Slider, Popover, Switch, Select, Steps, Tag, Divider } from "antd";
+import { Button, Modal, Input, Form, Popconfirm, notification, Row, Col, Card, Icon, AutoComplete, Empty, Slider, Popover, Switch, Select, Steps, Tag, Divider } from "antd";
 import BackendService from "./BackendService";
 
 const LCTag = ({ value }) => {
@@ -399,7 +399,15 @@ class RisksComponents extends React.Component {
                         title={`Type: ${this.props.t(`Assets.analysis.treatments.${item.type}`)}`}
                         actions={[
                           // <Icon type="edit" onClick={() => this.setState({ modalVisible: true, newEntry: { id: item.id, name: item.name, description: item.description } })} />,
-                          <Icon type="delete" onClick={() => this.deleteTreatment(item.id)} />
+                          <Popconfirm
+                            title="Delete this treatment?"
+                            onConfirm={() => this.deleteTreatment(item.id)}
+                            onCancel={() => { }}
+                            okText="Yes"
+                            cancelText="No"
+                          >
+                            <Icon type="delete" />
+                          </Popconfirm>
                         ]}>
                         {item.description}
                       </Card>
@@ -455,7 +463,15 @@ class RisksComponents extends React.Component {
                     this.pushOwaspModel(splitName[0], splitName[1], splitName[2], x.value);
                   })
                 })} />,
-                <Icon type="delete" onClick={() => this.delete(item.id)} />
+                <Popconfirm
+                  title="Delete this risk?"
+                  onConfirm={() => this.delete(item.id)}
+                  onCancel={() => { }}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Icon type="delete" />
+                </Popconfirm>
               ]} style={{ marginBottom: "15px" }}>
                 <Row>
                   <Col>{item.description}</Col>

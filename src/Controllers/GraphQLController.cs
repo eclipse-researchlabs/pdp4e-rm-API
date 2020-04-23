@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Core.AuditTrail.Interfaces.Services;
+using Core.Database;
+using GraphQL;
+using GraphQL.Types;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Core.AuditTrail.Interfaces.Services;
-using Core.AuditTrail.Models;
-using Core.Database;
-using Core.Database.Tables;
-using GraphQL;
-using GraphQL.Types;
-using GraphQL;
-using GraphQL.Net;
-using GraphQL.Types;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
-namespace Web.Controllers
+namespace Core.Api.Controllers
 {
     [Route("api/graphql"), ApiController, EnableCors("CorsRules")]
     public class GraphQlController : ControllerBase

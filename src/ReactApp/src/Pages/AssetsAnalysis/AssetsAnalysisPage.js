@@ -22,9 +22,27 @@ class AssetsAnalysisPage extends React.Component {
   }
 
   componentDidMount() {
+    this.loadData();
+  }
+
+  loadData() {
     this.graphqlApi
       .get(
-        `?query={assets(ids: ["${this.props.match.params.componentId}"]){id,name,payload,vulnerabilities{id,name,description},risks{id,name,description,payload{impact,impactText,owasp{name,value},likelihood,likelihoodText,stride}},treatments{id,type,description}}}`
+        `?query={assets(ids: ["${this.props.match.params.componentId}"]){id,rootId,name,payload,
+      vulnerabilities{id,rootId,name,description},
+      risks{id,rootId,name,description,
+        risks{id,rootId,name},
+        vulnerabilities{id,rootId,name},
+        treatments{id,rootId,type,description}
+        payload{
+          impact,
+          impactText,
+          owasp{name,value},
+          likelihood,
+          likelihoodText,
+          stride,
+          lindun}},
+      treatments{id,rootId,type,description}}}`
       )
       .then(result => {
         console.log(result.assets);
@@ -37,13 +55,13 @@ class AssetsAnalysisPage extends React.Component {
     switch (analysisDiemnsion) {
       case "vulnerabilities":
       default:
-        return <VulnerabiltiesComponent nodeKey={key} asset={asset} />;
+        return <VulnerabiltiesComponent nodeKey={key} asset={asset} reloadData={() => this.loadData()} />;
       case "unwantedIncidents":
-        return <UnwantedIncidentsComponent nodeKey={key} asset={asset} />;
+        return <UnwantedIncidentsComponent nodeKey={key} asset={asset} reloadData={() => this.loadData()} />;
       case "risks":
-        return <RisksComponent nodeKey={key} asset={asset} />;
+        return <RisksComponent nodeKey={key} asset={asset} reloadData={() => this.loadData()} />;
       case "treatments":
-        return <TreatmentsComponent nodeKey={key} asset={asset} />;
+        return <TreatmentsComponent nodeKey={key} asset={asset} reloadData={() => this.loadData()} />;
     }
   }
 

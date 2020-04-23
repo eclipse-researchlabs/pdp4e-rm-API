@@ -55,17 +55,17 @@ namespace Core.Api.Controllers
         {
             var newValue = _riskService.Update(command);
 
-            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Vulnerabilitie && x.FromId == command.Id);
-            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Risk && x.FromId == command.Id);
-            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Treatment && x.FromId == command.Id);
+            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Vulnerabilitie && x.FromId == command.RootId);
+            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Risk && x.FromId == command.RootId);
+            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Treatment && x.FromId == command.RootId);
             foreach (var item in command.Vulnerabilities)
-                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.Id, ToType = ObjectType.Vulnerabilitie, ToId = item });
+                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.RootId, ToType = ObjectType.Vulnerabilitie, ToId = item });
 
             foreach (var item in command.Risks)
-                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.Id, ToType = ObjectType.Risk, ToId = item });
+                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.RootId, ToType = ObjectType.Risk, ToId = item });
 
             foreach (var item in command.Treatments)
-                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.Id, ToType = ObjectType.Treatment, ToId = item.Id });
+                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.RootId, ToType = ObjectType.Treatment, ToId = item.Id });
 
             return Ok();
         }

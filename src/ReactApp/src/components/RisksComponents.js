@@ -135,7 +135,7 @@ class RisksComponents extends React.Component {
           });
       } else {
         objectData["id"] = this.state.newEntry.id;
-        console.log('update', objectData)
+        objectData["rootId"] = this.state.newEntry.rootId;
         this.risksApi
           .put("", objectData)
           .then(result => {
@@ -437,7 +437,7 @@ class RisksComponents extends React.Component {
               <Card title={item.name} actions={[
                 <Icon type="edit" onClick={() => this.setState({
                   modalVisible: true, newEntry: {
-                    id: item.rootId, name: item.name, description: item.description, owasp: {}, treatments: item.treatments
+                    id: item.id, rootId: item.rootId, name: item.name, description: item.description, owasp: {}, treatments: item.treatments
                   }
                 }, () => {
                   this.setNewValue(`likelihood`, item.payload.likelihood)

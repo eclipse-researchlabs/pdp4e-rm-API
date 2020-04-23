@@ -55,7 +55,6 @@ namespace Core.Api.Controllers
         public IActionResult Delete(Guid assetId, Guid id)
         {
             _relationshipService.Delete(x => x.FromType == ObjectType.Asset && x.ToType == ObjectType.Treatment && x.FromId == assetId && x.ToId == id);
-            _treatmentService.Delete(id);
             return Ok();
         }
     }

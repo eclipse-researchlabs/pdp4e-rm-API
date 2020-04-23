@@ -15,9 +15,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Web.Controllers
+namespace Core.Api.Controllers
 {
-    [Route("api/risks"), ApiController, EnableCors("CorsRules")]
+    [Route("api"), ApiController, EnableCors("CorsRules")]
     public class RisksController : ControllerBase
     {
         private IRiskService _riskService;
@@ -31,7 +31,7 @@ namespace Web.Controllers
             _auditTrailService = auditTrailService;
         }
 
-        [HttpPost, ProducesResponseType(201)]
+        [HttpPost("risks"), ProducesResponseType(201)]
         public async Task<IActionResult> CreateRisk([FromBody] CreateRiskCommand command)
         {
             var newValue = await _riskService.Create(command);
@@ -48,6 +48,32 @@ namespace Web.Controllers
 
             _auditTrailService.LogAction(AuditTrailAction.CreateRisk, newValue.Id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
             return Created(newValue.Id.ToString(), newValue);
+        }
+
+        [HttpPut("risks")]
+        public IActionResult UpdateRisk([FromBody] UpdateRiskCommand command)
+        {
+            var newValue = _riskService.Update(command);
+
+            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Vulnerabilitie && x.FromId == command.Id);
+            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Risk && x.FromId == command.Id);
+            _relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Treatment && x.FromId == command.Id);
+            foreach (var item in command.Vulnerabilities)
+                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.Id, ToType = ObjectType.Vulnerabilitie, ToId = item });
+
+            foreach (var item in command.Risks)
+                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.Id, ToType = ObjectType.Risk, ToId = item });
+
+            foreach (var item in command.Treatments)
+                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.Id, ToType = ObjectType.Treatment, ToId = item.Id });
+
+            return Ok();
+        }
+
+        [HttpDelete("assets/{assetId}/risks/{id}")]
+        public IActionResult Delete(Guid assetId, Guid id) {
+            _relationshipService.Delete(x => x.FromType == ObjectType.Asset && x.ToType == ObjectType.Risk && x.FromId == assetId && x.ToId == id);
+            return Ok();
         }
     }
 }

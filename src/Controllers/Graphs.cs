@@ -11,7 +11,7 @@ using GraphQL;
 using GraphQL.EntityFramework;
 using GraphQL.Types;
 
-namespace Web.Controllers
+namespace Core.Api.Controllers
 {
     public class Schema : GraphQL.Types.Schema
     {

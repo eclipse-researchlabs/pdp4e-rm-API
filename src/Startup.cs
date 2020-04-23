@@ -95,7 +95,7 @@ namespace Core.Api
             services.AddSingleton<IDocumentExecuter, EfDocumentExecuter>();
             services.AddSingleton<IDependencyResolver>(
                 provider => new FuncDependencyResolver(provider.GetRequiredService));
-            services.AddSingleton<ISchema, Web.Controllers.Schema>();
+            services.AddSingleton<ISchema, Core.Api.Controllers.Schema>();
             #endregion
 
             Core.Users.Config.InitializeServices(ref services);

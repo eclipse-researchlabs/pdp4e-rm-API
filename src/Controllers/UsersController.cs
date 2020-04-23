@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Web.Controllers
+namespace Core.Api.Controllers
 {
     [Route("api/users"), ApiController, EnableCors("CorsRules")]
     public class UsersController : ControllerBase

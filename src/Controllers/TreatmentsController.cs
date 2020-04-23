@@ -14,10 +14,11 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 
-namespace Web.Controllers
+namespace Core.Api.Controllers
 {
-    [Route("api/treatments"), ApiController, EnableCors("CorsRules")]
+    [Route("api"), ApiController, EnableCors("CorsRules")]
     public class TreatmentsController : ControllerBase
     {
         private readonly ITreatmentService _treatmentService;
@@ -31,7 +32,7 @@ namespace Web.Controllers
             _auditTrailService = auditTrailService;
         }
 
-        [HttpPost, ProducesResponseType(201)]
+        [HttpPost("treatments"), ProducesResponseType(201)]
         public async Task<IActionResult> CreateTreatment([FromBody] CreateTreatmentCommand command)
         {
             var newValue = await _treatmentService.Create(command);
@@ -39,6 +40,23 @@ namespace Web.Controllers
             _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.RiskId, ToType = ObjectType.Treatment, ToId = newValue.Id });
             _auditTrailService.LogAction(AuditTrailAction.CreateTreatment, newValue.Id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
             return Created(newValue.Id.ToString(), newValue);
+        }
+
+        [HttpPut("treatments")]
+        public IActionResult Update(UpdateTreatmentCommand command)
+        {
+            var value = _treatmentService.Update(command);
+            //_relationshipService.Delete(x => x.FromType == ObjectType.Risk && x.ToType == ObjectType.Treatment && x.ToId == command.Id);
+            //_relationshipService.Create(new CreateRelationshipCommand() { FromType = risk});
+            return Ok();
+        }
+
+        [HttpDelete("assets/{assetId}/treatments/{id}")]
+        public IActionResult Delete(Guid assetId, Guid id)
+        {
+            _relationshipService.Delete(x => x.FromType == ObjectType.Asset && x.ToType == ObjectType.Treatment && x.FromId == assetId && x.ToId == id);
+            _treatmentService.Delete(id);
+            return Ok();
         }
     }
 }

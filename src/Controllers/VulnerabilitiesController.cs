@@ -15,9 +15,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace Web.Controllers
+namespace Core.Api.Controllers
 {
-    [Route("api/vulnerabilities"), ApiController, EnableCors("CorsRules")]
+    [Route("api"), ApiController, EnableCors("CorsRules")]
     public class VulnerabilitiesController : ControllerBase
     {
         private IVulnerabilityService _vulnerabilityService;
@@ -31,13 +31,24 @@ namespace Web.Controllers
             _auditTrailService = auditTrailService;
         }
 
-        [HttpPost, ProducesResponseType(201)]
+        [HttpPost("vulnerabilities"), ProducesResponseType(201)]
         public async Task<IActionResult> CreateVulnerability([FromBody] CreateVulnerabilityCommand command)
         {
             var newValue = await _vulnerabilityService.Create(command);
             _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Asset, FromId = command.AssetId, ToType = ObjectType.Vulnerabilitie, ToId = newValue.Id });
             _auditTrailService.LogAction(AuditTrailAction.CreateVulnerabilities, newValue.Id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
             return Created(newValue.Id.ToString(), newValue);
+        }
+
+        [HttpPut("vulnerabilities")]
+        public IActionResult Update(UpdateVulnerabilityCommand command) => Ok(_vulnerabilityService.Update(command));
+
+        [HttpDelete("assets/{assetId}/vulnerabilities/{id}")]
+        public IActionResult Delete(Guid assetId, Guid id)
+        {
+            _relationshipService.Delete(x => x.FromType == ObjectType.Asset && x.ToType == ObjectType.Vulnerabilitie && x.FromId == assetId && x.ToId == id);
+            _vulnerabilityService.Delete(id);
+            return Ok();
         }
     }
 }

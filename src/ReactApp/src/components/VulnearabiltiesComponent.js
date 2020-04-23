@@ -25,22 +25,44 @@ class VulnerabiltiesComponent extends React.Component {
     this.setState({ newEntry });
   }
 
-  saveNewEntry(nodeKey) {
+  saveNewEntry = (nodeKey) => {
     let newEntry = this.state.newEntry;
     if (!_.isEmpty(newEntry.name)) {
-      this.vulnerabilitiesApi
-        .post("", { name: newEntry.name, description: newEntry.description, assetId: nodeKey })
-        .then(r => r.json())
-        .then(result => {
-          notification.success({
-            message: this.props.t("Assets.analysis.newEntryAdded"),
-            description: this.props.t("Assets.analysis.newEntryAddedText") + newEntry.name
-          });
 
-          this.props.asset.vulnerabilities.push(result);
-          this.setState({ newEntry: { name: "", description: "" }, modalVisible: false });
-        });
+      if (newEntry.id == undefined) {
+        this.vulnerabilitiesApi
+          .post("", { name: newEntry.name, description: newEntry.description, assetId: nodeKey })
+          .then(r => r.json())
+          .then(result => {
+            notification.success({
+              message: this.props.t("Assets.analysis.newEntryAdded"),
+              description: this.props.t("Assets.analysis.newEntryAddedText") + newEntry.name
+            });
+
+            this.props.asset.vulnerabilities.push(result);
+            this.setState({ newEntry: { name: "", description: "" }, modalVisible: false });
+          });
+      } else {
+        this.vulnerabilitiesApi
+          .put("", { name: newEntry.name, description: newEntry.description, id: newEntry.id })
+          .then(r => r.json())
+          .then(result => {
+            notification.success({
+              message: this.props.t("Assets.analysis.entryEdited"),
+              description: this.props.t("Assets.analysis.entryEditedText") + newEntry.name
+            });
+
+            this.props.reloadData();
+            this.setState({ newEntry: { id: undefined, name: "", description: "" }, modalVisible: false });
+          });
+      }
     }
+  }
+
+  delete = (id) => {
+    this.assetsApi.delete(`${this.props.nodeKey}/vulnerabilities/${id}`).then(() => {
+      this.props.reloadData();
+    });
   }
 
   render() {
@@ -71,12 +93,12 @@ class VulnerabiltiesComponent extends React.Component {
     ];
     return (
       <div>
-        <Button type="primary" icon="plus-circle" onClick={() => this.setState({ modalVisible: true })} style={{ marginBottom: "25px" }}>
+        <Button type="primary" icon="plus-circle" onClick={() => this.setState({ modalVisible: true, newEntry: { id: undefined, name: "", description: "" } })} style={{ marginBottom: "25px" }}>
           {this.props.t("Assets.analysis.vulnerabilities.add")}
         </Button>
         <Modal
           centered
-          title={this.props.t("Assets.analysis.vulnerabilities.add")}
+          title={this.props.t(`Assets.analysis.vulnerabilities.${this.state.newEntry.id == undefined ? `add` : `edit`}`)}
           visible={this.state.modalVisible}
           onOk={() => this.saveNewEntry(this.props.nodeKey)}
           onCancel={() => this.setState({ modalVisible: false })}
@@ -103,7 +125,10 @@ class VulnerabiltiesComponent extends React.Component {
           {this.props.asset.vulnerabilities.length === 0 && <Empty description={this.props.t("common.noData")} />}
           {this.props.asset.vulnerabilities.map((item, index) => (
             <Col key={index} span={8}>
-              <Card title={item.name} actions={[<Icon type="edit" />, <Icon type="copy" />, <Icon type="delete" />]} style={{ marginBottom: "15px" }}>
+              <Card title={item.name} actions={[
+                <Icon type="edit" onClick={() => this.setState({ modalVisible: true, newEntry: { id: item.id, name: item.name, description: item.description } })} />,
+                // <Icon type="copy" />,
+                <Icon type="delete" onClick={() => this.delete(item.id)} />]} style={{ marginBottom: "15px" }}>
                 {item.description}
               </Card>
             </Col>

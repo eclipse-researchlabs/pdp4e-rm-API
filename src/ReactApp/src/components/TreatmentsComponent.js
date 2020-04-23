@@ -63,9 +63,9 @@ class TreatmentsComponent extends React.Component {
                 />
               }
               actions={[
-                <Icon type="dot-chart" />,
-                <Icon type="solution" />,
-                <Icon type="printer" />
+                // <Icon type="dot-chart" />,
+                // <Icon type="solution" />,
+                // <Icon type="printer" />
               ]}
             >
               <Col span={24}>{treatment.name}</Col>

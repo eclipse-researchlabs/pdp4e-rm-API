@@ -8,7 +8,7 @@ import {
   Card,
   Icon,
   notification,
-  Modal,
+  Modal, Popconfirm,
   Input,
   Tag
 } from "antd";
@@ -19,6 +19,7 @@ import * as _ from "lodash";
 
 class ContainersPage extends React.Component {
   graphqlApi = new BackendService("graphql");
+  containersApi = new BackendService("containers");
 
   constructor(props) {
     super(props);
@@ -30,6 +31,10 @@ class ContainersPage extends React.Component {
   }
 
   componentDidMount() {
+    this.loadData();
+  }
+
+  loadData() {
     this.graphqlApi.get("?query={containers{id,name}}").then(data => {
       const appConfig = JSON.parse(localStorage.getItem("appConfig"));
       if (appConfig.isOpenSource === true) {
@@ -92,6 +97,16 @@ class ContainersPage extends React.Component {
     }
   };
 
+  delete = (id) => {
+    this.containersApi.delete(`${id}`).then(r => {
+      this.loadData();
+      notification["success"]({
+        message: "Project deleted",
+        description: `You have deleted project!`
+      });
+    })
+  }
+
   render() {
     return (
       <div>
@@ -123,9 +138,16 @@ class ContainersPage extends React.Component {
                         Open assets
                       </Button>
                     </Link>
-                    <Button type="danger" icon="delete">
-                      Remove
-                    </Button>
+                    <Popconfirm
+                      title="Delete this project?"
+                      onConfirm={() => this.delete(record.id)}
+                      onCancel={() => { }}
+                      okText="Yes"
+                      cancelText="No"
+                    >
+                      <Button type="danger" icon="delete">Remove</Button>
+                    </Popconfirm>
+
                   </div>
                 )
               }

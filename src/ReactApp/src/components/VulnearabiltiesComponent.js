@@ -2,7 +2,7 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import { observer } from "mobx-react";
 import * as _ from "lodash";
-import { Button, Modal, Input, Form, notification, Row, Col, Card, Icon, AutoComplete, Empty } from "antd";
+import { Button, Modal, Input, Form, notification, Popconfirm, Row, Col, Card, Icon, AutoComplete, Empty } from "antd";
 import BackendService from "./BackendService";
 
 class VulnerabiltiesComponent extends React.Component {
@@ -128,7 +128,16 @@ class VulnerabiltiesComponent extends React.Component {
               <Card title={item.name} actions={[
                 <Icon type="edit" onClick={() => this.setState({ modalVisible: true, newEntry: { id: item.id, name: item.name, description: item.description } })} />,
                 // <Icon type="copy" />,
-                <Icon type="delete" onClick={() => this.delete(item.id)} />]} style={{ marginBottom: "15px" }}>
+                <Popconfirm
+                  title="Delete this wulnearability?"
+                  onConfirm={() => this.delete(item.id)}
+                  onCancel={() => { }}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Icon type="delete" />
+                </Popconfirm>
+              ]} style={{ marginBottom: "15px" }}>
                 {item.description}
               </Card>
             </Col>

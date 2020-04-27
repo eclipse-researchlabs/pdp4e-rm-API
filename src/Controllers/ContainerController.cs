@@ -42,5 +42,8 @@ namespace Core.Api.Controllers
 
             return Ok(newValue);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id) => Ok(_containerService.Delete(new DeleteContainerCommand() { Id = id }));
     }
 }

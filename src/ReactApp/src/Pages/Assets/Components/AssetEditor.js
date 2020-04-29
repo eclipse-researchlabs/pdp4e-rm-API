@@ -88,7 +88,7 @@ class AssetEditor extends React.Component {
               <FlowItemPanelArc items={this.state.itemsPanel} />
             </Col>
           )}
-          <Col span={_.isEmpty(this.state.itemsPanel) ? 24 : 16}>
+          <Col span={_.isEmpty(this.state.itemsPanel) ? 24 : 16} style={{ maxHeight: '100%' }}>
             <AssetEditorWindow {...this.state}></AssetEditorWindow>
           </Col>
           {!_.isEmpty(this.state.itemsPanel) && (

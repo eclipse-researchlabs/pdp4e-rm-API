@@ -88,7 +88,7 @@ class AssetEditorWindow extends React.Component {
               }
             }}
             data={this.props.graphData}
-            style={{ height: 600 }}
+            style={{ height: 1000 }}
             grid={{ cell: 25 }}
             align={{ grid: "tl" }}
           />
@@ -113,7 +113,7 @@ class AssetEditorWindow extends React.Component {
               }
             }}
             data={this.props.graphData}
-            style={{ height: 600 }}
+            style={{ height: 1000 }}
             grid={{ cell: 25 }}
             align={{ grid: "tl" }}
           />

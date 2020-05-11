@@ -8,6 +8,7 @@ import * as _ from "lodash";
 import AssetsStore from "./AssetsStore";
 import { withPropsAPI } from "gg-editor";
 import UserInfo from "./../../components/UserInfo";
+import UploadFile from '../../components/UploadFile'
 
 import BackendService from "../../components/BackendService";
 
@@ -179,6 +180,8 @@ class AssetsPage extends React.Component {
             })}
           </Tabs>
         );
+      case "uploadgenesis":
+        return <UploadFile containerId={this.props.containerId}></UploadFile>;
       case "assetlist":
         return <AssetList nodes={this.state.nodes} key="assetList" />;
       case "ggeditor":

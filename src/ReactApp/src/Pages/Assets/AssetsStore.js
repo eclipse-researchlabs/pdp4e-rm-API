@@ -20,7 +20,7 @@ class AssetsStoreWrapper {
     }
   }
 
-  parseRawImportToJson(input) {
+  parseRawImportToJson(containerId, input) {
     try {
       localStorage.removeItem("nodes");
       localStorage.removeItem("edges");
@@ -35,7 +35,11 @@ class AssetsStoreWrapper {
         assetsPromises.push(
           new Promise((resolve, reject) => {
             this.assetsApi
-              .post("", { name: node.name, payloadData: { color: "#1890FF", shape: "flow-rect", size: "80*48", x: "243", y: "364" } })
+              .post("", { 
+                name: node.name, 
+                payloadData: { color: "#1890FF", shape: "flow-rect", size: "80*48", x: "243", y: "364" } ,
+                containerRootId: containerId,
+              })
               .then(r => r.json())
               .then(asset => {
                 return resolve(asset);

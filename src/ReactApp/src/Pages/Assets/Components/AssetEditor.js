@@ -71,36 +71,38 @@ class AssetEditor extends React.Component {
 
   render() {
     return (
-      <GGEditor
-        onAfterCommandExecute={({ command }) => {
-          if (!_.isUndefined(command.addGroupId)) {
-            this.createGroup(command.selectedItems);
-          }
-        }}>
-        <Row>
-          <Col span={24}>
-            <FlowToolbar items={this.state.toolbarItems} />
-          </Col>
-        </Row>
-        <Row>
-          {!_.isEmpty(this.state.itemsPanel) && (
-            <Col span={4}>
-              <FlowItemPanelArc items={this.state.itemsPanel} />
+      <div>
+        <GGEditor
+          onAfterCommandExecute={({ command }) => {
+            if (!_.isUndefined(command.addGroupId)) {
+              this.createGroup(command.selectedItems);
+            }
+          }}>
+          <Row>
+            <Col span={24}>
+              <FlowToolbar items={this.state.toolbarItems} />
             </Col>
-          )}
-          <Col span={_.isEmpty(this.state.itemsPanel) ? 24 : 16} style={{ maxHeight: '100%' }}>
-            <AssetEditorWindow {...this.state}></AssetEditorWindow>
-          </Col>
-          {!_.isEmpty(this.state.itemsPanel) && (
-            <Col span={4}>
-              <FlowDetailPanel />
-              <EditorMinimap />
+          </Row>
+          <Row>
+            {!_.isEmpty(this.state.itemsPanel) && (
+              <Col span={4}>
+                <FlowItemPanelArc items={this.state.itemsPanel} />
+              </Col>
+            )}
+            <Col span={_.isEmpty(this.state.itemsPanel) ? 24 : 16} style={{ maxHeight: '100%' }}>
+              <AssetEditorWindow {...this.state}></AssetEditorWindow>
             </Col>
-          )}
-        </Row>
-        <KoniCustomNode />
-        <KoniCustomNodeDfd />
-      </GGEditor>
+            {!_.isEmpty(this.state.itemsPanel) && (
+              <Col span={4}>
+                <FlowDetailPanel />
+                <EditorMinimap />
+              </Col>
+            )}
+          </Row>
+          <KoniCustomNode />
+          <KoniCustomNodeDfd />
+        </GGEditor>
+      </div>
     );
   }
 }

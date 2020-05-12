@@ -7,89 +7,155 @@ import {
   Tag,
   Divider,
   Modal,
-  Collapse,
-  Row,
+  Radio,
+  Row, Tooltip,
   Col,
-  Switch
+  message,
 } from "antd";
+import BackendService from "./../../../components/BackendService";
 import { Link } from "react-router-dom";
 import * as _ from "lodash";
 
 class AssetList extends React.Component {
+  assetsApi = new BackendService(`assets`);
+
   constructor(props) {
     super(props);
 
     this.state = {
       nodes: props.nodes,
       showModal: false,
+      questions: null,
+      answeredEntries: 0,
+      totalEntries: 1,
       currentRecord: {}
     };
   }
 
-  handleModalChange = record => {
+  componentDidMount() {
+    fetch("dfdQuestionaire.json")
+      .then(r => r.json())
+      .then(r => {
+        this.setState({ questions: r });
+      });
+  }
+
+  showDfdQuestionaire = record => {
+    console.log('showQue', record)
     this.setState({ showModal: !this.state.showModal });
     if (!_.isUndefined(record)) {
-      this.setState({ currentRecord: record });
+      this.setState({ currentRecord: record }, () => {
+        this.updateQuestionaireList();
+      });
     }
   };
 
-  saveProfile = (type, name) => value => {
-    const index = _.findIndex(
-      this.state.nodes,
-      n => n.id === this.state.currentRecord.id
-    );
-    console.log(this.state.nodes, index, type, name, value);
+  updateQuestionaire = (id, value) => {
+    console.log('update', id, value)
+    var questions = this.state.questions;
+    questions[this.getCurrentDataType()].filter(x => x.Id == id)[0].value = value.target.value;
+    this.setState({ questions }, () => this.updateQuestionaireList());
+  }
 
-    if (index === -1) {
-      return;
-    }
+  updateQuestionaireList = () => {
+    var dfdAnswers = JSON.parse(this.state.currentRecord.payload || "{}")["DfdQuestionaire"]
+    console.log(`answers`, dfdAnswers)
 
-    if (_.isUndefined(this.state.nodes[index].profile)) {
-      console.log("not found");
-      const newProfile = {};
-      newProfile[name] = value;
-
-      const newNode = {
-        ...this.state.nodes[index],
-        ...{
-          profile: newProfile,
-          profileType: type
+    var questions = this.state.questions;
+    questions[this.getCurrentDataType()].forEach(entry => {
+      var savedEntry = dfdAnswers.filter(x => x.id == entry.Id)[0];
+      if (savedEntry == null) {
+        if (entry.isVisible === undefined) {
+          entry.isVisible = false;
+          entry.value = 'na';
         }
-      };
+        if (entry.requires != undefined) {
+          var requiredCondition = questions[this.getCurrentDataType()].filter(x => x.Id == entry.requires)[0];
+          if (requiredCondition != null && requiredCondition.value === 'yes') entry.isVisible = true;
+          else entry.isVisible = false;
+        } else
+          entry.isVisible = true;
+      } else {
+        entry.isVisible = savedEntry.isVisible;
+        entry.value = savedEntry.value;
+      }
+    })
 
-      console.log(newNode);
-      const newNodes = [...this.state.nodes];
-      newNodes[index] = newNode;
-      console.log("newNode", newNodes);
-      this.setState({ nodes: newNodes });
+    var totalEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible).length;
+    var answeredEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible && x.value !== 'na').length;
+
+    this.setState({ questions, totalEntries, answeredEntries })
+  }
+
+  saveProfile = () => {
+    this.assetsApi.put(`dfdQuestionaire`, { assetId: this.state.currentRecord.id, payload: JSON.stringify(this.state.questions[this.getCurrentDataType()].map(x => { return ({ id: x.Id, value: x.value, isVisible: x.isVisible }) })) }).then(() => {
+      message.success(`Questionaire saved!`)
+    });
+
+    // const index = _.findIndex(
+    //   this.state.nodes,
+    //   n => n.id === this.state.currentRecord.id
+    // );
+    // console.log(this.state.nodes, index, type, name, value);
+
+    // if (index === -1) {
+    //   return;
+    // }
+
+    // if (_.isUndefined(this.state.nodes[index].profile)) {
+    //   console.log("not found");
+    //   const newProfile = {};
+    //   newProfile[name] = value;
+
+    //   const newNode = {
+    //     ...this.state.nodes[index],
+    //     ...{
+    //       profile: newProfile,
+    //       profileType: type
+    //     }
+    //   };
+
+    //   console.log(newNode);
+    //   const newNodes = [...this.state.nodes];
+    //   newNodes[index] = newNode;
+    //   console.log("newNode", newNodes);
+    //   this.setState({ nodes: newNodes });
+    // } else {
+    //   console.log("found");
+    //   const newProfile = { ...this.state.nodes[index].profile };
+    //   newProfile[name] = value;
+
+    //   const newNode = {
+    //     ...this.state.nodes[index],
+    //     ...{
+    //       profile: newProfile,
+    //       profileType: type
+    //     }
+    //   };
+
+    //   console.log("update", newNode);
+    //   const newNodes = [...this.state.nodes];
+    //   newNodes[index] = newNode;
+    //   this.setState({ nodes: newNodes });
+    // }
+  };
+
+  getTag = percent => {
+    if (percent > 99) {
+      return <Tag color="green">Compliant in: {Math.round(percent)} %</Tag>;
+    } else if (percent > 70) {
+      return <Tag color="orange">Compliant in: {Math.round(percent)} %</Tag>;
     } else {
-      console.log("found");
-      const newProfile = { ...this.state.nodes[index].profile };
-      newProfile[name] = value;
-
-      const newNode = {
-        ...this.state.nodes[index],
-        ...{
-          profile: newProfile,
-          profileType: type
-        }
-      };
-
-      console.log("update", newNode);
-      const newNodes = [...this.state.nodes];
-      newNodes[index] = newNode;
-      this.setState({ nodes: newNodes });
+      return <Tag color="red">Compliant in: {Math.round(percent)} %</Tag>;
     }
   };
 
   getCurrentDataType = () => {
-    console.log("get", this.state.currentRecord);
     if (
       !_.isEmpty(this.state.currentRecord) &&
       !!this.state.currentRecord.payload
     ) {
       var color = JSON.parse(this.state.currentRecord.payload || {}).Color;
-      console.log("color", color);
       if (color === "#69C0FF") {
         return "dataFlow";
       } else if (color === "#B37FEB") {
@@ -102,58 +168,7 @@ class AssetList extends React.Component {
   };
 
   render() {
-    const questions = {
-      entity: [
-        "Entity: represents data subject? ",
-        "Entity: proxy to data subjects?",
-        "Entity: Authenticated to execute this DFD?",
-        "Entity: Untrustworthy receiver entity?",
-        "Entity (endpoint of data flow): Can data in the DFD be shared with third-parties (e.g. subcontractors?)",
-        "Entity:  Is this an external entity?",
-        "Entity: Entity can link different accounts?",
-        "Entity: requires plausible deniability?"
-      ],
-      dataFlow: [
-        "Data flow needs to authenticate messages",
-        "Deniable encryption necessary?",
-        "Data flow used for instant messaging conversations",
-        "Are logins transmitted through this data flow?",
-        "Anonymous communication not used? ",
-        "Public network connections? ",
-        "is data broadcasted?",
-        "Network traffic of data flow is logged?",
-        "Some actions lead to generate footprints in the communication channel? (e.g. Timing information, power consumption, electromagnetic leaks)",
-        "Very low data traffic in the channel (Continuous monitoring)",
-        "Covert channel used to avoid dectability?",
-        "Channel not encrypted?",
-        "Is the communication channel wireless?",
-        "message not encrypted?",
-        "Is receiver authenticated"
-      ],
-      dataStore: [
-        "Data store: includes login data, like an identity management database does?",
-        "Deniable encryption necessary?",
-        "Data store: contains privacy policies / consent?",
-        "Data stored for purposes such as change tracking, etc.?",
-        "Data stored requires protection",
-        "Does code rely on a name, such as a file name, to determine access?",
-        "data store access is not monitored",
-        "does overcapacity result in discarding data?",
-        "does overcapacity result in overwriting previous data?",
-        "is this data store accessed by processes that may be using different control access policies (e.g : a file to which users are not granted access in the filesystem, but they can access through using OneDrive)",
-        "Is data encrypted?"
-      ],
-      process: [
-        "Process activity is logged",
-        "process accepts data input",
-        "does this process useoutput systems such as screen or audio? (e.g. Showing confidential information on the screen while sharing)",
-        "aspects of behavior such as a disk filling up or being slow can reveal information? (or timing, filesystem effects, power draw, emissions (sound, other radiation), etc)",
-        "process places sensitive data in memory",
-        "are process callers filtered out by domain?",
-        "call chain checked?",
-        "are credentials required to execute this process"
-      ]
-    };
+
     const columns = [
       {
         title: this.props.t("Assets.table.component"),
@@ -168,12 +183,15 @@ class AssetList extends React.Component {
           <span>
             <Tag>
               Profile:{" "}
-              {_.round(
-                (_.keys(this.state.nodes[index].profile).length /
-                  questions[this.state.nodes[index].profileType || "entity"]
-                    .length) *
-                  100
-              ) + "%" || 0 + "%"}
+              {this.state.questions != null &&
+                (<span>
+                  {_.round(
+                    (_.keys(this.state.nodes[index].profile).length /
+                      this.state.questions[this.state.nodes[index].profileType || "entity"]
+                        .length) *
+                    100
+                  ) + "%" || 0 + "%"}
+                </span>)}
             </Tag>
             <Divider type="vertical" />
             <AnalysisStatus
@@ -207,7 +225,7 @@ class AssetList extends React.Component {
             <Button
               type="primary"
               icon="question"
-              onClick={() => this.handleModalChange(record)}
+              onClick={() => this.showDfdQuestionaire(record)}
             >
               DFD Questionaire
             </Button>
@@ -222,32 +240,29 @@ class AssetList extends React.Component {
           dataSource={this.state.nodes.map(node => ({ ...node, key: node.id }))}
         />
         <Modal
+          title={<span>{this.getCurrentDataType()} {this.getTag((this.state.answeredEntries / this.state.totalEntries) * 100)}</span>}
           visible={this.state.showModal}
-          onCancel={this.handleModalChange}
-          footer={null}
+          onCancel={this.showDfdQuestionaire}
+          footer={<Button type="primary" onClick={() => this.saveProfile()}>Save</Button>}
           width="75%"
         >
-          <Collapse
-            accordion
-            style={{ marginTop: 20 }}
-            activeKey={this.getCurrentDataType()}
-          >
-            {Object.keys(questions).map(key => (
-              <Collapse.Panel
-                header={_.capitalize(key.replace(/([a-z](?=[A-Z]))/g, "$1 "))}
-                key={key}
-              >
-                {questions[key].map(question => (
-                  <Row style={{ padding: 10 }} key={question}>
-                    <Col span={22}>{question}</Col>
-                    <Col span={2}>
-                      <Switch onChange={this.saveProfile(key, question)} />
-                    </Col>
-                  </Row>
-                ))}
-              </Collapse.Panel>
+          {(this.state.questions != null) && (
+            this.state.questions[this.getCurrentDataType()].map(question => (
+              <Row style={{ padding: 10 }} key={question.Id}>
+                <Col span={16}>
+                  <Tooltip placement="top" title={question.description}>{question.title}</Tooltip>
+                </Col>
+                <Col span={8}>
+                  <Radio.Group style={{ float: 'right' }} disabled={!(this.state.questions[this.getCurrentDataType()].filter(x => x.Id == question.Id)[0].isVisible)}
+                    onChange={(e) => this.updateQuestionaire(question.Id, e)} defaultValue="na" value={this.state.questions[this.getCurrentDataType()].filter(x => x.Id == question.Id)[0].value} buttonStyle="solid">
+                    <Radio.Button value="na">No answer</Radio.Button>
+                    <Radio.Button value="yes">Yes</Radio.Button>
+                    <Radio.Button value="no">No</Radio.Button>
+                  </Radio.Group>
+                </Col>
+              </Row>
+            )
             ))}
-          </Collapse>
         </Modal>
       </div>
     );

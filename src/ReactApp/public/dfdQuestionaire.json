@@ -1,0 +1,309 @@
+{
+    "entity": [
+        {
+            "Id": "DFD-i_e1",
+            "title": "Does this entity represent a data subject?",
+            "description": "Does this entity directly represent a data subject in our application?"
+        },
+        {
+            "Id": "DFD-i_e2",
+            "title": "Can this entity be a proxy to data subjects?",
+            "description": "E.g.: a vehicle is a proxy of a data subject (passenger, driver, etc), energy consumption may also be a proxy of the presence of a data subject."
+        },
+        {
+            "Id": "DFD-i_e3",
+            "title": "Does this entity need to be authenticated to execute this DFD?",
+            "description": "Is there any activity in the DFD (process execution, access to a certain data store, etc) that requires the entity to be authenticated?",
+            "requires": "DFD-s_e2"
+        },
+        {
+            "Id": "DFD-i_e4",
+            "title": "Are credentials of this entity shared with any potentially untrustworthy receiver entity?",
+            "description": "When the receiver of the credentials is untrustworthy (e.g. it fails to anonymize the data during processing or shares the information with other parties), the subject, and all the data he has communicated, become identifiable. Note that this receiver can be the service the subject is directly communicating with, but also additional (third party) services that are used by the intended receiver of which the subject might be unaware.",
+            "requires": "DFD-s_e2"
+        },
+        {
+            "Id": "DFD-i_e5",
+            "title": "Could this entity be or become untrustworthy (now or in the future)?",
+            "description": "This entity may not be trustworthy. Can this entity share data with third-parties (e.g. subcontractors?). We may be referring to this entity directly, or we can be referring to a \"future\" entity receiving data when this entity communicates the data to other parties (e.g. when the accounting is being outsourced to a third party). In another scenario, this entity may represent a user, and this one may not be careful when storing her credentials (e.g. writing username and password on a paper near the computer, failing to install security measures which allow keyloggers or other kinds of eavesdropping, etc.), the identifiable login can be easily intercepted and hence the entity becomes identifiable."
+        },
+        {
+            "Id": "DFD-I_e1",
+            "title": "Can this entity link different accounts?",
+            "description": "e.g.: google or microsoft allows users to have multiple accounts (multiple e-mails) connected to the same user",
+            "requires": "DFD-s_e2"
+        },
+        {
+            "Id": "DFD-nr_e1",
+            "title": "Does this entity require to be able to repudiate (plausible deniability) any activity in this DFD?",
+            "description": "Do we need to prepare the system to guarantee plausible deniability to this entity for the activity in this DFD? Plausible deniability is a strong requirement that may be necessary in some systems such as whistleblowing systems. The consequences of not guaranteeing plausible deniability is accountability: when a person is not able to repudiate an action or piece of information, she can be held accountable. (e.g. a whistleblower can be prosecuted). Plausible deniability is opporsite to non-repudiation. Note that this threat is actually a security goal, as for certain systems (e.g. systems where payments are involved) non-repudiation is an important asset. In general, this should never result in a conflict, as systems that require non-repudiation as a security goal, will not need plausible deniability for the same data/ subsystem."
+        },
+        {
+            "Id": "DFD-s_e2",
+            "title": "Does the entity needs to authenticate to access the system?",
+            "description": "Mark this one as true when at least some actions require the entity to authenticate against the system."
+        },
+        {
+            "Id": "DFD-s_e3",
+            "title": "Does authentication of this entity rely on a third-party system?",
+            "description": "The system you authenticate against may trust another third-party system.",
+            "requires": "DFD-s_e2"
+        },
+        {
+            "Id": "DFD-s_e4",
+            "title": "Does this entity provide an authentication system?",
+            "description": "For instance, an entity may represent an external authentication service."
+        },
+        {
+            "Id": "DFD-Q_e1",
+            "title": "List of data stores where account info of this entity is stored",
+            "description": "Please, name the data stores where the account information of this entity is stored if any. If these stores do not exist in your list of assets, create them first.",
+            "requires": "DFD-s_e2"
+        }
+    ],
+    "dataFlow": [
+        {
+            "Id": "DFD-nr_df1",
+            "title": "Do messages in this data flow need to be authenticated?",
+            "description": ""
+        },
+        {
+            "Id": "DFD-nr_df2",
+            "title": "Is deniable encryption necessary in this data flow?",
+            "description": "Important if any data subject owning the data sent through the data flow requires plausible deniability."
+        },
+        {
+            "Id": "DFD-nr_df3",
+            "title": "Data flow used for instant messaging conversations",
+            "description": "Only important if any entity of the data flow requires plausible deniability",
+            "requires": "DFD-nr_e1"
+        },
+        {
+            "Id": "DFD-nr_df4",
+            "title": "Is login information transmitted through this data flow?",
+            "description": "Are credentials or any other login information transmitted through this data flow in this DFD?"
+        },
+        {
+            "Id": "DFD-i_df1",
+            "title": "Is anonymous communication used?",
+            "description": "An anonymous P2P communication system is a peer-to-peer distributed application in which the nodes, which are used to share resources, or participants are anonymous or pseudonymous. Anonymity of participants is usually achieved by special routing overlay networks that hide the physical location of each node from other participants. You may find a survey of anonymous communication channels in [1]. [1] https://www.microsoft.com/en-us/research/publication/a-survey-of-anonymous-communication-channels/"
+        },
+        {
+            "Id": "DFD-i_df2",
+            "title": "Is this data flow implemented over a public network connection?",
+            "description": ""
+        },
+        {
+            "Id": "DFD-nr_df5",
+            "title": "Is the network traffic of this data flow logged?",
+            "description": "Are you monitoring and keeping logs about the activity in the network?"
+        },
+        {
+            "Id": "DFD-d_df2",
+            "title": "Is data traffic in this channel usually low?",
+            "description": "What is the traffic volume in the communication channel used by this data flow? Is it low?"
+        },
+        {
+            "Id": "DFD-d_df3",
+            "title": "Covert channel used to avoid detectability?",
+            "description": "From a security perspective, a covert channel is a type of attack that creates a capability to transfer information objects between processes that are not supposed to be allowed to communicate by the computer security policy."
+        },
+        {
+            "Id": "DFD-id_df4",
+            "title": "Is the channel(s) used by this data flow encrypted?",
+            "description": "Is the channel or are the different channels used to implement this data flow in this DFD encrypted?"
+        },
+        {
+            "Id": "DFD-d_df5",
+            "title": "Is the communication channel wireless?",
+            "description": "Certain vulnerabilities may only be relevant if the communication channel is wireless"
+        },
+        {
+            "Id": "DFD-id_df1",
+            "title": "Are messages sent through this data flow encrypted?",
+            "description": ""
+        },
+        {
+            "Id": "DFD-d_df6",
+            "title": "Is steganography used in this data flow to hide information?",
+            "description": "Steganography is the art of passing information in a manner that the very existence of the message is unknown. The goal of steganography is to avoid drawing suspicion to the transmission of a hidden message. If suspicion is raised, then this goal is defeated. Steganalysis is the art of discovering and rendering useless such covert messages. If channel is not encrypted, low entropy of unencrypted data facilitates steganography attacks."
+        },
+        {
+            "Id": "DFD-ds_df1",
+            "title": "Does the data flow consume or feed a resource provided by the application?",
+            "description": "For example, available connections of a server, limited-memory data structures, etc."
+        },
+        {
+            "Id": "DFD-t_df1",
+            "title": "Do data transmitted in the data flow contain personal data?",
+            "description": "Personal data is any information that relates to an identified or identifiable living individual. Different pieces of information, which collected together can lead to the identification of a particular person, also constitute personal data. \r\nPersonal data that has been de-identified, encrypted or pseudonymised but can be used to re-identify a person remains personal data and falls within the scope of the GDPR.\r\nPersonal data that has been rendered anonymous in such a way that the individual is not or no longer identifiable is no longer considered personal data. For data to be truly anonymised, the anonymisation must be irreversible."
+        },
+        {
+            "Id": "DFD-t_df2",
+            "title": "Public Key Infrastructure used to protect communication",
+            "description": "A public key infrastructure (PKI) is a set of roles, policies, hardware, software and procedures needed to create, manage, distribute, use, store and revoke digital certificates and manage public-key encryption.",
+            "requires": "DFD-id_df4||DFD-id_df1"
+        }
+    ],
+    "dataStore": [
+        {
+            "Id": "DFD-i_ds1",
+            "title": "Does this data store include login data (e.g. an identity management database)?",
+            "description": ""
+        },
+        {
+            "Id": "DFD-i_ds2",
+            "title": "Is it possible to link this data store to another one that includes login data, like an identity management database?",
+            "description": "For instance, in a relational database management system, is it possible to establish a link between a table and another table containing login information?"
+        },
+        {
+            "Id": "DFD-nc_ds1",
+            "title": "Does this data store contain privacy policies / consent?",
+            "description": ""
+        },
+        {
+            "Id": "DFD-t_ds1",
+            "title": "Are there any protection mechanisms to protect this data store?",
+            "description": "Are you aware of any protection mechanism of any sort implemented to protect the data store?"
+        },
+        {
+            "Id": "DFD-t_ds3",
+            "title": "Is data store access is monitored?",
+            "description": "Are you using a monitoring system to monitor the access to this data store?"
+        }, 
+        {
+            "Id": "DFD-t_ds4",
+            "title": "Does overcapacity result in discarding data?",
+            "description": "New data is not recorded if the data store is full?"
+        },
+        {
+            "Id": "DFD-t_ds5",
+            "title": "Does overcapacity result in overwriting previous data?",
+            "description": "Oldest data is deleted to make room?"
+        },
+        {
+            "Id": "DFD-id_ds2",
+            "title": "Is this data store accessed by processes that may be using different control access policies?",
+            "description": "e.g : a file to which users are not granted access in the filesystem, but they can access through using OneDrive."
+        },
+        {
+            "Id": "DFD-id_ds3",
+            "title": "Is data encrypted?",
+            "description": "Is data from this data store used in this DFD encrypted?", 
+            "requires": "DFD-t_ds1"
+        },
+        {
+            "Id": "DFD-L_ds3",
+            "title": "Data retention is not defined",
+            "description": "This one is crossing the limit with compliance"
+        },
+        {
+            "Id": "DFD-L_ds4",
+            "title": "Data retention is not synchronized with a data processing purpose (ds and process?)",
+            "description": "This one is crossing the limit with compliance"
+        },
+        {
+            "Id": "DFD-L_ds5",
+            "title": "Data stored is not synchronized with a data processing purpose (ds and process?)",
+            "description": "This one is crossing the limit with compliance"
+        },
+        {
+            "Id": "DFD-L_ds6",
+            "title": "Are there data subjects, not explicitely represented in this data store , that could be linked to entities in this data store?",
+            "description": "E.g.: if you have information of smart vehicles in your database and keep information about position and direction of the vehicle, this vehicle may be linked to passengers or drivers, even if this data is not in your system. Try to thing about data subjects that may be related to the information you keep in your system."
+        },
+        {
+            "Id": "DFD-r_ds1",
+            "title": "Does this data store contain logs?",
+            "description": "Data stores containing logs are specially interesting to understand repudiation issues."
+        },
+        {
+            "Id": "DFD-r_ds3",
+            "title": "Does this data store contain authentication logs?",
+            "description": "",
+            "requires": "DFD-r_ds1"
+        },
+        {
+            "Id": "DFD-DS_ds1",
+            "title": "Does this store support transactional access?",
+            "description": "Transactional access mechanisms may also generate some vulnerabilities in some cases."
+        },
+        {
+            "Id": "DFD-DS_ds2",
+            "title": "Does this store use or define a quota? (for access, storing, etc.)",
+            "description": "A quota can work like a fundamental resource restriction, while holding the DoS to a single application or account, rather than a system."
+        },
+        {
+            "Id": "DFD-id_ds1",
+            "title": "Is information stored in this data store for purposes such as change tracking, etc.?",
+            "description": "Data stored for purposes such as change tracking, etc. can be revealing"
+        },
+        {
+            "Id": "DFD-r_ds",
+            "title": "Is non-repudiation a requirement for this component?",
+            "description": "Is it important for users that nobody can prove the activity they have done in this data store?"
+        }
+    ],
+    "process": [
+        {
+            "Id": "DFD-nr_p1",
+            "title": "Is process activity logged?",
+            "description": "This log can be the source of non-repudiation threats."
+        }, 
+        {
+            "Id": "DFD-id_p1",
+            "title": "Does this process accepts data input?",
+            "description": "Data input validation is essential to protect against cybersecurity attacks"
+        }, 
+        {
+            "Id": "DFD-id_p2",
+            "title": "Does this process use output systems such as screen or audio?",
+            "description": "This can be the source of side-channel attacks. e.g. showing confidential information on the screen while sharing."
+        },
+        {
+            "Id": "DFD-id_p3",
+            "title": "Aspects of behavior such as a disk filling up or being slow can reveal information?",
+            "description": "Other examples may be timing, filesystem effects, power draw, emissions (sound, other radiation), etc."
+        },
+        {
+            "Id": "DFD-id_p4",
+            "title": "Does this process place sensitive data in memory?",
+            "description": "Attacks based on memory access are quite usual."
+        },
+        {
+            "Id": "DFD-t_p1",
+            "title": "Are credentials required to execute this process?",
+            "description": "Protecting process execution may avoid some potential attacks"
+        },
+        {
+            "Id": "DFD-nc_p1",
+            "title": "Are decisions taken automatically in the process?",
+            "description": "Taking automated decisions may produce issues related to GDPR."
+        },
+        {
+            "Id": "DFD-e_p1",
+            "title": "Are process callers filtered out by domain?",
+            "description": "This may be the source of cross-domain issue"
+        }, 
+        {
+            "Id": "DFD-ds_p1",
+            "title": "Does this process use any local resource?",
+            "description": "If so, the process may be vulnerable to attacks based on resource consumption. e.g. A file or connection"
+        },
+        {
+            "Id": "DFD-ds_p2",
+            "title": "Does this process require exclusive access to a resource?",
+            "description": "This can generate issues related to denial of service attacks"
+        },
+        {
+            "Id": "DFD-r_p2",
+            "title": "Does this process send or receive any message created by users?",
+            "description": "Is this process related to the submission of message that may generate issues related to repudiation?"
+        },
+        {
+            "Id": "DFD-r_p",
+            "title": "Can the execution of this process reveal important information about a data subject?",
+            "description": "Is non-repudiation a requirement for this component? Can the execution of this process reveal important information about a data subject?"
+        }
+    ]
+}

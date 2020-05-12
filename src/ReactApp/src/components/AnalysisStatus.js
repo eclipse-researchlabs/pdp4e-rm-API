@@ -18,7 +18,6 @@ const AnalysisStatus = ({title, count, t}) => {
             }
             break;
     }
-    console.log('color', count, color);
     return (
         <Tag color={color}>{`${t(`Assets.analysis.${title}.title`)}:${count}`}</Tag>
     )

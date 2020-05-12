@@ -52,9 +52,17 @@ namespace Core.Api.Controllers
         }
 
         [HttpPut("name"), ProducesResponseType(200)]
-        public async Task<IActionResult> UpdateName([FromBody] ChangeAssetNameCommand command)
+        public IActionResult UpdateName([FromBody] ChangeAssetNameCommand command)
         {
            _assetService.ChangeName(command);
+            //_auditTrailService.LogAction(AuditTrailAction.MoveAsset, command.AssetId, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
+            return Ok();
+        }
+
+        [HttpPut("dfdQuestionaire"), ProducesResponseType(200)]
+        public IActionResult UpdateDfdQuestionaire([FromBody] UpdateDfdQuestionaireCommand command)
+        {
+            _assetService.UpdateDfdQuestionaire(command);
             //_auditTrailService.LogAction(AuditTrailAction.MoveAsset, command.AssetId, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
             return Ok();
         }

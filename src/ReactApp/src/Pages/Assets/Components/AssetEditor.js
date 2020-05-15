@@ -144,6 +144,9 @@ class AssetEditor extends React.Component {
                                         size={asset.payload.Size}
                                         shape={asset.payload.Shape}
                                         model={{
+                                          isDefined: true,
+                                          assetId: asset.id,
+                                          id: asset.id,
                                           color: asset.payload.Color,
                                           label: asset.name,
                                           src: asset.payload.Src,

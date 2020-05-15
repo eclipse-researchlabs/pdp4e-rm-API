@@ -66,7 +66,7 @@ class DetailForm extends React.Component {
             break;
           case "edge":
             this.assetsApi
-              .put(`edge/name`, {
+              .put(`edges/name`, {
                 edgeId: item.model.id,
                 label: item.model.label,
                 shape: item.model.shape

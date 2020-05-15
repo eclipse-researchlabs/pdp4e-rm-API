@@ -34,18 +34,37 @@ class AssetEditorWindow extends React.Component {
       });
   }
   moveNode(id, model) {
+    if(model.x === undefined || model.y === undefined) return;
+
     this.assetsApi
       .put("position", {
+        containerId: this.props.containerId,
         assetId: id,
         x: `${model.x}`,
         y: `${model.y}`
       });
   }
+  linkNode(item, model) {
+    this.assetsApi
+      .post("link", {
+        containerId: this.props.containerId,
+        assetId: model.id,
+        x: `${model.x}`,
+        y: `${model.y}`,
+      })
+      .then(result => {
+        const { getSelected, executeCommand, update } = this.props.propsAPI;
+        const itemSelected = getSelected()[0];
+        executeCommand(() => {
+          update(itemSelected, { id: model.id });
+        });
+      });
+  }
 
-  deleteEdge(id) { this.assetsApi.delete(`edge/${id}`); }
+  deleteEdge(id) { this.assetsApi.delete(`edges/${id}`); }
   createEdge(item) {
     this.assetsApi
-      .post("edge", {
+      .post("edges", {
         containerRootId: this.props.containerId,
         Asset1Guid: item.item.dataMap[item.model.source].id,
         Asset1Anchor: item.model.sourceAnchor,
@@ -78,7 +97,11 @@ class AssetEditorWindow extends React.Component {
                   else if (e.item.type === "group") this.deleteGroup(e.item.id);
                   break;
                 case "add":
-                  if (e.item.type === "node") this.createNode(e, e.model)
+                  if (e.item.type === "node") {
+                    console.log('e', e)
+                    if (e.model.isDefined === undefined) this.createNode(e, e.model);
+                    else if (e.model.isDefined === true) this.linkNode(e, e.model);
+                  }
                   else if (e.item.type === "edge") this.createEdge(e);
                   else if (e.item.type === "group") return;
                   break;
@@ -103,6 +126,7 @@ class AssetEditorWindow extends React.Component {
                   else if (e.item.type === "group") this.deleteGroup(e.item.id);
                   break;
                 case "add":
+                  console.log('add', e)
                   if (e.item.type === "node") this.createNode(e.model)
                   else if (e.item.type === "edge") this.createEdge(e);
                   else if (e.item.type === "group") return;

@@ -73,17 +73,17 @@ class AssetEditorWindow extends React.Component {
             onAfterChange={(e) => {
               switch (e.action) {
                 case "remove":
-                  if (e.item.type == "node") this.deleteNode(e.item.id)
-                  else if (e.item.type == "edge") this.deleteEdge(e.item.id);
-                  else if (e.item.type == "group") this.deleteGroup(e.item.id);
+                  if (e.item.type === "node") this.deleteNode(e.item.id)
+                  else if (e.item.type === "edge") this.deleteEdge(e.item.id);
+                  else if (e.item.type === "group") this.deleteGroup(e.item.id);
                   break;
                 case "add":
-                  if (e.item.type == "node") this.createNode(e, e.model)
-                  else if (e.item.type == "edge") this.createEdge(e);
-                  else if (e.item.type == "group") return;
+                  if (e.item.type === "node") this.createNode(e, e.model)
+                  else if (e.item.type === "edge") this.createEdge(e);
+                  else if (e.item.type === "group") return;
                   break;
                 case "update":
-                  if (e.item.type == "node" && e.updateModel["x"] != null && e.updateModel["y"] != null) this.moveNode(e.item.model.id, e.updateModel)
+                  if (e.item.type === "node" && e.updateModel["x"] !== null && e.updateModel["y"] !== null) this.moveNode(e.item.model.id, e.updateModel)
                   break;
               }
             }}
@@ -98,17 +98,17 @@ class AssetEditorWindow extends React.Component {
             onAfterChange={(e) => {
               switch (e.action) {
                 case "remove":
-                  if (e.item.type == "node") this.deleteNode(e.item.id)
-                  else if (e.item.type == "edge") this.deleteEdge(e.item.id);
-                  else if (e.item.type == "group") this.deleteGroup(e.item.id);
+                  if (e.item.type === "node") this.deleteNode(e.item.id)
+                  else if (e.item.type === "edge") this.deleteEdge(e.item.id);
+                  else if (e.item.type === "group") this.deleteGroup(e.item.id);
                   break;
                 case "add":
-                  if (e.item.type == "node") this.createNode(e.model)
-                  else if (e.item.type == "edge") this.createEdge(e);
-                  else if (e.item.type == "group") return;
+                  if (e.item.type === "node") this.createNode(e.model)
+                  else if (e.item.type === "edge") this.createEdge(e);
+                  else if (e.item.type === "group") return;
                   break;
                 case "update":
-                  if (e.item.type == "node" && e.updateModel["x"] != null && e.updateModel["y"] != null) this.moveNode(e.item.id, e.updateModel)
+                  if (e.item.type === "node" && e.updateModel["x"] !== null && e.updateModel["y"] !== null) this.moveNode(e.item.id, e.updateModel)
                   break;
               }
             }}

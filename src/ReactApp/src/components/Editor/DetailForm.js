@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Card, Form, Input, Select, message } from "antd";
+import { Card, Form, Input, Select, message, Button } from "antd";
 import { withPropsAPI } from "gg-editor";
 import BackendService from "./../../components/BackendService";
 
@@ -152,6 +152,13 @@ class DetailForm extends React.Component {
           {type === "edge" && this.renderEdgeDetail()}
           {type === "group" && this.renderGroupDetail()}
         </Form>
+        <Button
+          type="primary"
+          icon="question"
+          onClick={() => <span></span>}
+        >
+          DFD Questionaire
+            </Button>
       </Card>
     );
   }

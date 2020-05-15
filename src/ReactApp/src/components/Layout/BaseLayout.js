@@ -6,7 +6,6 @@ import BaseLayoutStore from "./BaseLayoutStore";
 import { observer } from "mobx-react";
 import { withTranslation } from "react-i18next";
 import MainMenu from "./MainMenu";
-import UserInfo from "../UserInfo";
 
 class BaseLayout extends React.Component {
   state = {

@@ -6,7 +6,6 @@ import { Card, Tabs, Icon } from "antd";
 import "./AssetsPage.css";
 import * as _ from "lodash";
 import AssetsStore from "./AssetsStore";
-import { withPropsAPI } from "gg-editor";
 import UserInfo from "./../../components/UserInfo";
 import UploadFile from '../../components/UploadFile'
 

@@ -6,7 +6,8 @@ class KoniCustomNodeDfd extends React.Component {
     const config = {
       draw(item) {
         const keyShape = this.drawKeyShape(item);
-
+        keyShape._attrs.fillOpacity = 10;
+        
         // draw label
         this.drawLabel(item);
 
@@ -16,14 +17,15 @@ class KoniCustomNodeDfd extends React.Component {
 
         var sizes = [model.size, model.size];
         if (model.size.includes("*")) sizes = model.size.split("*");
-
+        
         group.addShape("image", {
           attrs: {
             x: -sizes[0] / 3.3,
             y: -sizes[1] / 3.3,
             width: sizes[0] * 0.6,
             height: sizes[1] * 0.6,
-            // src: model.icon
+            // color: model.color,
+            // src: model.icon,
             img: model.icon
           }
         });

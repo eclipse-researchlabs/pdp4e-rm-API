@@ -3,7 +3,7 @@ import { withTranslation } from "react-i18next";
 import {
     Button,
     Tag,
-    Modal,
+    Select,
     Radio,
     Row, Tooltip,
     Col,
@@ -31,17 +31,22 @@ class DfdQuestionaire extends React.Component {
         fetch("dfdQuestionaire.json")
             .then(r => r.json())
             .then(r => {
-                this.setState({ questions: r });
-                this.updateQuestionaireList();
+                this.setState({ questions: r }, () => {
+                    this.initializeList();
+                });
             });
+
     }
     updateQuestionaire = (id, value) => {
         var questions = this.state.questions;
         questions[this.getCurrentDataType()].filter(x => x.Id === id)[0].value = value.target.value;
-        this.setState({ questions });
+        questions[this.getCurrentDataType()].filter(x => x.Id === id)[0].wasModified = true;
+        this.setState({ questions }, () => {
+            this.updateList();
+        });
     }
 
-    updateQuestionaireList = () => {
+    initializeList = () => {
         var payload = JSON.parse(this.props.currentRecord.payload || "{}");
         if (payload === null) payload = {};
         var dfdAnswers = payload["DfdQuestionaire"]
@@ -50,19 +55,27 @@ class DfdQuestionaire extends React.Component {
 
         var questions = this.state.questions;
         questions[this.getCurrentDataType()].forEach(entry => {
-            var savedEntry = (dfdAnswers || []).filter(x => x.id === entry.Id)[0];
-            if (savedEntry === null || savedEntry === undefined) {
-                if (entry.isVisible === undefined) {
-                    entry.isVisible = false;
-                    entry.value = 'na';
+            if (entry.type === undefined) entry.type = "boolean";
+            if (entry.isVisible === undefined) entry.isVisible = false;
+            if (entry.type === "list") {
+                entry.possibleValues = [];
+                switch (entry.source) {
+                    case "dataStores": entry.possibleValues = this.props.nodes.filter(x => this.getDataType(x.payload) === "dataStore").map(x => { return { key: x.id, value: x.name } });
                 }
-                if (entry.requires !== undefined) {
-                    var requiredCondition = questions[this.getCurrentDataType()].filter(x => x.Id === entry.requires)[0];
-                    if (requiredCondition !== null && requiredCondition.value === 'yes') entry.isVisible = true;
-                    else entry.isVisible = false;
-                } else
-                    entry.isVisible = true;
-            } else {
+            }
+            if (entry.value === undefined) {
+                if (entry.type === "list") entry.value = [];
+                else entry.value = "na";
+            }
+
+            var savedEntry = (dfdAnswers || []).filter(x => x.id === entry.Id)[0];
+            if (entry.requires !== undefined) {
+                var requiredCondition = questions[this.getCurrentDataType()].filter(x => x.Id === entry.requires)[0];
+                if (requiredCondition !== null && requiredCondition.value === 'yes') entry.isVisible = true;
+                else entry.isVisible = false;
+            } else
+                entry.isVisible = true;
+            if (savedEntry) {
                 entry.isVisible = savedEntry.isVisible;
                 entry.value = savedEntry.value;
             }
@@ -70,6 +83,25 @@ class DfdQuestionaire extends React.Component {
 
         var totalEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible).length;
         var answeredEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible && x.value !== 'na').length;
+
+        this.setState({ questions, totalEntries, answeredEntries })
+    }
+
+    updateList = () => {
+        if (this.state.questions === null || this.state.questions[this.getCurrentDataType()] === undefined) return;
+
+        var questions = this.state.questions;
+        questions[this.getCurrentDataType()].forEach(entry => {
+            if (entry.requires !== undefined) {
+                var requiredCondition = questions[this.getCurrentDataType()].filter(x => x.Id === entry.requires)[0];
+                if (requiredCondition !== null && requiredCondition.value === 'yes') entry.isVisible = true;
+                else entry.isVisible = false;
+            } else
+                entry.isVisible = true;
+        })
+
+        var totalEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible).length;
+        var answeredEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible && (x.value !== 'na' || x.value.length > 0)).length;
 
         this.setState({ questions, totalEntries, answeredEntries })
     }
@@ -102,20 +134,24 @@ class DfdQuestionaire extends React.Component {
             !_.isEmpty(this.props.currentRecord) &&
             !!this.props.currentRecord.payload
         ) {
-            var payload = JSON.parse(this.props.currentRecord.payload || { Color: '' });
-            if (payload != null) {
-                var color = payload.Color || "";
-                if (color === "#69C0FF") {
-                    return "entity";
-                } else if (color === "#B37FEB") {
-                    return "process";
-                } else if (color === "#5CDBD3") {
-                    return "dataStore";
-                }
-            }
+            return this.getDataType(this.props.currentRecord.payload)
         }
         return null;
     };
+
+    getDataType = (payload) => {
+        payload = JSON.parse(payload || `{ "Color": "" }`);
+        if (payload != null) {
+            var color = payload.Color || "";
+            if (color === "#69C0FF") {
+                return "entity";
+            } else if (color === "#B37FEB") {
+                return "process";
+            } else if (color === "#5CDBD3") {
+                return "dataStore";
+            }
+        }
+    }
 
     render() {
         if (this.state.questions === null || this.state.questions[this.getCurrentDataType()] === undefined) return (<span></span>);
@@ -125,21 +161,38 @@ class DfdQuestionaire extends React.Component {
                 {(this.state.questions != null) && (
                     <span>
                         <div><span>{this.getCurrentDataType()} {this.getTag((this.state.answeredEntries / this.state.totalEntries) * 100)}</span></div>
-                        {this.state.questions[this.getCurrentDataType()].map(question => (
-                            <Row style={{ padding: 10 }} key={question.Id}>
-                                <Col span={16}>
-                                    <Tooltip placement="top" title={question.description}>{question.title}</Tooltip>
-                                </Col>
-                                <Col span={8}>
-                                    <Radio.Group style={{ float: 'right' }} disabled={!(this.state.questions[this.getCurrentDataType()].filter(x => x.Id === question.Id)[0].isVisible)}
-                                        onChange={(e) => this.updateQuestionaire(question.Id, e)} defaultValue="na" value={this.state.questions[this.getCurrentDataType()].filter(x => x.Id === question.Id)[0].value} buttonStyle="solid">
-                                        <Radio.Button value="na">No answer</Radio.Button>
-                                        <Radio.Button value="yes">Yes</Radio.Button>
-                                        <Radio.Button value="no">No</Radio.Button>
-                                    </Radio.Group>
-                                </Col>
-                            </Row>
-                        )
+                        {this.state.questions[this.getCurrentDataType()].map(question => {
+                            return (
+                                <Row style={{ padding: 10 }} key={question.Id}>
+                                    <Col span={16}>
+                                        <Tooltip placement="top" title={question.description}>{question.title}</Tooltip>
+                                    </Col>
+                                    <Col span={8}>
+                                        {(question.type === "boolean") && (
+                                            <Radio.Group style={{ float: 'right' }} disabled={!question.isVisible}
+                                                onChange={(e) => this.updateQuestionaire(question.Id, e)} defaultValue="na" value={question.value} buttonStyle="solid">
+                                                <Radio.Button value="na">No answer</Radio.Button>
+                                                <Radio.Button value="yes">Yes</Radio.Button>
+                                                <Radio.Button value="no">No</Radio.Button>
+                                            </Radio.Group>
+                                        )}
+                                        {(question.type === "list") && (
+                                            <Select
+                                                style={{ width: 100 + '%' }}
+                                                showSearch mode="multiple"
+                                                optionFilterProp="children"
+                                                disabled={!question.isVisible}
+                                                value={question.value}
+                                                onChange={(e) => this.updateQuestionaire(question.Id, { target: { value: e } })}
+                                                filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                                            >
+                                                {(question.possibleValues || []).map(x => <Select.Option value={x.key}>{x.value}</Select.Option>)}
+                                            </Select>
+                                        )}
+                                    </Col>
+                                </Row>
+                            )
+                        }
                         )}
                         <Row>
                             <Col span={20}></Col>

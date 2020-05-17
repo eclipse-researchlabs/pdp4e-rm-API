@@ -84,11 +84,11 @@ class AssetList extends React.Component {
               type="primary"
               icon="question"
               onClick={() => {
-                const modal = Modal.info(); 
+                const modal = Modal.info();
                 modal.update({
-                  content: <DfdQuestionaire currentRecord={record}></DfdQuestionaire>,
+                  content: <DfdQuestionaire currentRecord={record} nodes={this.state.nodes}></DfdQuestionaire>,
                   width: '80%',
-                  okText: "Close", 
+                  okText: "Close",
                   // onOk: this.
                 })
               }}

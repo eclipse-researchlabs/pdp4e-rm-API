@@ -101,7 +101,7 @@ class DfdQuestionaire extends React.Component {
         })
 
         var totalEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible).length;
-        var answeredEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible && (x.value !== 'na' || x.value.length > 0)).length;
+        var answeredEntries = questions[this.getCurrentDataType()].filter(x => x.isVisible && (x.value !== 'na' && x.value.length > 0)).length;
 
         this.setState({ questions, totalEntries, answeredEntries })
     }

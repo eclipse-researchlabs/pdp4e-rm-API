@@ -8,7 +8,7 @@ import {
   Divider, Modal
 } from "antd";
 import BackendService from "./../../../components/BackendService";
-import DfdQuestionaire from './../../../components/DfdQuestionaire'
+import DfdQuestionaire from './DfdQuestionaire'
 import { Link } from "react-router-dom";
 import * as _ from "lodash";
 

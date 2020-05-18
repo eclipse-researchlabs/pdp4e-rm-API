@@ -100,7 +100,8 @@ class AssetsPage extends React.Component {
       id: node.id,
       index: index + 1,
       parent: node.group,
-      labelOffsetY: payload.LabelOffsetY
+      labelOffsetY: payload.LabelOffsetY, 
+      payload: payload
     };
   }
 

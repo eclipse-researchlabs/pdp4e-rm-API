@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
-import { Card, Form, Input, Select, message, Button } from "antd";
+import { Card, Form, Input, Select, message, Button, Modal } from "antd";
+import DfdQuestionaire from './../../Pages/Assets/Components/DfdQuestionaire'
 import { withPropsAPI } from "gg-editor";
 import BackendService from "./../../components/BackendService";
 
@@ -155,7 +156,14 @@ class DetailForm extends React.Component {
         <Button
           type="primary"
           icon="question"
-          onClick={() => <span></span>}
+          onClick={() => {
+            const modal = Modal.info();
+            modal.update({
+              content: <DfdQuestionaire currentRecord={{ id: this.item.id, payload: (this.item.model.payload || undefined) }} nodes={this.props.nodes.nodes}></DfdQuestionaire>,
+              width: '80%',
+              okText: "Close",
+            })
+          }}
         >
           DFD Questionaire
             </Button>

@@ -9,7 +9,7 @@ import {
     Col,
     message,
 } from "antd";
-import BackendService from "./BackendService";
+import BackendService from "../../../components/BackendService";
 import * as _ from "lodash";
 
 class DfdQuestionaire extends React.Component {
@@ -28,6 +28,7 @@ class DfdQuestionaire extends React.Component {
     }
 
     componentDidMount() {
+        console.log('nodes', this.state.nodes, this.props.nodes)
         fetch("dfdQuestionaire.json")
             .then(r => r.json())
             .then(r => {
@@ -47,7 +48,8 @@ class DfdQuestionaire extends React.Component {
     }
 
     initializeList = () => {
-        var payload = JSON.parse(this.props.currentRecord.payload || "{}");
+        var payload = this.props.currentRecord.payload;
+        if (typeof payload === 'string' || payload instanceof String) payload = JSON.parse(this.props.currentRecord.payload || "{}");
         if (payload === null) payload = {};
         var dfdAnswers = payload["DfdQuestionaire"]
 
@@ -140,7 +142,7 @@ class DfdQuestionaire extends React.Component {
     };
 
     getDataType = (payload) => {
-        payload = JSON.parse(payload || `{ "Color": "" }`);
+        if (typeof payload === 'string' || payload instanceof String) payload = JSON.parse(payload || `{ "Color": "" }`);
         if (payload != null) {
             var color = payload.Color || "";
             if (color === "#69C0FF") {

@@ -4,11 +4,12 @@ import { NodePanel, EdgePanel, GroupPanel, MultiPanel, CanvasPanel, DetailPanel 
 import DetailForm from "./DetailForm";
 import "./FlowDetailPanel.css";
 
-const FlowDetailPanel = () => {
+const FlowDetailPanel = (nodes) => {
+  console.log('nodes,', nodes)
   return (
     <DetailPanel className="detailPanel">
       <NodePanel>
-        <DetailForm type="node" />
+        <DetailForm nodes={nodes} type="node" />
       </NodePanel>
       <EdgePanel>
         <DetailForm type="edge" />

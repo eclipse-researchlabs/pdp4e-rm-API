@@ -21,15 +21,8 @@ namespace Core.Api.Controllers.Assets
     [Route("api/assets"), ApiController, EnableCors("CorsRules")]
     public class AssetsController : Components.Controllers.Assets.AssetsController
     {
-        private IAssetService _assetService;
-        private IRelationshipService _relationshipService;
-        private IAuditTrailService _auditTrailService;
-
         public AssetsController(IAssetService assetService, IRelationshipService relationshipService, IAuditTrailService auditTrailService) : base(assetService, relationshipService, auditTrailService)
         {
-            _assetService = assetService;
-            _relationshipService = relationshipService;
-            _auditTrailService = auditTrailService;
         }
 
         [HttpPost, ProducesResponseType(201)]
@@ -50,6 +43,6 @@ namespace Core.Api.Controllers.Assets
         public new IActionResult UpdateDfdQuestionaire([FromBody] UpdateDfdQuestionaireCommand command) => Ok(base.UpdateDfdQuestionaire(command));
 
         [HttpDelete("{ids}"), ProducesResponseType(201)]
-        public IActionResult DeleteAsset(string ids) => Ok(base.DeleteAsset(ids));
+        public new IActionResult DeleteAsset(string ids) => Ok(base.DeleteAsset(ids));
     }
 }

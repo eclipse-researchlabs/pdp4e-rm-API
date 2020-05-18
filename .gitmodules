@@ -21,3 +21,6 @@
 	url = git@gitlab.com:beawre/core/containers.git
 	
 	
+[submodule "modules/api.components"]
+	path = modules/api.components
+	url = git@gitlab.com:beawre/core/api.components.git

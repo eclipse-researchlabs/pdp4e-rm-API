@@ -127,11 +127,9 @@ class ContainersPage extends React.Component {
                   </Button>
                 ),
                 dataIndex: "action",
-                ellipsis: true,
-                fixed: "right",
                 key: "action",
                 render: (text, record, index) => (
-                  <div>
+                  <div style={{ float: 'right' }}>
                     <Link to={`/assets/${record.id}`}>
                       <Button type="primary" icon="arrow-right">
                         Open assets

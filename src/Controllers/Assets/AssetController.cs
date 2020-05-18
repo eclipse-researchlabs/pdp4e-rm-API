@@ -19,13 +19,13 @@ using System.Threading.Tasks;
 namespace Core.Api.Controllers.Assets
 {
     [Route("api/assets"), ApiController, EnableCors("CorsRules")]
-    public class AssetsController : ControllerBase
+    public class AssetsController : Components.Controllers.Assets.AssetsController
     {
         private IAssetService _assetService;
         private IRelationshipService _relationshipService;
         private IAuditTrailService _auditTrailService;
 
-        public AssetsController(IAssetService assetService, IRelationshipService relationshipService, IAuditTrailService auditTrailService)
+        public AssetsController(IAssetService assetService, IRelationshipService relationshipService, IAuditTrailService auditTrailService) : base(assetService, relationshipService, auditTrailService)
         {
             _assetService = assetService;
             _relationshipService = relationshipService;
@@ -33,68 +33,23 @@ namespace Core.Api.Controllers.Assets
         }
 
         [HttpPost, ProducesResponseType(201)]
-        public async Task<IActionResult> Create([FromBody] CreateAssetCommand command)
-        {
-            var newValue = await _assetService.Create(command);
-            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand()
-            {
-                FromType = ObjectType.Container,
-                FromId = command.ContainerRootId.Value,
-                ToType = ObjectType.Asset,
-                ToId = newValue.Id,
-                Payload = JsonConvert.SerializeObject(new AssetPayloadModel() { X = command.PayloadData.X, Y = command.PayloadData.Y })
-            });
-            _auditTrailService.LogAction(AuditTrailAction.CreateAsset, newValue.Id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
-            return Ok(newValue);    
-        }
+        public new IActionResult Create([FromBody] CreateAssetCommand command) => Ok(base.Create(command));
 
         [HttpPost("link"), ProducesResponseType(201)]
-        public IActionResult LinkAssetToContainer([FromBody] LinkAssetToContainerCommand command)
-        {
-            _relationshipService.Create(new CreateRelationshipCommand()
-            {
-                FromType = ObjectType.Container,
-                FromId = command.ContainerId,
-                ToType = ObjectType.Asset,
-                ToId = command.AssetId,
-                Payload = JsonConvert.SerializeObject(new AssetPayloadModel() { X = command.X, Y = command.Y })
-            });
-            return Ok();
-        }
+        public new IActionResult LinkAssetToContainer([FromBody] LinkAssetToContainerCommand command) =>
+            Ok(base.LinkAssetToContainer(command));
 
         [HttpPut("position"), ProducesResponseType(200)]
-        public async Task<IActionResult> MovePosition([FromBody] UpdateAssetPositionCommand command)
-        {
-            var newValue = await _assetService.MovePosition(command);
-            _auditTrailService.LogAction(AuditTrailAction.MoveAsset, command.AssetId, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
-            return Ok(newValue);
-        }
+        public new IActionResult MovePosition([FromBody] UpdateAssetPositionCommand command) =>
+            Ok(base.MovePosition(command));
 
         [HttpPut("name"), ProducesResponseType(200)]
-        public IActionResult UpdateName([FromBody] ChangeAssetNameCommand command)
-        {
-            _assetService.ChangeName(command);
-            //_auditTrailService.LogAction(AuditTrailAction.MoveAsset, command.AssetId, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
-            return Ok();
-        }
+        public new IActionResult UpdateName([FromBody] ChangeAssetNameCommand command) => Ok(base.UpdateName(command));
 
         [HttpPut("dfdQuestionaire"), ProducesResponseType(200)]
-        public IActionResult UpdateDfdQuestionaire([FromBody] UpdateDfdQuestionaireCommand command)
-        {
-            _assetService.UpdateDfdQuestionaire(command);
-            //_auditTrailService.LogAction(AuditTrailAction.MoveAsset, command.AssetId, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
-            return Ok();
-        }
+        public new IActionResult UpdateDfdQuestionaire([FromBody] UpdateDfdQuestionaireCommand command) => Ok(base.UpdateDfdQuestionaire(command));
 
         [HttpDelete("{ids}"), ProducesResponseType(201)]
-        public IActionResult DeleteAsset(string ids)
-        {
-            foreach (var id in ids.Split(',').ToList().ConvertAll(Guid.Parse))
-            {
-                _assetService.Delete(id);
-                //_auditTrailService.LogAction(AuditTrailAction.RemoveAssetGroup, id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(id) });
-            }
-            return Ok();
-        }
+        public IActionResult DeleteAsset(string ids) => Ok(base.DeleteAsset(ids));
     }
 }

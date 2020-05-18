@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.Api.Components\Core.Api.Components.csproj" />
     <ProjectReference Include="..\modules\Core.Assets\src\Core.Assets.csproj" />
     <ProjectReference Include="..\modules\Core.AuditTrail\src\Core.AuditTrail.csproj" />
     <ProjectReference Include="..\modules\Core.Containers\Core.Containers.csproj" />

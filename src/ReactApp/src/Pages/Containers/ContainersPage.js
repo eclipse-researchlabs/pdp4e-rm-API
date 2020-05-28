@@ -122,29 +122,30 @@ class ContainersPage extends React.Component {
               },
               {
                 title: (
-                  <Button icon="plus" onClick={this.toggleModal} type="primary">
-                    New Project
+                      <Button icon="plus" onClick={this.toggleModal} type="primary" style={{float: "right"}}>
+                        New Project
                   </Button>
                 ),
                 dataIndex: "action",
                 key: "action",
                 render: (text, record, index) => (
-                  <div style={{ float: 'right' }}>
-                    <Link to={`/assets/${record.id}`}>
-                      <Button type="primary" icon="arrow-right">
-                        Open assets
+                  <div>
+                    <div style={{ float: "right" }}>
+                      <Link to={`/assets/${record.id}`}>
+                        <Button type="primary" icon="arrow-right">
+                          Open assets
                       </Button>
-                    </Link>
-                    <Popconfirm
-                      title="Delete this project?"
-                      onConfirm={() => this.delete(record.id)}
-                      onCancel={() => { }}
-                      okText="Yes"
-                      cancelText="No"
-                    >
-                      <Button type="danger" icon="delete">Remove</Button>
-                    </Popconfirm>
-
+                      </Link>
+                      <Popconfirm
+                        title="Delete this project?"
+                        onConfirm={() => this.delete(record.id)}
+                        onCancel={() => { }}
+                        okText="Yes"
+                        cancelText="No"
+                      >
+                        <Button type="danger" icon="delete">Remove</Button>
+                      </Popconfirm>
+                    </div>
                   </div>
                 )
               }

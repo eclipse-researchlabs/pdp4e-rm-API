@@ -2,6 +2,7 @@ import React from "react";
 import * as _ from "lodash";
 import { Row, Col, Card, Collapse } from "antd";
 import GGEditor, { withPropsAPI, ItemPanel, Item } from "gg-editor";
+import { withTranslation } from "react-i18next";
 import FlowToolbar from "../../../components/Editor/FlowToolbar";
 import FlowItemPanelArc from "../../../components/Editor/FlowItemsPanelArc";
 import FlowDetailPanel from "../../../components/Editor/FlowDetailPanel";
@@ -190,4 +191,4 @@ class AssetEditor extends React.Component {
   }
 }
 
-export default withPropsAPI(AssetEditor);
+export default withTranslation()(withPropsAPI(AssetEditor));

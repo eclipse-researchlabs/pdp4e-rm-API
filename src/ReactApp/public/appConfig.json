@@ -352,7 +352,11 @@
             "key": "kanban",
             "components": {
               "riskkanban": {
-                "columns": [{
+                "columns": [
+				{
+                    "id": "vulnerabilitydetection",
+                    "title": "Vulnerability detection"
+                  },{
                     "id": "identification",
                     "title": "Thread Idefication"
                   },
@@ -373,7 +377,7 @@
                     "title": "Treatments Control"
                   }
                 ],
-                "columnsOrder": ["identification", "riskassessment", "controlsdefinition", "redisualriskassessment", "treatmentcontrol"]
+                "columnsOrder": ["vulnerabilitydetection", "identification", "riskassessment", "controlsdefinition", "redisualriskassessment", "treatmentcontrol"]
               }
             }
           },

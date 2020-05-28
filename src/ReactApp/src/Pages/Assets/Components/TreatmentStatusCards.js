@@ -11,7 +11,7 @@ class TreatmentStatusCards extends React.Component {
         node.risks.map(risk =>
           risk.treatments.map(treatment => {
             return {
-              risk: risk.name,
+              risk: risk,
               node: node.name,
               ...treatment
             };
@@ -49,25 +49,36 @@ class TreatmentStatusCards extends React.Component {
                     />
                   </Col>
                   <Col>
-                    <div>
-                      <span>
-                        <small>Type</small>
-                        <p>
-                          {" "}
-                          {this.props.t(
-                            `Assets.analysis.treatments.${treatment.type}`
-                          )}{" "}
-                        </p>
-                      </span>
-                      <span>
-                        <small>Node</small>
-                        <p>{treatment.node}</p>
-                      </span>
-                      <span>
-                        <small>Risk</small>
-                        <p>{treatment.risk}</p>
-                      </span>
-                    </div>
+                    <Row>
+                      <Col span={12}>
+                        <span>
+                          <small>Type</small>
+                          <p>
+                            {this.props.t(
+                              `Assets.analysis.treatments.${treatment.type}`
+                            )}
+                          </p>
+                        </span>
+                        <span>
+                          <small>Node</small>
+                          <p>{treatment.node}</p>
+                        </span>
+                        <span>
+                          <small>Risk</small>
+                          <p>{treatment.risk.name}</p>
+                        </span>
+                      </Col>
+                      <Col span={12}>
+                        <span>
+                          <small>Stride</small>
+                          <p>{treatment.risk.payload.stride}</p>
+                        </span>
+                        <span>
+                          <small>Lindun</small>
+                          <p>{treatment.risk.payload.lindun}</p>
+                        </span>
+                      </Col>
+                    </Row>
                   </Col>
                 </Row>
               }

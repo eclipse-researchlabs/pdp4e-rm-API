@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Progress } from "antd";
+import { Card, Progress, Tag, Row, Col } from "antd";
 import { Draggable } from "react-beautiful-dnd";
 
 class KanbanItem extends React.Component {
@@ -41,12 +41,21 @@ class KanbanItem extends React.Component {
                 backgroundColor: "rgba(99, 99, 99,0.04)"
               }}
             >
-              {this.props.item.name}
-              <Progress
-                percent={this.generateProgress()}
-                size="small"
-                status={this.generateStatus()}
-              />
+              <Row>
+                <Col span={12}>
+                  {this.props.item.name}
+                </Col>
+                <Col span={12}>
+                  <div>
+                    <Tag color="magenta">V: {this.props.item.vulnerabilities.length}</Tag>
+                    <Tag color="red">R: {this.props.item.risks.length}</Tag>
+                  </div>
+                  <div style={{ marginTop: 8 }}>
+                    <Tag color="volcano">T: {this.props.item.treatments.length}</Tag>
+                    <Tag color="orange">E: {this.props.item.evidences.length}</Tag>
+                  </div>
+                </Col>
+              </Row>
             </Card>
           </div>
         )}

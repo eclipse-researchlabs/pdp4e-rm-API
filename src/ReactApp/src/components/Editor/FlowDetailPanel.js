@@ -12,7 +12,7 @@ const FlowDetailPanel = (nodes) => {
         <DetailForm nodes={nodes} type="node" />
       </NodePanel>
       <EdgePanel>
-        <DetailForm type="edge" />
+        <DetailForm nodes={nodes} type="edge" />
       </EdgePanel>
       <GroupPanel>
         <DetailForm type="group" />

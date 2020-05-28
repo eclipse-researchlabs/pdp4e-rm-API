@@ -45,7 +45,7 @@ class AssetsAnalysisPage extends React.Component {
       treatments{id,rootId,type,description}}}`
       )
       .then(result => {
-        console.log(result.assets);
+        console.log('r', result.assets);
 
         this.setState({ assetId: this.props.match.params.componentId, asset: _.head(result.assets) });
       });

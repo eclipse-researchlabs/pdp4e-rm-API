@@ -9,11 +9,6 @@
     "title": "Tasks"
 
   },
-  "gdpr": {
-    "questionaire": {
-      "title": "GRPR Compliance Reporting"
-    }
-  },
   "Dashboard": {
     "title": "Analytics"
   },
@@ -26,13 +21,19 @@
     "noData": "Nothing added here yet"
   },
   "Containers": {
-    "title": "Projects"
+    "title": "Your containers"
   },
   "Treatments": {
     "title": "Treatments Status"
   },
   "Dfd": {
-    "title": "Data Flow Diagram"
+    "title": "Data Flow Diagram", 
+    "types": {
+      "entity": "Entity",
+      "process": "Process", 
+      "dataStore": "Data store", 
+      "dataFlow": "Data flow"
+    }
   },
   "Gdpr": {
     "title": "GDPR Risk Control Dashboard"

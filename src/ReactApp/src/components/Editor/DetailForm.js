@@ -3,6 +3,7 @@ import { Card, Form, Input, Select, message, Button, Modal } from "antd";
 import DfdQuestionaire from './../../Pages/Assets/Components/DfdQuestionaire'
 import { withPropsAPI } from "gg-editor";
 import BackendService from "./../../components/BackendService";
+import DfdStore from './../../Pages/Assets/Components/DfdStore';
 
 const upperFirst = str => {
   return str.toLowerCase().replace(/( |^)[a-z]/g, l => l.toUpperCase());
@@ -22,6 +23,7 @@ const inlineFormItemLayout = {
 
 class DetailForm extends React.Component {
   assetsApi = new BackendService("assets");
+  dfdStore = DfdStore;
 
   get item() {
     const { propsAPI } = this.props;
@@ -145,7 +147,7 @@ class DetailForm extends React.Component {
     if (!this.item) {
       return null;
     }
-
+    this.item.model.payload["assetType"] = type;
     return (
       <Card type="inner" size="small" title={upperFirst(type)} bordered={false}>
         <Form onSubmit={this.handleSubmit}>
@@ -153,20 +155,27 @@ class DetailForm extends React.Component {
           {type === "edge" && this.renderEdgeDetail()}
           {type === "group" && this.renderGroupDetail()}
         </Form>
-        <Button
-          type="primary"
-          icon="question"
-          onClick={() => {
-            const modal = Modal.info();
-            modal.update({
-              content: <DfdQuestionaire currentRecord={{ id: this.item.id, payload: (this.item.model.payload || undefined) }} nodes={this.props.nodes.nodes}></DfdQuestionaire>,
-              width: '80%',
-              okText: "Close",
-            })
-          }}
-        >
-          DFD Questionaire
+        {this.dfdStore.getCurrentDataType(this.item.model.payload) !== undefined && (<span>
+          {this.dfdStore.getTag(this.dfdStore.getCompletedPercentage(this.item.model.payload))}
+          <Button
+            type="primary"
+            icon="question"
+            onClick={() => {
+              const modal = Modal.info();
+              modal.update({
+                content: <DfdQuestionaire currentRecord={{ id: this.item.id, assetType: type, payload: (this.item.model.payload || undefined) }} nodes={this.props.nodes.nodes}></DfdQuestionaire>,
+                width: '80%',
+                mask: true,
+                maskClosable: true,
+                icon: null,
+                okText: ' ',
+                okButtonProps: { type: "link", block: true }
+              })
+            }}
+          >
+            DFD Questionaire
             </Button>
+        </span>)}
       </Card>
     );
   }

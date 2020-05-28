@@ -20,108 +20,37 @@ class RiskKanban extends React.Component {
       kanbanData: {
         columns: columns,
         columnOrder: this.props.columnsOrder,
-        items: {}
+        items: []
       }
     };
   }
 
   componentDidMount() {
-    let items = {};
-    let itemIds = [];
-    // console.log("this.props.assets", this.props.assets);
-    _.forEach(this.props.assets, node => {
-      // console.log("risks", node.risks);
-      if (!_.isEmpty(node.risks)) {
-        _.forEach(node.risks, risk => {
-          // console.log("risk", risk);
-          items[risk.name] = risk;
-          itemIds.push(risk.name);
-        });
-      }
-    });
-    const identification = this.state.kanbanData.columns.identification;
-    //console.log("definition", identification);
-    const newDefinitionItems = {
-      ...identification,
-      itemIds: itemIds
-    };
-    const newKanbanData = {
-      ...this.state.kanbanData,
-      items: items,
-      columns: {
-        ...this.state.kanbanData.columns,
-        identification: newDefinitionItems
-      }
-    };
-    const newState = {
-      ...this.state,
-      kanbanData: newKanbanData
-    };
-    //console.log("newState", newKanbanData);
-    this.setState(newState);
+    console.log('this.props.assets', this.props.assets)
+    var kanbanData = this.state.kanbanData;
+    kanbanData.items = this.props.assets;
+    _.forEach(kanbanData.items, item => {
+      var type = "identification";
+
+      if(item.risks.length > 0) type = "riskassessment";
+      if(item.treatments.length > 0) type = "controlsdefinition";
+      if(item.evidences.length > 0) type = "treatmentcontrol";
+      if(_.max(item.treatments.map(x => new Date(x.createdDateTime))) < _.max(item.risks.map(x => new Date(x.createdDateTime)))) type = "redisualriskassessment";
+
+      kanbanData.columns[type].itemIds.push(item.id);
+    })
+    this.setState({ kanbanData })
   }
-
-  onKanbanItemDragEnd = result => {
-    const { destination, source, draggableId } = result;
-    if (!destination) {
-      return;
-    }
-
-    if (
-      source.droppableId === destination.droppableId &&
-      source.index === destination.index
-    ) {
-      return;
-    }
-
-    const columns = this.state.kanbanData.columns;
-    const from = columns[source.droppableId];
-    const to = columns[destination.droppableId];
-
-    const fromItemIds = Array.from(from.itemIds);
-    fromItemIds.splice(source.index, 1);
-
-    const toItemIds = Array.from(to.itemIds);
-    toItemIds.splice(destination.index, 0, draggableId);
-
-    const newFromColumn = {
-      ...from,
-      itemIds: fromItemIds
-    };
-
-    const newToColumn = {
-      ...to,
-      itemIds: toItemIds
-    };
-
-    columns[source.droppableId] = newFromColumn;
-    columns[destination.droppableId] = newToColumn;
-
-    const newColumns = {
-      ...this.state.kanbanData.columns,
-      ...columns
-    };
-
-    const newKanbanData = {
-      ...this.state.kanbanData,
-      columns: newColumns
-    };
-    const newState = {
-      ...this.state,
-      kanbanData: newKanbanData
-    };
-    this.setState(newState);
-  };
 
   render() {
     const data = this.state.kanbanData;
     return (
       <Row justify="space-between">
-        <DragDropContext onDragEnd={this.onKanbanItemDragEnd}>
+        <DragDropContext>
           {data.columnOrder.map(columnId => {
+            // console.log('columnId', columnId)
             const column = data.columns[columnId];
-            //console.log("column", column);
-            const items = column.itemIds.map(itemId => data.items[itemId]);
+            const items = data.items.filter(x => column.itemIds.includes(x.id));
             return (
               <KanbanColumn key={columnId} column={column} items={items} />
             );

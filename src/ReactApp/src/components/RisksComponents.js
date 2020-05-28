@@ -261,13 +261,13 @@ class RisksComponents extends React.Component {
                     })}
                   </Select>
                 </Form.Item>
-                {/*                 <Form.Item label={this.props.t("Assets.analysis.risks.stride")}>
-                  <Select onChange={index => this.setStride(index)}>
+                <Form.Item label={this.props.t("Assets.analysis.risks.stride")}>
+                  <Select defaultValue={this.state.newEntry.stride} onChange={index => this.setStride(index)}>
                     {this.stride.map(s => (
                       <Select.Option key={s}>{s}</Select.Option>
                     ))}
                   </Select>
-                </Form.Item> */}
+                </Form.Item>
                 <Form.Item label={this.props.t("Assets.analysis.risks.lindun")}>
                   <Select defaultValue={this.state.newEntry.lindun} onChange={index => this.setLindun(index)}>
                     {this.lindun.map(s => (
@@ -458,6 +458,7 @@ class RisksComponents extends React.Component {
                   this.setNewValue(`connectionsKeys`, connectionKeys)
                   this.connectObjects(connectionKeys);
                   this.setLindun(item.payload.lindun)
+                  this.setStride(item.payload.stride);
                   item.payload.owasp.map(x => {
                     var splitName = x.name.split('.');
                     this.pushOwaspModel(splitName[0], splitName[1], splitName[2], x.value);

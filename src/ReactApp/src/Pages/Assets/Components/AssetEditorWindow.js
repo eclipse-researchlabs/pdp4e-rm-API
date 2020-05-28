@@ -34,7 +34,7 @@ class AssetEditorWindow extends React.Component {
       });
   }
   moveNode(id, model) {
-    if(model.x === undefined || model.y === undefined) return;
+    if (model.x === undefined || model.y === undefined) return;
 
     this.assetsApi
       .put("position", {
@@ -65,6 +65,7 @@ class AssetEditorWindow extends React.Component {
   createEdge(item) {
     this.assetsApi
       .post("edges", {
+        name: `Unknown`,
         containerRootId: this.props.containerId,
         Asset1Guid: item.item.dataMap[item.model.source].id,
         Asset1Anchor: item.model.sourceAnchor,
@@ -75,7 +76,7 @@ class AssetEditorWindow extends React.Component {
         const { executeCommand, find, update } = this.props.propsAPI;
         result.json().then(data => {
           executeCommand(() => {
-            update(find(item.item.id), { id: data.id });
+            update(find(item.item.id), { id: data.id, label: `Unknown` });
           });
         })
       });

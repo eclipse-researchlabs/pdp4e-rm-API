@@ -46,7 +46,7 @@ class AssetsPage extends React.Component {
     this.setState({ isLoading: true }, () => {
       this.graphqlApi
         .get(
-          `?query={containers(where:{path:"RootId",comparison:"equal",value:"${this.state.containerId}"}){name,assets{id,name,payload,group,vulnerabilities{id,name},risks{id,name,treatments{id,type,description}},treatments{id,type,description,name}},edges{id,fromId,toId,payload},groups{id,name,vulnerabilities{id,name},risks{id},treatments{id,type,description}}}}`
+          `?query={containers(where:{path:"RootId",comparison:"equal",value:"${this.state.containerId}"}){name,assets{id,name,payload,group,evidences{id,name},vulnerabilities{id,name},risks{id,name,payload{stride,lindun},createdDateTime,treatments{id,type,description,createdDateTime}},treatments{id,type,description,name,createdDateTime}},edges{id,fromId,toId,payload},groups{id,name,vulnerabilities{id,name},risks{id},treatments{id,type,description}}}}`
         )
         .then(results => {
           if (!_.isUndefined(results)) {
@@ -112,6 +112,7 @@ class AssetsPage extends React.Component {
       sourceAnchor: payload.Asset1Anchor,
       target: edge.toId,
       targetAnchor: payload.Asset2Anchor,
+      payload: payload,
       shape: payload.Shape,
       id: edge.id,
       label: payload.Name,
@@ -183,7 +184,7 @@ class AssetsPage extends React.Component {
       case "uploadgenesis":
         return <UploadFile containerId={this.props.containerId}></UploadFile>;
       case "assetlist":
-        return <AssetList nodes={this.state.nodes} key="assetList" />;
+        return <AssetList nodes={this.state.nodes} edges={this.state.graphData.edges} key="assetList" />;
       case "ggeditor":
         return (
           <AssetEditor
@@ -214,10 +215,8 @@ class AssetsPage extends React.Component {
           />
         );
       case "assetkanban":
-        //console.log("kanbanData", this.state.kanbanData);
         return (
           <AssetKanban
-            data={this.state.kanbanData}
             columns={layout.columns}
             columnsOrder={layout.columnsOrder}
             assets={this.state.nodes}
@@ -227,7 +226,6 @@ class AssetsPage extends React.Component {
       case "riskkanban":
         return (
           <RiskKanban
-            data={this.state.kanbanData}
             columns={layout.columns}
             columnsOrder={layout.columnsOrder}
             assets={this.state.nodes}

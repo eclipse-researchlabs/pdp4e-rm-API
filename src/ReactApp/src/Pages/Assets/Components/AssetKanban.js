@@ -47,6 +47,7 @@ class AssetKanban extends React.Component {
       ...this.state,
       kanbanData: newKanbanData
     };
+    console.log('ndeState', newState)
     this.setState(newState);
   }
 

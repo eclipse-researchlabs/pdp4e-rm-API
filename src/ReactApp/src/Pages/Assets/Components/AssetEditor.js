@@ -109,14 +109,27 @@ class AssetEditor extends React.Component {
       });
   }
 
+  updateIndex(ids, direction) {
+    var promises = [];
+    _.forEach(ids, id => {
+      promises.push(this.assetsApi.put("index", { assetId: id, direction: direction }));
+    });
+    Promise.all(promises).then(r => {
+      this.props.loadData();
+    });
+  }
+
   render() {
     return (
       <div>
         <GGEditor
           onAfterCommandExecute={({ command }) => {
+            console.log('render', this.props)
             if (!_.isUndefined(command.addGroupId)) {
               this.createGroup(command.selectedItems);
             }
+            // if (command.command === "toFront") this.updateIndex(command.selectedItems, "up");
+            // if (command.command === "toBack") this.updateIndex(command.selectedItems, "down");
           }}>
           <Row>
             <Col span={24}>

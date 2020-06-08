@@ -46,7 +46,7 @@ class AssetsPage extends React.Component {
     this.setState({ isLoading: true }, () => {
       this.graphqlApi
         .get(
-          `?query={containers(where:{path:"RootId",comparison:"equal",value:"${this.state.containerId}"}){name,assets{id,name,payload,group,evidences{id,name},vulnerabilities{id,name},risks{id,name,payload{stride,lindun},createdDateTime,treatments{id,type,description,createdDateTime}},treatments{id,type,description,name,createdDateTime}},edges{id,fromId,toId,payload},groups{id,name,vulnerabilities{id,name},risks{id},treatments{id,type,description}}}}`
+          `?query={containers(where:{path:"RootId",comparison:"equal",value:"${this.state.containerId}"}){name,assets{id,name,payload,group,evidences{id,name},vulnerabilities{id,name},risks{id,name,payload{stride,lindun},createdDateTime,treatments{id,type,description,createdDateTime}},treatments{id,type,description,name,createdDateTime}},edges{id,fromId,toId,payload},groups{id,name,group,payload,vulnerabilities{id,name},risks{id},treatments{id,type,description}}}}`
         )
         .then(results => {
           if (!_.isUndefined(results)) {
@@ -54,6 +54,7 @@ class AssetsPage extends React.Component {
             _.forEach(results.containers[0].groups, group => {
               nodes.push(group);
             });
+            console.log('allnodes', nodes)
             this.setState({
               name: results.containers[0].name,
               nodes: nodes,
@@ -77,11 +78,15 @@ class AssetsPage extends React.Component {
   };
 
   parseGroup(group) {
+    var payload = JSON.parse(group.payload);
+    console.log('group payload', payload)
     return {
       id: group.id,
       label: group.name,
-      index: 0,
-      isCollapsed: false
+      // index: (payload || { Index: 0 }).Index,
+      zIndex: (payload || { Index: 1 }).Index,
+      isCollapsed: false, 
+      parent: group.group
     };
   }
 
@@ -98,7 +103,7 @@ class AssetsPage extends React.Component {
       x: +payload.X,
       y: +payload.Y,
       id: node.id,
-      index: index + 1,
+      index: (payload.Index || index) + 100,
       parent: node.group,
       labelOffsetY: payload.LabelOffsetY, 
       payload: payload
@@ -121,6 +126,7 @@ class AssetsPage extends React.Component {
   }
 
   getNodesAndEdgesData = (nodes, edges, groups) => {
+
     let data = {
       nodes: [],
       edges: [],
@@ -132,7 +138,7 @@ class AssetsPage extends React.Component {
     });
 
     _.forEach(nodes, (node, index) => {
-      if (node.payload === undefined || node.payload === "null") {
+      if (node.payload === undefined || node.payload === "null" || !node.payload.includes('Shape')) {
         return true;
       }
       data.nodes.push(this.parseNode(node, index));

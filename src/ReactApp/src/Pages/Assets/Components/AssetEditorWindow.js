@@ -91,6 +91,7 @@ class AssetEditorWindow extends React.Component {
         {!this.props.koni && (
           <Flow
             onAfterChange={(e) => {
+              console.log('flow', e)
               switch (e.action) {
                 case "remove":
                   if (e.item.type === "node") this.deleteNode(e.item.id)
@@ -120,6 +121,7 @@ class AssetEditorWindow extends React.Component {
         {this.props.koni && (
           <Koni
             onAfterChange={(e) => {
+              console.log('oni', e)
               switch (e.action) {
                 case "remove":
                   if (e.item.type === "node") this.deleteNode(e.item.id)

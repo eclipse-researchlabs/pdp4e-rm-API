@@ -52,7 +52,7 @@ class KanbanItem extends React.Component {
                   </div>
                   <div style={{ marginTop: 8 }}>
                     <Tag color="volcano">T: {this.props.item.treatments.length}</Tag>
-                    <Tag color="orange">E: {this.props.item.evidences.length}</Tag>
+                    <Tag color="orange">E: {(this.props.item.evidences || []).length}</Tag>
                   </div>
                 </Col>
               </Row>

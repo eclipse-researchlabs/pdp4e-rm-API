@@ -132,6 +132,7 @@ class DetailForm extends React.Component {
     const { form } = this.props;
     const { label = "test" } = this.item.getModel();
 
+
     return (
       <Item label="Label" {...inlineFormItemLayout}>
         {form.getFieldDecorator("label", {
@@ -147,7 +148,7 @@ class DetailForm extends React.Component {
     if (!this.item) {
       return null;
     }
-    this.item.model.payload["assetType"] = type;
+    if(this.item.mode !== undefined) this.item.model.payload["assetType"] = type;
     return (
       <Card type="inner" size="small" title={upperFirst(type)} bordered={false}>
         <Form onSubmit={this.handleSubmit}>

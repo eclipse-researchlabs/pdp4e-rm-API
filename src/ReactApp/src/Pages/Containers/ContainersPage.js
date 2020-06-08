@@ -35,8 +35,9 @@ class ContainersPage extends React.Component {
 
   loadData() {
     this.graphqlApi.get("?query={containers{id,name}}").then(data => {
+      console.log('appTest1')
       const appConfig = JSON.parse(localStorage.getItem("appConfig"));
-      if (appConfig.isOpenSource === true) {
+      if (((appConfig).isOpenSource || false) === true) {
         if (data.containers.length > 0)
           this.props.history.push(`/assets/${_.head(data.containers).id}`);
         else {

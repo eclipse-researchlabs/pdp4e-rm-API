@@ -34,7 +34,7 @@ class RiskKanban extends React.Component {
 
       if(item.risks.length > 0) type = "riskassessment";
       if(item.treatments.length > 0) type = "controlsdefinition";
-      if(item.evidences.length > 0) type = "treatmentcontrol";
+      if((item.evidences || []).length > 0) type = "treatmentcontrol";
       if(_.max(item.treatments.map(x => new Date(x.createdDateTime))) < _.max(item.risks.map(x => new Date(x.createdDateTime)))) type = "redisualriskassessment";
 
       kanbanData.columns[type].itemIds.push(item.id);

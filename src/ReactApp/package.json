@@ -53,7 +53,7 @@
     "extends": "react-app"
   },
   "scripts": {
-    "start": "set REACT_APP_BACKEND_URL=https://localhost:6001&& rimraf ./build && react-app-rewired start",
+    "start": "set REACT_APP_BACKEND_URL=https://localhost:5001&& rimraf ./build && react-app-rewired start",
     "build": "react-app-rewired build",
     "build:prod": "react-app-rewired build",
     "test": "cross-env CI=true react-app-rewired test --env=jsdom",

@@ -31,6 +31,14 @@ class KoniCustomNodeDfd extends React.Component {
         });
 
         return keyShape;
+      },
+      anchor(item) {
+        return [
+          [0.2, 0], [0.5, 0], [0.8, 0],
+          [0, 0.2], [0, 0.5], [0, 0.8],
+          [1, 0.2], [1, 0.5], [1, 0.8],
+          [0.2, 1], [0.5, 1], [0.8, 1],
+        ]
       }
     };
 

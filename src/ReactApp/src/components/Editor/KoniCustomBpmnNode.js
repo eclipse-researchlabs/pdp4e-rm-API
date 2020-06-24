@@ -1,7 +1,7 @@
 import React from "react";
 import { RegisterNode } from "gg-editor";
 
-class KoniCustomNodeDfd extends React.Component {
+class KoniCustomBpmnNode extends React.Component {
   render() {
     const config = {
       draw(item) {
@@ -31,11 +31,19 @@ class KoniCustomNodeDfd extends React.Component {
         });
 
         return keyShape;
+      },
+      anchor(item) {
+        return [
+          [0.2, 0], [0.5, 0], [0.8, 0],
+          [0, 0.2], [0, 0.5], [0, 0.8],
+          [1, 0.2], [1, 0.5], [1, 0.8],
+          [0.2, 1], [0.5, 1], [0.8, 1],
+        ]
       }
     };
 
-    return <RegisterNode name={this.props.name} config={config} />;
+    return <RegisterNode name={`koni-custom-node-bpmn`} config={config} />;
   }
 }
 
-export default KoniCustomNodeDfd;
+export default KoniCustomBpmnNode;

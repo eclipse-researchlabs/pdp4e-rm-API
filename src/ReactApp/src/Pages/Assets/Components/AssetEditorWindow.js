@@ -63,6 +63,8 @@ class AssetEditorWindow extends React.Component {
 
   deleteEdge(id) { this.assetsApi.delete(`edges/${id}`); }
   createEdge(item) {
+    if (item.item.dataMap[item.model.source] === undefined || item.item.dataMap[item.model.target] === undefined) return;
+
     this.assetsApi
       .post("edges", {
         name: `Unknown`,

@@ -213,7 +213,7 @@
                 "itemPanels": [{
                     "type": "node",
                     "size": "70*70",
-                    "shape": "koni-custom-node-dfd",
+                    "shape": "koni-custom-node-entity-dfd",
                     "model": {
                       "color": "#69C0FF",
                       "label": "External Entity",
@@ -225,7 +225,7 @@
                   {
                     "type": "node",
                     "size": "70*70",
-                    "shape": "koni-custom-node-dfd",
+                    "shape": "koni-custom-node-datastore-dfd",
                     "model": {
                       "color": "#5CDBD3",
                       "label": "Data Store",
@@ -237,7 +237,7 @@
                   {
                     "type": "node",
                     "size": "70*70",
-                    "shape": "koni-custom-node-dfd",
+                    "shape": "koni-custom-node-process-dfd",
                     "model": {
                       "color": "#B37FEB",
                       "label": "Process",

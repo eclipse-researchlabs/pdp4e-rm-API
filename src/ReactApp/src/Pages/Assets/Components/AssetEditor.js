@@ -189,7 +189,7 @@ class AssetEditor extends React.Component {
             </Col>
             {!_.isEmpty(this.state.itemsPanel) && (
               <Col span={4}>
-                <FlowDetailPanel nodes={this.state.graphData.nodes} />
+                <FlowDetailPanel nodes={this.state.graphData.nodes} isDfd={this.props.koni} />
                 <EditorMinimap />
               </Col>
             )}

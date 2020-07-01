@@ -159,6 +159,8 @@ class DetailForm extends React.Component {
     const { form } = this.props;
     const { label, shape } = this.item.getModel();
 
+    console.log('')
+
     return (
       <div>
         <Item label="Label" {...inlineFormItemLayout}>
@@ -220,7 +222,7 @@ class DetailForm extends React.Component {
   render() {
     const { type } = this.props;
     const { label, shape } = this.item.getModel();
-    console.log('render', label, shape)
+    console.log('render', label, shape, this.props.isDfd)
 
     if (!this.item) {
       return null;
@@ -233,7 +235,7 @@ class DetailForm extends React.Component {
           {type === "edge" && this.renderEdgeDetail()}
           {type === "group" && this.renderGroupDetail()}
         </Form>
-        {this.dfdStore.getCurrentDataType(this.item.model.payload) !== undefined && (<span>
+        {(this.dfdStore.getCurrentDataType(this.item.model.payload) !== undefined || (shape === "flow-smooth" && this.props.isDfd === true)) && (<span>
           {this.dfdStore.getTag(this.dfdStore.getCompletedPercentage(this.item.model.payload))}
           <Button
             type="primary"

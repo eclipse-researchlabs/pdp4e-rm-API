@@ -47,7 +47,7 @@ class DfdStoreWrapper {
                 return `dataStore`;
             } else if (color === "#999999") {
                 return `dataFlow`;
-            } else return undefined;
+            } else return `dataFlow`;
         }
         return undefined;
     }
@@ -92,6 +92,8 @@ class DfdStoreWrapper {
     getCompletedPercentage = (payload) => {
         var type = this.getCurrentDataType(payload);
         var questions = this.applyAnswers(payload);
+
+        if (questions === undefined || questions[type] === undefined) return 0;
 
         var totalEntries = questions[type].filter(x => x.isVisible).length;
         var answeredEntries = questions[type].filter(x => x.isVisible && (x.value !== 'na' && x.value.length > 0)).length;

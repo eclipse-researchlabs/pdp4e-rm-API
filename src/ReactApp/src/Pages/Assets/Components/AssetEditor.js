@@ -27,6 +27,7 @@ class AssetEditor extends React.Component {
       edges: [],
       isDfd: false
     };
+    props.graphData.nodes = props.graphData.nodes.filter(x => x.shape !== null);
     if (props.koni) {
       newGraphData.nodes = props.graphData.nodes.filter(
         node => node.shape.includes('-dfd')

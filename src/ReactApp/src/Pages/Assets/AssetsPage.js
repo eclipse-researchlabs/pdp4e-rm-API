@@ -191,7 +191,7 @@ class AssetsPage extends React.Component {
           </Tabs>
         );
       case "uploadgenesis":
-        return <UploadFile containerId={this.props.containerId}></UploadFile>;
+        return <UploadFile containerId={this.state.containerId}></UploadFile>;
       case "assetlist":
         return <AssetList nodes={this.state.nodes} edges={this.state.graphData.edges} key="assetList" />;
       case "ggeditor":

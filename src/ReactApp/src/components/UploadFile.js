@@ -12,6 +12,7 @@ class UploadFile extends React.Component {
     // save to store
     const store = AssetsStore;
     store.rawImport = fileReader;
+
     fileReader.onload = e => store.parseRawImportToJson(this.props.containerId, fileReader);
   };
 

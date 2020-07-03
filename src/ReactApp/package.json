@@ -6,6 +6,7 @@
     "ant-design-pro": "^2.3.2",
     "antd": "^3.15.1",
     "bizcharts": "^3.5.5",
+    "bpmn-js": "^7.2.0",
     "dagre": "^0.8.4",
     "gg-editor": "^2.0.4",
     "google-palette": "^1.1.0",

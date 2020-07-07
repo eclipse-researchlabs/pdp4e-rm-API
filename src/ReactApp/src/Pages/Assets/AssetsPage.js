@@ -203,7 +203,7 @@ class AssetsPage extends React.Component {
     this.setState({ isLoading: true }, () => {
       this.graphqlApi
         .get(
-          `?query={containers(where:{path:"RootId",comparison:"equal",value:"${this.state.containerId}"}){name,bpmn,assets{id,name,payload,group,evidences{id,name},vulnerabilities{id,name},risks{id,name,payload{stride,lindun},createdDateTime,treatments{id,type,description,createdDateTime}},treatments{id,type,description,name,createdDateTime}},edges{id,fromId,toId,payload},groups{id,name,group,payload,vulnerabilities{id,name},risks{id},treatments{id,type,description}}}}`
+          `?query={containers(where:{path:"RootId",comparison:"equal",value:"${this.state.containerId}"}){name,assets{id,name,payload,group,evidences{id,name},vulnerabilities{id,name},risks{id,name,payload{stride,lindun},createdDateTime,treatments{id,type,description,createdDateTime}},treatments{id,type,description,name,createdDateTime}},edges{id,fromId,toId,payload},groups{id,name,group,payload,vulnerabilities{id,name},risks{id},treatments{id,type,description}}}}`
         )
         .then(results => {
           if (!_.isUndefined(results)) {
@@ -214,7 +214,7 @@ class AssetsPage extends React.Component {
             this.setState({
               name: results.containers[0].name,
               nodes: nodes,
-              bpmn: results.containers[0].bpmn,
+              bpmn: {}, //results.containers[0].bpmn,
               graphData: this.getNodesAndEdgesData(
                 results.containers[0].assets,
                 results.containers[0].edges,

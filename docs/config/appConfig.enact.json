@@ -1,0 +1,408 @@
+{
+  "isOpenSource": false,
+  "header": {
+    "path": "logo.png"
+  },
+  "footer": {
+    "text": "Copyright by Beawre Digital S.L"
+  },
+  "risksDictionaryPath": "risksDictionary.json",
+  "router": {
+    "defaultRoute": "/containers",
+    "paths": [{
+        "path": "/assets/:containerId",
+        "title": "Assets.title",
+        "component": "AssetsPage"
+      },
+      {
+        "path": "/assets/analysis/:componentId",
+        "title": "Assets.analysis.title",
+        "component": "AssetsAnalysisPage"
+      },
+      {
+        "path": "/settings/privileges",
+        "title": "Settings.privileges.title",
+        "component": "PrivilegesPage"
+      },
+      {
+        "path": "/settings",
+        "title": "Settings.title",
+        "component": "SettingsPage"
+      },
+      {
+        "path": "/containers",
+        "title": "Containers",
+        "component": "ContainersPage"
+      }, {
+        "path": "/gdprq",
+        "title": "gdpr.questionaire.title",
+        "component": "GDPRQuestionaire"
+      }
+    ],
+    "menus": [{
+        "key": "projects",
+        "to": "/containers",
+        "icon": "project",
+        "title": "Containers.title",
+        "accessRightRequired": "FRONT:Documents"
+      },
+      {
+        "key": "grprq",
+        "to": "/gdprq",
+        "icon": "project",
+        "title": "gdpr.questionaire.title",
+        "accessRightRequired": "FRONT:Documents"
+      }
+    ]
+  },
+  "colorSchema": {},
+  "pages": {
+    "assets": {
+      "title": "Assets.pageTitle",
+      "component": "AssetsPage",
+      "layout": {
+        "tabs": [
+          {
+            "icon": "dot-chart",
+            "title": "Assets.graph",
+            "key": "graph",
+            "components": {
+              "uploadgenesis": {},
+              "ggeditor": {
+                "itemPanels": [
+                  {
+                    "type": "node",
+                    "size": "72*72",
+                    "shape": "flow-circle",
+                    "model": {
+                      "color": "#FA8C16",
+                      "label": "Start",
+                      "labelOffsetY": 48
+                    },
+                    "src": "https://enact.beawre.com/img/flow_circle.svg"
+                  },
+                  {
+                    "type": "node",
+                    "size": "80*48",
+                    "shape": "flow-rect",
+                    "model": {
+                      "color": "#1890FF",
+                      "label": "Normal",
+                      "labelOffsetY": 48
+                    },
+                    "src": "https://enact.beawre.com/img/flow_rect.svg"
+                  },
+                  {
+                    "type": "node",
+                    "size": "80*72",
+                    "shape": "flow-rhombus",
+                    "model": {
+                      "color": "#13C2C2",
+                      "label": "Decision",
+                      "labelOffsetY": 48
+                    },
+                    "src": "https://enact.beawre.com/img/flow_rhombus.svg"
+                  },
+                  {
+                    "type": "node",
+                    "size": "80*48",
+                    "shape": "flow-capsule",
+                    "model": {
+                      "color": "#722ED1",
+                      "label": "Model",
+                      "labelOffsetY": 48
+                    },
+                    "src": "https://enact.beawre.com/img/flow_capsule.svg"
+                  }
+                ],
+                "toolbarItems": [{
+                    "type": "button",
+                    "command": "undo"
+                  },
+                  {
+                    "type": "button",
+                    "command": "redo"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "copy"
+                  },
+                  {
+                    "type": "button",
+                    "command": "paste"
+                  },
+                  {
+                    "type": "button",
+                    "command": "delete"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomIn",
+                    "icon": "zoom-in",
+                    "text": "Zoom In"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomOut",
+                    "icon": "zoom-out",
+                    "text": "Zoom Out"
+                  },
+                  {
+                    "type": "button",
+                    "command": "autoZoom",
+                    "icon": "fit-map",
+                    "text": "Fit map"
+                  },
+                  {
+                    "type": "button",
+                    "command": "resetZoom",
+                    "icon": "actual-size",
+                    "text": "Actual size"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toBack",
+                    "icon": "to-back",
+                    "text": "To back"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toFront",
+                    "icon": "to-front",
+                    "text": "To front"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "multiSelect",
+                    "icon": "multi-select",
+                    "text": "Multi select"
+                  },
+                  {
+                    "type": "button",
+                    "command": "addGroup",
+                    "icon": "group",
+                    "text": "Add group"
+                  },
+                  {
+                    "type": "button",
+                    "command": "unGroup",
+                    "icon": "ungroup",
+                    "text": "Ungroup"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "icon": "dot-chart",
+            "title": "Dfd.title",
+            "key": "dfd-graph",
+            "components": {
+              "ggeditor-koni": {
+                "itemPanels": [
+                  {
+                    "type": "node",
+                    "size": "70*70",
+                    "shape": "koni-custom-node-entity-dfd",
+                    "model": {
+                      "color": "#69C0FF",
+                      "label": "External Entity",
+                      "labelOffsetY": 48
+                    },
+                    "icon": "https://enact.beawre.com/img/external_entity_icon.svg",
+                    "src": "https://enact.beawre.com/img/external_entity.svg"
+                  },
+                  {
+                    "type": "node",
+                    "size": "70*70",
+                    "shape": "koni-custom-node-datastore-dfd",
+                    "model": {
+                      "color": "#5CDBD3",
+                      "label": "Data Store",
+                      "labelOffsetY": 48
+                    },
+                    "icon": "https://enact.beawre.com/img/data_store_icon.svg",
+                    "src": "https://enact.beawre.com/img/data_store.svg"
+                  },
+                  {
+                    "type": "node",
+                    "size": "70*70",
+                    "shape": "koni-custom-node-process-dfd",
+                    "model": {
+                      "color": "#B37FEB",
+                      "label": "Process",
+                      "labelOffsetY": 48
+                    },
+                    "icon": "https://enact.beawre.com/img/process_icon.svg",
+                    "src": "https://enact.beawre.com/img/process.svg"  
+                  }
+                ],
+                "toolbarItems": [{
+                    "type": "button",
+                    "command": "undo"
+                  },
+                  {
+                    "type": "button",
+                    "command": "redo"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "copy"
+                  },
+                  {
+                    "type": "button",
+                    "command": "paste"
+                  },
+                  {
+                    "type": "button",
+                    "command": "delete"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomIn",
+                    "icon": "zoom-in",
+                    "text": "Zoom In"
+                  },
+                  {
+                    "type": "button",
+                    "command": "zoomOut",
+                    "icon": "zoom-out",
+                    "text": "Zoom Out"
+                  },
+                  {
+                    "type": "button",
+                    "command": "autoZoom",
+                    "icon": "fit-map",
+                    "text": "Fit map"
+                  },
+                  {
+                    "type": "button",
+                    "command": "resetZoom",
+                    "icon": "actual-size",
+                    "text": "Actual size"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toBack",
+                    "icon": "to-back",
+                    "text": "To back"
+                  },
+                  {
+                    "type": "button",
+                    "command": "toFront",
+                    "icon": "to-front",
+                    "text": "To front"
+                  },
+                  {
+                    "type": "divider"
+                  },
+                  {
+                    "type": "button",
+                    "command": "multiSelect",
+                    "icon": "multi-select",
+                    "text": "Multi select"
+                  },
+                  {
+                    "type": "button",
+                    "command": "addGroup",
+                    "icon": "group",
+                    "text": "Add group"
+                  },
+                  {
+                    "type": "button",
+                    "command": "unGroup",
+                    "icon": "ungroup",
+                    "text": "Ungroup"
+                  }
+                ]
+              }
+
+            }
+          },
+          {
+            "icon": "table",
+            "title": "Assets.list",
+            "key": "list",
+            "components": {
+              "assetList": {}
+            }
+          },
+          {
+            "icon": "sliders",
+            "title": "Assets.kanban",
+            "key": "kanban",
+            "components": {
+              "riskkanban": {
+                "columns": [{
+                    "id": "identification",
+                    "title": "Thread Idefication"
+                  },
+                  {
+                    "id": "riskassessment",
+                    "title": "Risk Assessmnet"
+                  },
+                  {
+                    "id": "controlsdefinition",
+                    "title": "Definition of Controls"
+                  },
+                  {
+                    "id": "redisualriskassessment",
+                    "title": "Residual Risk Assessment"
+                  },
+                  {
+                    "id": "treatmentcontrol",
+                    "title": "Treatments Control"
+                  }
+                ],
+                "columnsOrder": ["identification", "riskassessment", "controlsdefinition", "redisualriskassessment", "treatmentcontrol"]
+              }
+            }
+          },
+          {
+            "icon": "dashboard",
+            "title": "Treatments.title",
+            "key": "treatmentdashboard",
+            "components": {
+              "treatmentdashboard": {}
+            }
+          },
+          {
+            "icon": "control",
+            "title": "Gdpr.title",
+            "key": "gdprassessment",
+            "components": {
+              "gdprassessment": {}
+            }
+          }
+        ]
+      }
+    },
+    "assetsAnalytics": {
+      "title": "Assets.analysis.pageTitle",
+      "layout": {
+        "collapse": ["vulnerabilities", "risks", "treatments"]
+      }
+    }
+  }
+}

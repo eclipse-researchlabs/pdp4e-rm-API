@@ -1,4 +1,15 @@
-﻿using System;
+﻿// /********************************************************************************
+//  * Copyright (c) 2021,2021 Beawre Digital SL
+//  *
+//  * This program and the accompanying materials are made available under the
+//  * terms of the Eclipse Public License 2.0 which is available at
+//  * http://www.eclipse.org/legal/epl-2.0.
+//  *
+//  * SPDX-License-Identifier: EPL-2.0 3
+//  *
+//  ********************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,8 +29,8 @@ namespace Core.Api.Controllers
     [Route("api/users"), ApiController, EnableCors("CorsRules")]
     public class UsersController : ControllerBase
     {
-        private IUserService _userService;
         private IAuditTrailService _auditTrailService;
+        private IUserService _userService;
 
         public UsersController(IUserService userService, IAuditTrailService auditTrailService)
         {
@@ -31,7 +42,7 @@ namespace Core.Api.Controllers
         public async Task<IActionResult> Create([FromBody] CreateUserCommand command)
         {
             var newValue = await _userService.Create(command);
-            _auditTrailService.LogAction(AuditTrailAction.CreateUser, newValue, new AuditTrailPayloadModel(){ Data = JsonConvert.SerializeObject(command) });
+            _auditTrailService.LogAction(AuditTrailAction.CreateUser, newValue, new AuditTrailPayloadModel() {Data = JsonConvert.SerializeObject(command)});
             return Created(newValue.ToString(), newValue);
         }
     }

@@ -1,4 +1,15 @@
-﻿using System;
+﻿// /********************************************************************************
+//  * Copyright (c) 2021,2021 Beawre Digital SL
+//  *
+//  * This program and the accompanying materials are made available under the
+//  * terms of the Eclipse Public License 2.0 which is available at
+//  * http://www.eclipse.org/legal/epl-2.0.
+//  *
+//  * SPDX-License-Identifier: EPL-2.0 3
+//  *
+//  ********************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,8 +29,8 @@ namespace Core.Api.Controllers.Assets
     [Route("api/assets/edges"), ApiController, EnableCors("CorsRules")]
     public class AssetsEdgesController : ControllerBase
     {
-        private IRelationshipService _relationshipService;
         private IAssetEdgeService _assetEdgeService;
+        private IRelationshipService _relationshipService;
 
         public AssetsEdgesController(IRelationshipService relationshipService, IAssetEdgeService assetEdgeService)
         {
@@ -36,9 +47,9 @@ namespace Core.Api.Controllers.Assets
                 FromId = command.Asset1Guid,
                 ToType = ObjectType.Asset,
                 ToId = command.Asset2Guid,
-                Payload = JsonConvert.SerializeObject(new AssetEdgePayloadModel() { Name = command.Name, Asset1Anchor = command.Asset1Anchor, Asset2Anchor = command.Asset2Anchor })
+                Payload = JsonConvert.SerializeObject(new AssetEdgePayloadModel() {Name = command.Name, Asset1Anchor = command.Asset1Anchor, Asset2Anchor = command.Asset2Anchor})
             });
-            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Container, FromId = command.ContainerRootId.Value, ToType = ObjectType.AssetEdge, ToId = newValue.Id });
+            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand() {FromType = ObjectType.Container, FromId = command.ContainerRootId.Value, ToType = ObjectType.AssetEdge, ToId = newValue.Id});
             return Ok(newValue);
         }
 

@@ -1,4 +1,15 @@
-﻿using Core.AuditTrail.Interfaces.Services;
+﻿// /********************************************************************************
+//  * Copyright (c) 2021,2021 Beawre Digital SL
+//  *
+//  * This program and the accompanying materials are made available under the
+//  * terms of the Eclipse Public License 2.0 which is available at
+//  * http://www.eclipse.org/legal/epl-2.0.
+//  *
+//  * SPDX-License-Identifier: EPL-2.0 3
+//  *
+//  ********************************************************************************/
+
+using Core.AuditTrail.Interfaces.Services;
 using Core.Database;
 using GraphQL;
 using GraphQL.Types;
@@ -15,9 +26,9 @@ namespace Core.Api.Controllers
     [Route("api/graphql"), ApiController, EnableCors("CorsRules")]
     public class GraphQlController : ControllerBase
     {
+        private IAuditTrailService _auditTrailService;
         IDocumentExecuter executer;
         ISchema schema;
-        private IAuditTrailService _auditTrailService;
 
         public GraphQlController(ISchema schema, IDocumentExecuter executer, IAuditTrailService auditTrailService)
         {
@@ -31,7 +42,7 @@ namespace Core.Api.Controllers
             [FromQuery] string query,
             [FromQuery] string variables,
             [FromQuery] string operationName,
-            [FromServices]BeawreContext dbContext,
+            [FromServices] BeawreContext dbContext,
             CancellationToken cancellation)
         {
             var jObject = ParseVariables(variables);
@@ -62,8 +73,9 @@ namespace Core.Api.Controllers
             var result = await executer.ExecuteAsync(options);
             if (result.Errors?.Count > 0)
             {
-                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                Response.StatusCode = (int) HttpStatusCode.BadRequest;
             }
+
             return result;
         }
 

@@ -1,4 +1,15 @@
-﻿using System;
+﻿// /********************************************************************************
+//  * Copyright (c) 2021,2021 Beawre Digital SL
+//  *
+//  * This program and the accompanying materials are made available under the
+//  * terms of the Eclipse Public License 2.0 which is available at
+//  * http://www.eclipse.org/legal/epl-2.0.
+//  *
+//  * SPDX-License-Identifier: EPL-2.0 3
+//  *
+//  ********************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,9 +32,9 @@ namespace Core.Api.Controllers
     [Route("api"), ApiController, EnableCors("CorsRules")]
     public class TreatmentsController : ControllerBase
     {
-        private readonly ITreatmentService _treatmentService;
-        private readonly IRelationshipService _relationshipService;
         private readonly IAuditTrailService _auditTrailService;
+        private readonly IRelationshipService _relationshipService;
+        private readonly ITreatmentService _treatmentService;
 
         public TreatmentsController(ITreatmentService treatmentService, IRelationshipService relationshipService, IAuditTrailService auditTrailService)
         {
@@ -36,9 +47,9 @@ namespace Core.Api.Controllers
         public async Task<IActionResult> CreateTreatment([FromBody] CreateTreatmentCommand command)
         {
             var newValue = await _treatmentService.Create(command);
-            _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Asset, FromId = command.AssetId, ToType = ObjectType.Treatment, ToId = newValue.Id });
-            _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Risk, FromId = command.RiskId, ToType = ObjectType.Treatment, ToId = newValue.Id });
-            _auditTrailService.LogAction(AuditTrailAction.CreateTreatment, newValue.Id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
+            _relationshipService.Create(new CreateRelationshipCommand() {FromType = ObjectType.Asset, FromId = command.AssetId, ToType = ObjectType.Treatment, ToId = newValue.Id});
+            _relationshipService.Create(new CreateRelationshipCommand() {FromType = ObjectType.Risk, FromId = command.RiskId, ToType = ObjectType.Treatment, ToId = newValue.Id});
+            _auditTrailService.LogAction(AuditTrailAction.CreateTreatment, newValue.Id, new AuditTrailPayloadModel() {Data = JsonConvert.SerializeObject(command)});
             return Created(newValue.Id.ToString(), newValue);
         }
 

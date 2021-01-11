@@ -1,4 +1,15 @@
-﻿using System;
+﻿// /********************************************************************************
+//  * Copyright (c) 2021,2021 Beawre Digital SL
+//  *
+//  * This program and the accompanying materials are made available under the
+//  * terms of the Eclipse Public License 2.0 which is available at
+//  * http://www.eclipse.org/legal/epl-2.0.
+//  *
+//  * SPDX-License-Identifier: EPL-2.0 3
+//  *
+//  ********************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,17 +36,17 @@ namespace Core.Api.Controllers
     public class Query : QueryGraphType<BeawreContext>
     {
         public Query(IEfGraphQLService<BeawreContext> efGraphQlService) : base(efGraphQlService)
-        { 
+        {
             AddQueryField(
                 name: "users",
                 resolve: context => context.DbContext.User.Where(x => !x.IsDeleted)
-                );
+            );
 
             Field<ListGraphType<AssetGraphQl>>(
                 name: "groups",
                 resolve: context =>
                 {
-                    var dbContext = (BeawreContext)context.UserContext;
+                    var dbContext = (BeawreContext) context.UserContext;
                     var relationships = dbContext.Relationship.Where(x => x.FromType == ObjectType.AssetGroup && !x.IsDeleted).Select(x => x.FromId).ToArray();
                     return dbContext.Assets.Where(x => relationships.Contains(x.Id) && !x.IsDeleted && x.IsGroup).ToList();
                 });

@@ -1,3 +1,14 @@
+// /********************************************************************************
+//  * Copyright (c) 2021,2021 Beawre Digital SL
+//  *
+//  * This program and the accompanying materials are made available under the
+//  * terms of the Eclipse Public License 2.0 which is available at
+//  * http://www.eclipse.org/legal/epl-2.0.
+//  *
+//  * SPDX-License-Identifier: EPL-2.0 3
+//  *
+//  ********************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -57,6 +68,7 @@ namespace Core.Api
             services.AddDbContext<Database.BeawreContext>();
 
             #region GraphQl
+
             GraphTypeTypeRegistry.Register<Asset, AssetGraphQl>();
             GraphTypeTypeRegistry.Register<AssetModel, AssetGraphQl>();
             GraphTypeTypeRegistry.Register<Vulnerability, VulnerabilityGraphQl>();
@@ -71,7 +83,7 @@ namespace Core.Api
             GraphTypeTypeRegistry.Register<User, UserGraphQl>();
             GraphTypeTypeRegistry.Register<Relationship, NotificationGraphQl>();
 
-            EfGraphQLConventions.RegisterInContainer(services, new Core.Database.BeawreContext(), userContext => (Core.Database.BeawreContext)userContext);
+            EfGraphQLConventions.RegisterInContainer(services, new Core.Database.BeawreContext(), userContext => (Core.Database.BeawreContext) userContext);
 
             services.AddSingleton<AssetGraphQl>();
             services.AddSingleton<VulnerabilityGraphQl>();
@@ -96,6 +108,7 @@ namespace Core.Api
             services.AddSingleton<IDependencyResolver>(
                 provider => new FuncDependencyResolver(provider.GetRequiredService));
             services.AddSingleton<ISchema, Core.Api.Controllers.Schema>();
+
             #endregion
 
             Core.Users.Config.InitializeServices(ref services);
@@ -136,22 +149,14 @@ namespace Core.Api
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddCors(opt => {
-                opt.AddPolicy("CorsRules", pol => pol.SetIsOriginAllowed((host) => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
-            });
+            services.AddCors(opt => { opt.AddPolicy("CorsRules", pol => pol.SetIsOriginAllowed((host) => true).AllowAnyMethod().AllowAnyHeader().AllowCredentials()); });
 
             services.AddMvcCore().AddApiExplorer();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo() { Title = "Risk Control", Version = "v1" });
-            });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo() {Title = "Risk Control", Version = "v1"}); });
 
             //In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ReactApp/build";
-            });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ReactApp/build"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -181,21 +186,12 @@ namespace Core.Api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Risk Control");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "Risk Control"); });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ReactApp";
-            });
+            app.UseSpa(spa => { spa.Options.SourcePath = "ReactApp"; });
         }
 
         static IEnumerable<Type> GetGraphQlTypes()
@@ -207,5 +203,4 @@ namespace Core.Api
                              typeof(IInputObjectGraphType).IsAssignableFrom(x)));
         }
     }
-
 }

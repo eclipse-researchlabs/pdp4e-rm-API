@@ -1,4 +1,15 @@
-﻿using System;
+﻿// /********************************************************************************
+//  * Copyright (c) 2021,2021 Beawre Digital SL
+//  *
+//  * This program and the accompanying materials are made available under the
+//  * terms of the Eclipse Public License 2.0 which is available at
+//  * http://www.eclipse.org/legal/epl-2.0.
+//  *
+//  * SPDX-License-Identifier: EPL-2.0 3
+//  *
+//  ********************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,9 +33,9 @@ namespace Core.Api.Controllers.Assets
     [Route("api/assets/groups"), ApiController, EnableCors("CorsRules")]
     public class AssetsGroupsController : ControllerBase
     {
-        private IRelationshipService _relationshipService;
-        private IAuditTrailService _auditTrailService;
         private IAssetService _assetService;
+        private IAuditTrailService _auditTrailService;
+        private IRelationshipService _relationshipService;
 
         public AssetsGroupsController(IRelationshipService relationshipService, IAuditTrailService auditTrailService, IAssetService assetService)
         {
@@ -39,10 +50,10 @@ namespace Core.Api.Controllers.Assets
             command.IsGroup = true;
             var newValue = await _assetService.Create(command);
             foreach (var item in command.Assets)
-                _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.AssetGroup, FromId = newValue.Id, ToType = ObjectType.Asset, ToId = item });
-            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand() { FromType = ObjectType.Container, FromId = command.ContainerRootId.Value, ToType = ObjectType.AssetGroup, ToId = newValue.Id });
+                _relationshipService.Create(new CreateRelationshipCommand() {FromType = ObjectType.AssetGroup, FromId = newValue.Id, ToType = ObjectType.Asset, ToId = item});
+            if (command.ContainerRootId.HasValue) _relationshipService.Create(new CreateRelationshipCommand() {FromType = ObjectType.Container, FromId = command.ContainerRootId.Value, ToType = ObjectType.AssetGroup, ToId = newValue.Id});
 
-            _auditTrailService.LogAction(AuditTrailAction.CreateAssetGroup, newValue.Id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(command) });
+            _auditTrailService.LogAction(AuditTrailAction.CreateAssetGroup, newValue.Id, new AuditTrailPayloadModel() {Data = JsonConvert.SerializeObject(command)});
             return Ok(newValue);
         }
 
@@ -53,10 +64,10 @@ namespace Core.Api.Controllers.Assets
             {
                 _relationshipService.Delete(x => x.FromType == ObjectType.Container && x.ToType == ObjectType.AssetGroup && x.ToId == id);
                 _relationshipService.Delete(x => x.FromType == ObjectType.AssetGroup && x.ToType == ObjectType.Asset && x.FromId == id);
-                _auditTrailService.LogAction(AuditTrailAction.RemoveAssetGroup, id, new AuditTrailPayloadModel() { Data = JsonConvert.SerializeObject(id) });
+                _auditTrailService.LogAction(AuditTrailAction.RemoveAssetGroup, id, new AuditTrailPayloadModel() {Data = JsonConvert.SerializeObject(id)});
             }
+
             return Ok();
         }
-
     }
 }

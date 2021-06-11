@@ -61,7 +61,7 @@
          "title": "Steganalysis attacks possible",
          "description": "Steganography is the art of passing information in a manner that the very existence of the message is unknown. The goal of steganography is to avoid drawing suspicion to the transmission of a hidden message. If suspicion is raised, then this goal is defeated. Steganalysis is the art of discovering and rendering useless such covert messages. If channel is not encrypted, low entropy of unencrypted data facilitates steganography attacks.",
          "detectionCondition": "NOT DFD-id_df4 AND DFD-d_df6",
-         "GDPREnforcementTracker": "Encryption"
+         "GDPREnforcementTracker": "encryption, encrypted"
        },
        {
          "Id": "D_df9",
@@ -132,7 +132,7 @@
          "title": "Steganalysis attacks possible",
          "description": "If data is not encrypted, low entropy of unencrypted data facilitates steganography attacks.",
          "detectionCondition": "NOT DFD_id-ds3 AND DFD-d_df6",
-         "GDPREnforcementTracker": "Encryption"
+         "GDPREnforcementTracker": "encryption, encrypted"
        }
      ]
    }

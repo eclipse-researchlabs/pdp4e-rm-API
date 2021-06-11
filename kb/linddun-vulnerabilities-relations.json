@@ -1,0 +1,66 @@
+{
+  "detectability": {
+    "dataflow": [{
+      "name": "d_df",
+      "children": [{
+          "name": "d_df1",
+          "children": [{
+              "name": "d_df6"
+            },
+            {
+              "name": "d_df7",
+              "children": [{
+                  "name": "d_df12"
+                },
+                {
+                  "name": "d_df13"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "d_df2"
+        },
+        {
+          "name": "d_df3",
+          "children": [{
+            "name": "d_df8"
+          }]
+        },
+        {
+          "name": "d_df4"
+        },
+        {
+          "name": "d_df5",
+          "children": [{
+              "name": "d_df9"
+            },
+            {
+              "name": "d_df10"
+            },
+            {
+              "name": "d_df11"
+            }
+          ]
+        }
+      ]
+    }],
+    "datastore": [{
+      "name": "d_ds",
+      "children": [{
+          "name": "d_ds1"
+        },
+        {
+          "name": "d_ds2",
+          "children": [{
+            "name": "d_ds3"
+          }]
+        }
+      ]
+    }],
+    "progress": [{
+      "name": "d_p"
+    }]
+  }
+}

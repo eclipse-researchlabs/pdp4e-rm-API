@@ -1,0 +1,139 @@
+ {
+   "DETECTABILITY": {
+     "dataflow": [{
+         "Id": "D_df",
+         "title": "Detectability of data flow",
+         "description": "",
+         "detectionCondition": "D_df1 OR D_df2 OR D_df3 OR D_df4 OR D_df5",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df1",
+         "title": "No or weak covert channel",
+         "description": "\"Covert channels\" are attacks in the security arena. I guess here the weakness is to not use a side-channel to transmit sensitive information. For instance, in the energy sector, it is recommended to use multiple networks to communicate info (sensitive/critical info is usually transmitted through private networks).",
+         "detectionCondition": "D_df6 OR D_df7 OR D_df14",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df2",
+         "title": "Side channel attacks",
+         "description": "Some actions may lead to generate footprints in the communication channel (e.g. Timing information, power consumption, electromagnetic leaks)",
+         "detectionCondition": "true",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df3",
+         "title": "Weak information hiding",
+         "description": "",
+         "detectionCondition": "D_df8",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df4",
+         "title": "No / insufficient dummy traffic",
+         "description": "",
+         "detectionCondition": "DFD-d_df2",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df5",
+         "title": "Weak spread spectrum communication",
+         "description": "In telecommunication and radio communication, spread-spectrum techniques are methods by which a signal (e.g., an electrical, electromagnetic, or acoustic signal) generated with a particular bandwidth is deliberately spread in the frequency domain, resulting in a signal with a wider bandwidth. These techniques are used for a variety of reasons, including the establishment of secure communications, increasing resistance to natural interference, noise and jamming, to prevent detection, and to limit power flux density (e.g., in satellite down links).",
+         "detectionCondition": "D_df9 OR D_df10 OR D_df11",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df6",
+         "title": "Too much bandwith stolen from a legitimate channel",
+         "description": "",
+         "detectionCondition": "DFD-d_df3",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df7",
+         "title": "Communications characteristics of channel controlled or examined",
+         "description": "",
+         "detectionCondition": "D_df12 OR D_df13",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df8",
+         "title": "Steganalysis attacks possible",
+         "description": "Steganography is the art of passing information in a manner that the very existence of the message is unknown. The goal of steganography is to avoid drawing suspicion to the transmission of a hidden message. If suspicion is raised, then this goal is defeated. Steganalysis is the art of discovering and rendering useless such covert messages. If channel is not encrypted, low entropy of unencrypted data facilitates steganography attacks.",
+         "detectionCondition": "NOT DFD-id_df4 AND DFD-d_df6",
+         "GDPREnforcementTracker": "Encryption"
+       },
+       {
+         "Id": "D_df9",
+         "title": "Eavesdropping possible",
+         "description": "",
+         "detectionCondition": "DFD-d_df5",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df10",
+         "title": "Jamming / interference possible",
+         "description": "Not sure how Jamming affects privacy issues. To perform a jamming attack on a signal you have to detect it first. so detectability comes first…",
+         "detectionCondition": "false",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df11",
+         "title": "Fading possible",
+         "description": "Not sure how fading affects privacy issues. ",
+         "detectionCondition": "false",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df12",
+         "title": "Check file opening & closing operations patterns possible",
+         "description": "",
+         "detectionCondition": "DFD-d_df3",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df13",
+         "title": "Timing of requests ",
+         "description": "",
+         "detectionCondition": "DFD-d_df3",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_df14",
+         "title": "No covert channel used",
+         "description": "Information is not used over a covert channel",
+         "detectionCondition": "NOT (DFD-d_df3)",
+         "GDPREnforcementTracker": ""
+       }
+     ],
+     "datastore": [{
+         "Id": "D_ds",
+         "title": "Detectability of a data store",
+         "description": "",
+         "detectionCondition": "",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_ds1",
+         "title": "Weak access control to data(base)",
+         "description": "",
+         "detectionCondition": "ID_ds",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_ds2",
+         "title": "Weak information hiding",
+         "description": "",
+         "detectionCondition": "D_ds3",
+         "GDPREnforcementTracker": ""
+       },
+       {
+         "Id": "D_ds3",
+         "title": "Steganalysis attacks possible",
+         "description": "If data is not encrypted, low entropy of unencrypted data facilitates steganography attacks.",
+         "detectionCondition": "NOT DFD_id-ds3 AND DFD-d_df6",
+         "GDPREnforcementTracker": "Encryption"
+       }
+     ]
+   }
+ }

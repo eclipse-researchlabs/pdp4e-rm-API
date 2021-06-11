@@ -1,0 +1,286 @@
+{
+  "DETECTABILITY": {
+    "dataflow": [{
+        "VulnerabilityId": "D_df",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df1",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df2",
+        "RiskId": "T-D-df2-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "An attacker may observe that a communication is taking place, because the protocol/algorithm specification provokes power consumption, electromagnetic, timing changes etc.",
+        "Source": "Intrinsic",
+        "TreatmentsIds": "C-D-df2-1, C-D-df2-2"
+      },
+      {
+        "VulnerabilityId": "D_df2",
+        "RiskId": "T-D-df2-2",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "An attacker  may observe that a communication is taking place , because the protocol/algorithm implementation provokes power consumption, electromagnetic, timing changes etc.",
+        "Source": "Software Quality",
+        "TreatmentsIds": "C-D-df2-1, C-D-df2-2"
+      },
+      {
+        "VulnerabilityId": "D_df2",
+        "RiskId": "",
+        "CWE_Url": "https://cwe.mitre.org/data/definitions/208.html",
+        "CWE_Id": "CWE-208",
+        "Description": "",
+        "Title": "Observable Timing Discrepancy",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df2",
+        "RiskId": "",
+        "CWE_Url": "https://cwe.mitre.org/data/definitions/201.html",
+        "CWE_Id": "CWE-201",
+        "Description": "",
+        "Title": "Exposure of Sensitive Information Through Sent Data",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df3",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df4",
+        "RiskId": "T-D-df3-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "An attacker is able to observe when data is transmitted (without having access to the actual data) and learn something about the behavior or status of the data subject, because no other (or very few other) data is transmitted through the channel.",
+        "Source": "Software Quality, Attacker",
+        "TreatmentsIds": "C-D-df4-1"
+      },
+      {
+        "VulnerabilityId": "D_df5",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df6",
+        "RiskId": "T-D-df6-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "A monitoring system on the legitimate channel will show a loss of performance and an investigation may be performed which may uncover the channel",
+        "Source": "Intrinsic",
+        "TreatmentsIds": "C-D-df6-1, C-D-df6-2"
+      },
+      {
+        "VulnerabilityId": "D_df7",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df8",
+        "RiskId": "T-D-df8-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "Statistical (steganalysis) attacks can be performed to identify patterns in the transmitted data",
+        "Source": "Attacker",
+        "TreatmentsIds": "C-D-df8-1, C-D-df8-2, C-NR-df6-1"
+      },
+      {
+        "VulnerabilityId": "D_df9",
+        "RiskId": "T-D-df9-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "An attacker can plug itself in the network and read the sent messages, exploiting the lack of barriers preventing readings from outsiders.",
+        "Source": "Intrinsic, Attacker",
+        "TreatmentsIds": "C-D-df9-1"
+      },
+      {
+        "VulnerabilityId": "D_df9",
+        "RiskId": "T-D-df9-2",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "The attacker may gain access to a protected channel",
+        "Source": "Attacker",
+        "TreatmentsIds": "C-D-df9-1"
+      },
+      {
+        "VulnerabilityId": "D_df10",
+        "RiskId": "T-D-df10-1",
+        "CWE_Url": "Through interception of wireless communication signals, an advantage may be gained by extracting intelligence from, or interfering with, communication signals of an adversary. Interception can only be performed once the presence of the communication signal is detected. However, communication signals are typically not intended for reception by third parties and security mechanisms are often employed to protect communication transmissions from compromise. Sophisticated techniques are therefore required to reliably detect the presence of, and to extract information from, the communication signal of interest.\nLow Probability of Detection (LPD) communications are two approaches which can be used to enhance transmission security, which refers to securing radio frequency (RF) or wireless transmissions against jamming signals [1]. Jamming involves the injection of noise waveforms, interfering signals or signals masquerading as communication signals (control or information e.g. false messages) into the target receiver.\n[1] D. L. Adamy, EW103 Tactical battlefield communications electronic warfare. Norwood, MA, USA: Artech House, Inc., 2009.",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "The attacker can inject interfering RF (jamming) signals into the enemy communication band with the aim of denying, degrading or disrupting information flow. ",
+        "Source": "Attacker",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df11",
+        "RiskId": "T-D-df11-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "??",
+        "Source": "??",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df12",
+        "RiskId": "T-D-df12-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "The attacker gained access to and can monitor file access information at the filesystem level",
+        "Source": "Attacker",
+        "TreatmentsIds": "C-NR-df7-1, C-NR-df7-2"
+      },
+      {
+        "VulnerabilityId": "D_df12",
+        "RiskId": "T-D-df12-2",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "The attacker gained access to a log of file access",
+        "Source": "Attacker",
+        "TreatmentsIds": "C-NR-df7-1, C-NR-df7-2"
+      },
+      {
+        "VulnerabilityId": "D_df12",
+        "RiskId": "",
+        "CWE_Url": "https://cwe.mitre.org/data/definitions/515.html",
+        "CWE_Id": "CWE-515",
+        "Description": "",
+        "Title": "Covert Storage Channel",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df13",
+        "RiskId": "T-D-df13-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "An attacker, by observing a channel, may be able to define a standard channel usage pattern. Deviations from this pattern may then be idenitfied to detect communications",
+        "Source": "Intrinsic, Attacker",
+        "TreatmentsIds": "C-D-df2-1"
+      },
+      {
+        "VulnerabilityId": "D_df13",
+        "RiskId": "T-D-df13-2",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "When there are multiple streams, an attacker can distinguish each separate communication from others by detecting differences on the communication patterns.",
+        "Source": "Software Quality, Attacker",
+        "TreatmentsIds": "C-D-df2-1, C-D-df13-1"
+      },
+      {
+        "VulnerabilityId": "D_df13",
+        "RiskId": "",
+        "CWE_Url": "https://cwe.mitre.org/data/definitions/385.html",
+        "CWE_Id": "CWE-385",
+        "Description": "",
+        "Title": "Covert Timing Channel",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_df14",
+        "RiskId": "T-D-df14-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "You are not using a covert channel and it may be relatively easy for an attacker to know if a communication is tacking place.",
+        "Source": "Attacker",
+        "TreatmentsIds": "C-D-df14-1"
+      }
+    ],
+    "datastore": [{
+        "VulnerabilityId": "D_ds",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_ds1",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_ds2",
+        "RiskId": "",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "",
+        "Source": "",
+        "TreatmentsIds": ""
+      },
+      {
+        "VulnerabilityId": "D_ds3",
+        "RiskId": "T-D-ds-3-1",
+        "CWE_Url": "",
+        "CWE_Id": "",
+        "Description": "",
+        "Title": "Statistical (steganalysis) attacks can be performed to identify patterns in the data",
+        "Source": "Attacker",
+        "TreatmentsIds": "C-D-df8-1, C-D-df8-2, C-D-df8-3"
+      }
+    ],
+    "process": [{
+      "VulnerabilityId": "D_p",
+      "RiskId": "",
+      "CWE_Url": "",
+      "CWE_Id": "",
+      "Description": "",
+      "Title": "",
+      "Source": "",
+      "TreatmentsIds": ""
+    }]
+  }
+}

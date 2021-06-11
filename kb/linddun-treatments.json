@@ -1,0 +1,588 @@
+ {
+   "Treatments": [{
+       "id": "C-I-e7-1",
+       "title": "Remove use of e-id unless compulsory by legislation",
+       "description": ""
+     },
+     {
+       "id": "C-I-e7-2",
+       "title": "If compulsory by legislation, read \"Setting out minimum technical specifications and procedures for assurance levels for electronic identification means\" (http://data.europa.eu/eli/reg_impl/2015/1502/oj)",
+       "description": ""
+     },
+     {
+       "id": "C-I-e17-1",
+       "title": "Use mechanism to increase password strengths, training users to adhere to a set of rules known as password guidelines when creating passwords",
+       "description": "Users compose their passwords following the specific requirements given in the guidelines. For example, the password must contain at least eight characters including at least one number or one upper case letter, and it should not contain the username. \nBe aware of the fact that previous research showed that strict password policy rules\ndo not increase the password security [2,3,4]. E.g. NIST guidelines [5,6].\n[1] Campbell, J., Ma, W., Kleeman, D.: Password composition policy: does enforcement lead to better password choices. In: Proceedings of the 17th Australian Conference on Information Systems, pp. 60–69 (2006)\n[2] Summers, W., Bosworth, E.: Password policy: the good, the bad, and the ugly. In: Proceedings of the Winter International Symposium on Information and Communication Technologies, pp. 1–6. ACM (2004)\n[3] Inglesant, P.G., Sasse, M.A.: The true cost of unusable password policies: Password use in the wild. In: Proceedings of the SIGCHI Conference on Human Factors in Computing Systems, CHI ’10, pp. 383–392. ACM, New York, NY, USA (2010). https://doi.org/\n10.1145/1753326.1753384\n[4] Komanduri, S., Shay, R., Kelly, P.G., Mazurek, M.L., Bauer, L., Christin, N., Egelman, S.: Of passwords and people: Measuring the effect of password-composition policies. In: Proceedings of the Human Factors and Computing Systems, pp. 2595–2604. ACM (2011)\n[5] Burr, W., Dodson, D., Polk, W.: Electronic Authentication Guideline. Special Publication 800-63 Version 1.0.2. National Institute of Standards and Technology (NIST), Gaithersburg (2006)\n[6] Grassi, P.A., Garcia, M.E., Fenton, J.L.: Digital Identity Guidelines. Special Publication (NIST SP) 800-63-3. NIST, Gaithersburg (2017)"
+     },
+     {
+       "id": "C-I-e17-2",
+       "title": "Use mechanism to increase password strengths, using proactive password checking",
+       "description": "Proactive password checking has been a common means to enforce password policies and prevent users from choosing easily guessable passwords in the first place. When a user chooses a password, a proactive checker will determine whether his password choice is acceptable or not, and this proactive checking is done online and the user will be immediately responded the result. \n[1] Yan, J.J.: A note on proactive password checking. In: Proceedings of the 2001 Workshop on New Security Paradigms, NSPW ’01, pp. 127–135. ACM, New York, NY, USA (2001)"
+     },
+     {
+       "id": "C-I-e17-3",
+       "title": "Use mechanism to increase password strengths, using a password expiry policy",
+       "description": "[1] Zhang, Y., Monrose, F., Reiter, M.K.: The security of modern password expiration: an algorithmic framework and empirical analysis. In: Proceedings of the 17th ACM Conference on Computer and Communications Security, pp. 176–186 (2010)"
+     },
+     {
+       "id": "C-I-e17-4",
+       "title": "Use mechanisms to increse password strengths, allowing users to save non-memorable passwords in a system",
+       "description": "To save many passwords in a system may be a solution for the memorability problem, but it is also problematic regarding security since the protection of all passwords depends on one single password named “master password”."
+     },
+     {
+       "id": "C-I-e17-5",
+       "title": "Use mechanisms to increse password strengths, by implementing password strength meters",
+       "description": "In an online user study conducted with over 2000 participants, different password strength meters were evaluated [1]. Password advice can also be represented with a tool measuring strength of the password and giving users a numerical result or statements such as ‘weak’, ‘strong’ and ‘very strong’. When meters are too stringent, this may cause users to lose motivation and ignore the meter. A novel method called adaptive password strength meters (APSMs) were proposed to measure password strength [2].\n[1] Ur, B., Kelley, P.G., Komanduri, S., Lee, J., Maass, M., Mazurek, M.L., Passaro, T., Shay, R., Vidas, T., Bauer, L., Christin, N., Cranor, L.F.: How does your password measure up? The effect\nof strength meters on password creation. In: Presented as Part of the 21st USENIX Security Symposium (USENIX Security 12), USENIX, Bellevue, WA, pp. 65–80 (2012)\n[2] Castelluccia, C., Duermuth, M., Perito, D.: Adaptive password strength meters from Markov models. In: Network and Distributed System Security Symposium (NDSS, ISOC) (2012)"
+     },
+     {
+       "id": "C-I-e18-1",
+       "title": "Make the system assign usernames ",
+       "description": ""
+     },
+     {
+       "id": "C-I-e18-2",
+       "title": "Make usernames secret instead of user-defined public data.",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-1",
+       "title": "If there are attempts made to guess the PIN, it can be detected and logged on the authentication server, which can disable the token. ",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-2",
+       "title": "Use asymmetric cryptography to simplify implementation, since the token client can generate its own key pair and exchange public keys with the server.",
+       "description": ""
+     },
+     {
+       "id": "C-I-e15-1",
+       "title": "Implement physical security measures such as locks, electronic leash, or body sensor and alarm",
+       "description": ""
+     },
+     {
+       "id": "C-I-e15-2",
+       "title": "In order to authenticate, require a personal identification number (PIN) to be entered along with the information provided by the token the same time as the output of the token.",
+       "description": ""
+     },
+     {
+       "id": "C-I-e11-1",
+       "title": "Generate authetication certificates with the minimum number of attributes. Remove attributes that are not necessary for the application.",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-3",
+       "title": "Use the latest popular frameworks with already pre-made modules generating strong tokens, instead of reinventing the wheel. To avoid an issue from arising, keep your frameworks updated.  ",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-4",
+       "title": "Generate strong tokens, using an extremely large set of possible values.  ",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-5",
+       "title": "Work with a strong source of pseudorandomness, ensuring an even and unpredictable spread of tokens across the range of possible values.  ",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-6",
+       "title": "Make the tokens long enough (at least 16 bytes).  ",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-7",
+       "title": "Transport your tokens only through HTTPS so that the token data is invisible to outside viewers.",
+       "description": ""
+     },
+     {
+       "id": "C-I-e14-8",
+       "title": "Store tokens in cookie storage. Establish path rules for cookies. ",
+       "description": "Two special cookie attributes are:  \n- Secure cookies are important in case you forget to transport all your applications under HTTPS. \n- HTTP only helps so that client-side JavaScript will not reach any precious information. In the case of XSS, this might lower the probability of doing harm on behalf of power users of the application.   \nAdding the stricter path (same-site) policy could help, too. If your main website (e.g. example.com) went through pre-production audit and someone forgot to put the correct domain attribute for the cookie, hackers could steal the token if you have a not-so-secure subdomain website (e.g. help.example.com) being hosted on the side.  "
+     },
+     {
+       "id": "C-I-e14-9",
+       "title": "Refresh the token as often as possible",
+       "description": "Token renewal is a process of generating a new token after a set, recurring time period. Renewal time is just a variable which defines in minutes or seconds how often the renewal of token will happen. It’s best not to allow one token to be valid for a long time. Token expiration techniques can be split into two categories:\n- Automatic token expiration techniques including:   \nIdle – The application should keep track of user activity. If there is no activity after 10–15 minutes, end the user’s session (or invalidate the stateless token). The user should definitely be informed that they are going to be logged out because of inactivity. A usual approach is implementing pop-up modal with a choice to cancel or proceed using the website.    \nAbsolute – Think of this as a warranty time for the user authentication token. No matter what, for security reasons, after any long period (for example, 24 hours), any token should be terminated, and the user should be forced to log in again.  \nRenewal – If the user is active, the authentication token should automatically be renewed every 10-15 minutes. In the event of a single token theft attack, the action time of doing harm is minimized.  \n- Manual token expiration including:  \nLogout button - Always destroy a user’s session when the user clicks the logout button. This way the same token will not be used again (or even worse, in parallel with newer ones).  \nBrowser close – If it is possible to track browser-closing events, it’s smart to invalidate the session with tokens right before closing. While it might not be very bulletproof, this combined with automatic expiration techniques could work for added security.  "
+     },
+     {
+       "id": "C-I-e14-10",
+       "title": "Refresh your tokens on each privilege change",
+       "description": "This can really help while preventing token fixation attacks.  "
+     },
+     {
+       "id": "C-I-e14-11",
+       "title": "Require users to re-authenticate. ",
+       "description": "It’s an additional safety step for the logged and authorized user to take before critical actions such as conducting banking transactions or password changes. Never count on active authentication alone. Before submitting solid action require users to re-enter their credentials or ask users to provide some alternative (temporary) PIN numbers or smart IDs. This might require third-party software or additional investment into physical gadgets. However, skipping this step could lead to a very serious security breach which could then have a ripple effect on bigger financial and reputation losses for the organization. "
+     },
+     {
+       "id": "C-I-e14-12",
+       "title": "Outlaw parallel authentications for the same user",
+       "description": "From the implementation standpoint, we have multiple options to remedy this. A simple way to address parallel authentication issues is to store temporary attributes somewhere inside the user’s row in a database or cache. A couple of examples include “logged = true” and “user agent = IE 11.1.1” (or maybe even the active token). Storing key attributes can help make sure that the single account will never be used by two different people at the same time. Obviously, if this happens, someone has to be kicked out.   "
+     },
+     {
+       "id": "C-I-e14-13",
+       "title": "Replace shared-secret software tokens with public-key based software tokens.",
+       "description": ""
+     },
+     {
+       "id": "C-I-e16-1",
+       "title": "Use multibiometrics",
+       "description": ""
+     },
+     {
+       "id": "C-I-e16-2",
+       "title": "High resolution sensors, improved matching algorithms, etc",
+       "description": ""
+     },
+     {
+       "id": "C-I-e16-3",
+       "title": "Implement liveliness detection mechanisms",
+       "description": ""
+     },
+     {
+       "id": "C-I-e16-4",
+       "title": "Review procedures and policies related to enrolment",
+       "description": ""
+     },
+     {
+       "id": "C-I-e16-5",
+       "title": "Biometric encryption",
+       "description": ""
+     },
+     {
+       "id": "C-I-e16-6",
+       "title": "Stop using biometrics",
+       "description": ""
+     },
+     {
+       "id": "C-I-df8-1",
+       "title": "Use tunneling through a Virtual Private Network.",
+       "description": "While you’re connected to a VPN, the VPN provider will assign you a virtual IP address. While your real IP address will still be used to connect to said VPN, all other traffic will be tunneled through your private network and as such this external traffic will only connect to your second, virtual IP address."
+     },
+     {
+       "id": "C-I-df9-1",
+       "title": "Randomizing the computer ID",
+       "description": "Use a technique to randomize the id of the computer (or other devices), changing the id frequently so that two messages sent from that computer or device are not easy to link."
+     },
+     {
+       "id": "C-I-ds5-1",
+       "title": "Check if the link between the current data store and the data store containing identifiable login information is necessary",
+       "description": ""
+     },
+     {
+       "id": "C-L-e4-1",
+       "title": "As part of a product's design, require users to change their passwords regularly and avoid reusing previous passwords.",
+       "description": "Passwords must be given a maximum life span, after which a user is required to update with a new and different password."
+     },
+     {
+       "id": "C-L-ds3-1",
+       "title": "Perform periodic sessions to analyse how data in this data store can be linked to external personal data",
+       "description": ""
+     },
+     {
+       "id": "C-L-ds5-1",
+       "title": "Perform periodic trainings with your engineers to make sure they adhere to privacy-preserving policies",
+       "description": ""
+     },
+     {
+       "id": "C-L-ds6-1",
+       "title": "Periodically review data in the data store and validate that it is strictly required for the purposes agreed with users",
+       "description": ""
+     },
+     {
+       "id": "C-L-e7-1",
+       "title": "Minimize the number of individuals with access to the information about linked accounts (even internally in your organization)",
+       "description": ""
+     },
+     {
+       "id": "C-L-e7-2",
+       "title": "Do not store information about what accounts are linked",
+       "description": ""
+     },
+     {
+       "id": "C-L-e7-3",
+       "title": "Warn users with multiple accounts if they are sending a message after not using the application for a certain period of time",
+       "description": ""
+     },
+     {
+       "id": "C-U-3-1",
+       "title": "Implement sentiment analysis check or other detection techniques on messages and warn users if they are sending messages with negative sentiments, political opinions, etc.",
+       "description": "For instance, PETs have been proposed for learning from online regrets, i.e. learning from deleted posts to provide risk awareness to users in social network sites [1].\n[1] Nicolás Emilio Díaz Ferreyra, Rene Meis, and Maritta Heisel. 2019. Learning from Online Regrets: From Deleted Posts to Risk Awareness in Social Network Sites. In Adjunct Publication of the 27th Conference on User Modeling, Adaptation and Personalization (UMAP’19 Adjunct). Association for Computing Machinery, New York, NY, USA, 117–125. DOI:https://doi.org/10.1145/3314183.3323849"
+     },
+     {
+       "id": "C-NC-5-1",
+       "title": "Use tools to scan your website for cookies, create customized cookie banners, enable preference centers and auto-generate consent records to facilitate consent management and transparency",
+       "description": ""
+     },
+     {
+       "id": "C-NC-5-2",
+       "title": "Use a consent management platform",
+       "description": "A consent management platform provides publishers with a tool to collect and handle users’ consents, manage data subjects’ requests and pass all consent-related data to the respective ad partners. The software gives websites the capacity to inform users what kinds of data they want to gather, and to ask for their consent for particular processing purposes."
+     },
+     {
+       "id": "C-NC-8-1",
+       "title": "Implement a system to build and operate most systems without accessing actual customer data.",
+       "description": ""
+     },
+     {
+       "id": "C-NC-6-1",
+       "title": "Implement rigorous methods to describe the functionality of your system and analyze how data is used in each of them",
+       "description": ""
+     },
+     {
+       "id": "C-NC-8-2",
+       "title": "Perform compulsory training sessions with all software engineers in your organization to highlight the importance of rigorously respect given concent",
+       "description": ""
+     },
+     {
+       "id": "C-NC-8-3",
+       "title": "Implement transparent mechanisms for software engineers in your organization to easily check consent provision",
+       "description": ""
+     },
+     {
+       "id": "C-NC-8-4",
+       "title": "Establish explicit penalties for employees violating consent policies",
+       "description": ""
+     },
+     {
+       "id": "C-NC-24-1",
+       "title": "Using verification messages sent to a parent's email address or through notifications in their mobile devices.",
+       "description": ""
+     },
+     {
+       "id": "C-NC-17-1",
+       "title": "Include in your policy a statement so that data collection forms need to be reviewed by a peers.",
+       "description": ""
+     },
+     {
+       "id": "C-NC-17-2",
+       "title": "Create a list of approved standards and methodologies used for both coding and testing",
+       "description": "Building healthy data protection workflows, and avoiding unnecessary data capture or loss, require everyone in your project to work from a clearly defined set of code libraries, tools, and frameworks. For that reason, your GDPR compliance journey should involve creating a list of approved standards and methodologies used for both coding and testing."
+     },
+     {
+       "id": "C-NC-17-3",
+       "title": "Require software engineers in your projects to work from a clearly defined set of code libraries, tools, and frameworks.",
+       "description": "Building healthy data protection workflows, and avoiding unnecessary data capture or loss, require everyone in your project to work from a clearly defined set of code libraries, tools, and frameworks. For that reason, your GDPR compliance journey should involve creating a list of approved standards and methodologies used for both coding and testing."
+     },
+     {
+       "id": "C-NC-17-4",
+       "title": "Perform regular audits based on preventive coding standards.",
+       "description": "Your coding standards must be preventive. You should disable unsafe or unnecessary modules, particularly in APIs and third-party libraries. An audit of what constitutes an unsafe module should be about privacy by design, such as the unnecessary capture and retention of personal data, as well as security vulnerabilities."
+     },
+     {
+       "id": "C-NC-17-5",
+       "title": "Code reviews should include an audit for privacy by design principles",
+       "description": "Including mapping where data is physically and virtually stored, and how that data is protected, encrypted, and sandboxed"
+     },
+     {
+       "id": "C-NC-19-1",
+       "title": "Strengthen your mechanisms to monitor legal framework updates",
+       "description": ""
+     },
+     {
+       "id": "C-NC-32-1",
+       "title": "Use automated personal data detector tools",
+       "description": "This can involve, from a tool to detect personal data in a relational database, to tools base on face recognition algorithms or other sophisticated algorithms that can detect data that can be potentially linked to a third data subject"
+     },
+     {
+       "id": "C-NR-df3-1",
+       "title": "Use a state of the art MAC scheme",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df5-1",
+       "title": "Introduce random replay of bradcasted message",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df5-2",
+       "title": "Have a scheme to hide the address of a participant or use multiple addresses",
+       "description": "Petit, Jonathan & Schaub, Florian & Feiri, Michael & Kargl, Frank. (2015). Pseudonym Schemes in Vehicular Networks: A Survey. IEEE Communications Surveys &amp Tutorials. 17. 228-255. 10.1109/COMST.2014.2345420. \nhttps://tools.ietf.org/html/rfc4941"
+     },
+     {
+       "id": "C-NR-df6-1",
+       "title": "Use a strong encryption scheme to protect the data",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df6-2",
+       "title": "Use End-to-End encrypted protocol to avoid having plain text available in intermediate participants",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df6-3",
+       "title": "Use a strong authentication protocol to verify the identity of the participants",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df7-1",
+       "title": "Review the log content to ensure the adequation between the data stored and the purpose of the log",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df7-2",
+       "title": "Ensure that logs are only accessible/displayed to authenticated users",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df10-1",
+       "title": "Use a secure key storage like a vault",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df10-2",
+       "title": "Avoid directly manipulating keys and use offloaded cryptographic services such as a PKCS#11 token which avoid the transmission of cryptographic secrets",
+       "description": "http://docs.oasis-open.org/pkcs11/pkcs11-base/v2.40/os/pkcs11-base-v2.40-os.html"
+     },
+     {
+       "id": "C-NR-df13-1",
+       "title": "Include anti-replay measures in the messaging system and ignore invalid messages",
+       "description": "https://www.kaspersky.com/resource-center/definitions/replay-attack\nhttps://www.practicalnetworking.net/series/cryptography/anti-replay/"
+     },
+     {
+       "id": "C-NR-df14-1",
+       "title": "Use temporary identifiers which can be reused by different individuals across different periods of time",
+       "description": "Petit, Jonathan & Schaub, Florian & Feiri, Michael & Kargl, Frank. (2015). Pseudonym Schemes in Vehicular Networks: A Survey. IEEE Communications Surveys &amp Tutorials. 17. 228-255. 10.1109/COMST.2014.2345420. "
+     },
+     {
+       "id": "C-NR-df15-1",
+       "title": "When deniability of the encryption is needed, prefer an out-of-band way to agree on the encryption parameters",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df17-1",
+       "title": "Use temporary keys and destroy them after use",
+       "description": ""
+     },
+     {
+       "id": "C-NR-df17-2",
+       "title": "Do not store history information if deniability is important",
+       "description": ""
+     },
+     {
+       "id": "C-NR-ds6-1",
+       "title": "Thorough legal analysis needs to be done to understand if non-deniability rquirements which may be violating data sobject rights are justified by special cases in GDPR",
+       "description": ""
+     },
+     {
+       "id": "C-NR-ds6-4",
+       "title": "Avoid relying on user inputs for providing data which will not be under his control thereafter",
+       "description": ""
+     },
+     {
+       "id": "C-NR-ds7-1",
+       "title": "Provide an interface and clear guidance on how to ask for data to be removed/altered and on which ground will the request be granted",
+       "description": "https://ec.europa.eu/info/law/law-topic/data-protection/reform/rules-business-and-organisations/dealing-citizens/do-we-always-have-delete-personal-data-if-person-asks_en"
+     },
+     {
+       "id": "C-NR-ds7-2",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "C-D-df2-1",
+       "title": "Protect the side-channel from observation (eg: electromagnetic shielding)",
+       "description": ""
+     },
+     {
+       "id": "C-D-df2-2",
+       "title": "Produce noise on the side-channel to perturb observation",
+       "description": ""
+     },
+     {
+       "id": "C-D-df4-1",
+       "title": "Generate dummy traffic",
+       "description": "You can generate dummy packets or, if you have different streams in the communication you can use padding, so that you can not differentiate on whether a particular stream is present or not."
+     },
+     {
+       "id": "C-D-df6-1",
+       "title": "Monitor the network to identify lulls in network usage and minimize interference",
+       "description": ""
+     },
+     {
+       "id": "C-D-df6-2",
+       "title": "Limit the maximum bandwidth used by the cover channel via software",
+       "description": ""
+     },
+     {
+       "id": "C-D-df8-1",
+       "title": "Do not hide steganographic data in a well-know file/data stream",
+       "description": "If some data is hidden in another piece of data which is well know, it is easy to know that the hidden data is present by comparing the received data with the reference data and seeing they are different"
+     },
+     {
+       "id": "C-D-df8-2",
+       "title": "Use a robust steganographic technique",
+       "description": "Steganography tools vary in their approaches for hiding information. Without knowing which tool is used and which, if any, stegokey is used; detecting the hidden information may become quite complex. However, some of the steganographic approaches have characteristics that act as signatures for the method or tool used. "
+     },
+     {
+       "id": "C-D-df8-3",
+       "title": "Encrypt the data before applying the steganographic technique",
+       "description": ""
+     },
+     {
+       "id": "C-D-df9-1",
+       "title": "Change to an alternative channel",
+       "description": ""
+     },
+     {
+       "id": "C-D-df13-1",
+       "title": "Aggregate multiple communication flows.",
+       "description": "By aggregating different data streams, it becomes possible to hide the timing specificities of each individual stream to an external observer"
+     },
+     {
+       "id": "C-U-3-1",
+       "title": "Clearly display which data will be shared with other users and with which users it will be shared",
+       "description": ""
+     },
+     {
+       "id": "C-U-4-1",
+       "title": "Sharing data should be enabled explicitely by the user",
+       "description": ""
+     },
+     {
+       "id": "C-U-4-2",
+       "title": "Always ask for the consent of the user before collecting data",
+       "description": ""
+     },
+     {
+       "id": "C-U-4-3",
+       "title": "Group together privacy-related parameters of the application to offer an easy overview to the user",
+       "description": ""
+     },
+     {
+       "id": "C-U-4-4",
+       "title": "Clearly indicate where the privacy settings of the application are located",
+       "description": ""
+     },
+     {
+       "id": "C-U-3-2",
+       "title": "Use a mechanism to automatically detect sensitive information such as political beliefs, etc. and inform the user about potential risks.",
+       "description": "There are algorithms to detect this type of information atuomatically and evaluate risk [1]. \n[1] Nicolás Emilio Díaz Ferreyra, Rene Meis, and Maritta Heisel. 2019. Learning from Online Regrets: From Deleted Posts to Risk Awareness in Social Network Sites. In Adjunct Publication of the 27th Conference on User Modeling, Adaptation and Personalization (UMAP’19 Adjunct). Association for Computing Machinery, New York, NY, USA, 117–125. DOI:https://doi.org/10.1145/3314183.3323849"
+     },
+     {
+       "id": "C-D-df14-1",
+       "title": "Consider the use of a covert channel to communicate critical information.",
+       "description": ""
+     },
+     {
+       "id": "C-I-df8-2",
+       "title": "Send dummy traffic to add noise to the communication channel and hide actual messages with other fake messages from the same location and different frequencies and times.",
+       "description": "Dummy messages are messages that are sent through the network in order to complicate the attacker's task. On the Internet, mix network operators sometimes need to pay for each message. We need to be sure the dummy messages have a good security to cost ratio. \nParticular use of dummy traffic for intersectional attacks can be found in [1].\n\n[1] Berthold, O., & Langos, H. (2002, April). Dummy traffic against long term intersection attacks. In International Workshop on Privacy Enhancing Technologies (pp. 110-128). Springer, Berlin, Heidelberg."
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "C-I-df14-1",
+       "title": "Make it difficult to tag messages",
+       "description": "The message tagging based attacks motivate using extremely rigid message structure and authenticating timing information (in order to prevent message delays and message playbacks)."
+     },
+     {
+       "id": "C-I-df14-2",
+       "title": "Authenticate messages",
+       "description": "Authenticate each message which allows nodes to detect flushing attempts. Unfortunately, this entails authenticating each message and detecting flushing attempts which could be computationally infeasible. We remark that simple-minded implementations of this solution can be broken by message playback attacks. Authentication and privacy protection are two seemingly contradictory requirements however using Chaumian blinding [1] or Brands credentials [2] we can satisfy both requirements.\n\n[1] David Chaum. Blind signatures for untraceable payments. In R. L. Rivest, A. Sherman, and D. Chaum, editors, Proc. CRYPT0 82, pages 199-203, New York, 1983. Plenum Press. \n[2] Stefan A. Brands. Restrictive blinding of secret-key certificates. Technical Report CS-R9509, CWI - Centrum voor Wiskunde en Informatica, February 28, 1995. "
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "C-I-df14-3",
+       "title": "Use Stop-and-Go mix nodes",
+       "description": "Stop-and-Go mix nodes (in which a message waits a random amount of time) can partially solve this problem. Unfortunately, they only have \"probabilistic\" security."
+     },
+     {
+       "id": "C-I-df14-4",
+       "title": "Use hashcach or Pricing functions",
+       "description": "If the number of messages is very large, using hashcach [1] or pricing functions [2] might be effective solutions.\n\n[1] Adam Back. Hashcash. http://www.cypherspace.org/-adam/hashcash/, march 1997.\n[2] Cynthia Dwork and Moni Naor. Pricing via processing or combatting junk mail. In Ernest F. Brickell, editor, Advances in Cryptology-CRYPT0 '92, volume 740 of Lecture Notes in Computer Science, pages 139-147. Springer-Verlag, 1993, 16-20 August 1992. "
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "C-I-df14-5",
+       "title": "\"Re-mix\" messages",
+       "description": "\"re-mix\" the messages: the mix nodes use the same mechanism as the user to send the messages to the next nodes - \"recursive mixing\""
+     },
+     {
+       "id": "C-I-df14-6",
+       "title": "Encrypt traffic",
+       "description": "Encrypting the traffic between mix nodes, the attacker looses the ability to easily recognize his messages (the partial (< t - 1 spams) node flushing attack isn't as effective)."
+     },
+     {
+       "id": "C-I-df11-1",
+       "title": "Use mix nodes with variable amounts of time before flushing messages.",
+       "description": "Use of mix nodes that wait variable amounts of time before flushing messages. We remark that randomly increasing the latency doesn't completely solve the problem since an attacker might be able to rule out some routes (e.g. if a message exits the mix network faster than the minimum time needed to go through some routes then these routes can be ruled out). Hence, the minimum time needed to go through each route should be the same. (It's not clear if this can be directly used in real-world situations since some routes could be very slow - because of mix node processing speed, speed of the communication wires, number of mix nodes in the route, etc.)."
+     },
+     {
+       "id": "C-I-df11-2",
+       "title": "Have parties only send standard numbers of messages",
+       "description": "Imposing rigid structure on user communications. This isn't a viable option in many settings.\n[1] Oliver Berthold, Hannes Federrath, and Marit Kohntopp. Project anonymity and unobservability in the internet. Presented at CFP 2000. "
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "C-I-df13-1",
+       "title": "Make odd requests",
+       "description": "Although this kind of defensive method seems to be so effective against fingerprinting attack, it depends on the user’s action. But we cannot make the system’s security depends how users use this system.\n[1] Shi, Y., & Matsuura, K. (2009, December). Fingerprinting attack on the tor anonymity system. In International Conference on Information and Communications Security (pp. 425-438). Springer, Berlin, Heidelberg."
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     },
+     {
+       "id": "C-I-df13-2",
+       "title": "Run Own Entry Node",
+       "description": "Entry nodes are also called ”guard nodes”"
+     },
+     {
+       "id": "C-I-df13-3",
+       "title": "Use Defensive dropping",
+       "description": "Defensive Dropping is a defensive method against timing attacks introduced by Levine et al. [10]. It employs the mechanism of dummy packets. The communication initiator constructs some of the dummy packets. These dummy packets are transferred on the path as normal packets. But to each packet, there is a probability Pdrop to be dropped in each node rather than passing it on to the next node. If the number of dummy packets is randomly placed with a sufficiently large frequency, the correlation between every visiting will be greatly reduced. As we see in this theoretical discussion part, the increasing in the false positive rate and false negative rate will greatly reflected in the situation where we need to recognize object from a lot of webpages.\nAlthough it is an effective way to defend against not only end-to-end attacks but also fingerprinting attack, we must notice that it is a really expensive defense mechanism, especially in low-latency anonymity system. If the number of the dummy packets is relatively small, then these dummy packets are no more than normal background traffics. But with many dummy packets, it is unacceptable for consuming so many resources. \n[1] Shi, Y., & Matsuura, K. (2009, December). Fingerprinting attack on the tor anonymity system. In International Conference on Information and Communications Security (pp. 425-438). Springer, Berlin, Heidelberg."
+     },
+     {
+       "id": "",
+       "title": "",
+       "description": ""
+     }
+   ]
+ }

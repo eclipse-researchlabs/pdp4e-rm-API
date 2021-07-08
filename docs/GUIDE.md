@@ -78,6 +78,32 @@ In order to perform risk assessment on the asset:
 
 Risks definition is the most time consuming part of the whole assessment. In order to do that:
 
-1. Click on the **edit** icon (icon with the pencil)
+1. Click on the **edit** icon (icon with the pencil) to enter risk edit mode.
+   ![risk definition](risk_definition.png)
+   The edit mode is organize in 3/4 steps depending on how advanced the analysis is. The steps follow risk definition methodology defined by [CORAS](http://coras.sourceforge.net/), these are:
+
+   1. Definition of unwanted incident with it's name, description and connection to previosly defined vulnerability
+   1. Specification of Likelihood and Impact of the Risk. Risk Management tool uses [OWASP](https://owasp.org/). Extended privacy focused version of OWASP defined by PDP4E project is also available.
+      ![lc](risk_lc.png)
+      In order to help assessing the impact, the tool provides integration with [GDPR Enforecement Tracker](https://www.enforcementtracker.com/) to showcase relevant fines issued against the company that failed to mitigate the risk in question.
+
+   1. Next, specification of the mitigtation actions should take place. Risk Management tool can work with other tools to inject the migitation actions into typical DevOps life cycle. Integration with Jira and Git, emails, notifications and SQL databases and many other are avialble under our [Beawre](beawre.com) commerical license. Example of such integration, based on the mitigation action being pushed / pulled from JIRA, can be seen in the screenshot bellow:
+      ![jira integration](treatment_jira_add.png)
+
+      Autodetected mitigations actions can be discarded or approved at this steps. The tool is capable of monitoring evolution of the mitigation actions through the notion of evidence collectors, that use probes to collect data about the progression of the migitation action and give better understanding on the factual level or risks based on the evidences collected.
+
+   1. Once mitigation actions, the last step is to define the level or **Residual Likehihood and Impact** values that represent the level or these dimensions _after_ successful application of the mitigation actions. This step is simailar to second step of the process and the residual values become the nominal values after they are defined.
+   1. Adjust the status of ROAM in the main table.
+
+The overall analysis status can be seen in the initial tree table.
 
 ## GDPR control
+
+The Risk Management tool provides means to understand the impact of the risk assessment against the GDPR compliance. The main dashboard can be accessed on the project view under **GDPR Risk Control Dashboard** tab.
+![GDPR Dashboard](GDPRDashboard.png)
+
+The dahsboard allows to understand the level of fulfillment of the dimensions of GDPR Pricipals and GDPR Subject Rights. Clicking on the charts allows to understand what risks are impacting the specified dimensions and what is their status.
+
+## Support
+
+Risk Management is being continiously developed by Beawre Digital S.L. Feel free to reach out to us under: [contact@beawre.com](mailto:contact@beawre.com) with any problems or inquaries you might have.

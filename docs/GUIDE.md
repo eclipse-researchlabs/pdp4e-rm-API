@@ -106,4 +106,4 @@ The dahsboard allows to understand the level of fulfillment of the dimensions of
 
 ## Support
 
-Risk Management is being continiously developed by Beawre Digital S.L. Feel free to reach out to us under: [contact@beawre.com](mailto:contact@beawre.com) with any problems or inquaries you might have.
+Risk Management is being continiously developed by Beawre Digital S.L. Feel free to reach out to us under: [contact@beawre.com](mailto:contact@beawre.com) with any problems or inquiries you might have.
